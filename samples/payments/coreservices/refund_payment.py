@@ -24,7 +24,11 @@ def refund_a_payment():
         message_body = json.dumps(request.__dict__)
 
         refund_api = RefundApi()
-        return refund_api.refund_payment(message_body, id)
+        return_data, status, body =refund_api.refund_payment(message_body, id)
+        print(status)
+        print(body)
+        return return_data
+
     except Exception as e:
         print(e)
 

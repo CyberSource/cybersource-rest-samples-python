@@ -7,7 +7,7 @@ def create_instrument_identifier():
         request = Body()
     
         card_info = InstrumentidentifiersCard()
-        card_info.number = "1234567890987654"
+        card_info.number = "1234567890987"
         request.card = card_info.__dict__
     
         processing_info = InstrumentidentifiersProcessingInformation()
@@ -24,7 +24,10 @@ def create_instrument_identifier():
         
         message_body=json.dumps(message_body)
         instrument_identifier_obj = InstrumentIdentifierApi()
-        return instrument_identifier_obj.instrumentidentifiers_post("93B32398-AD51-4CC2-A682-EA3E93614EB1", body=message_body)
+        return_data, status, body =instrument_identifier_obj.instrumentidentifiers_post("93B32398-AD51-4CC2-A682-EA3E93614EB1", body=message_body)
+        print(status)
+        print(body)
+        return return_data
     except Exception as e:
         print(e)
 def del_none(d):

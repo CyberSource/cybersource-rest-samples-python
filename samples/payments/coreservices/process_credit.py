@@ -39,7 +39,11 @@ def process_a_credit():
         message_body = json.dumps(request.__dict__)
     
         credit_obj=CreditApi()
-        return credit_obj.create_credit(message_body)
+        return_data, status, body =credit_obj.create_credit(message_body)
+        print(status)
+        print(body)
+        return return_data
+
     except Exception as e:
         print(e)
 

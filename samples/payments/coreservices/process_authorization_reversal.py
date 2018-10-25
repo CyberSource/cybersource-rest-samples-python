@@ -14,7 +14,7 @@ def process_an_authorization_reversal():
         request.client_reference_information = client_reference.__dict__
     
         reversal_information = V2paymentsidreversalsReversalInformation()
-        reversal_information.reason = "tes"
+        reversal_information.reason = "testing"
         amount_details = V2paymentsidreversalsReversalInformationAmountDetails()
         amount_details.total_amount = "102.21"
         reversal_information.amount_details = amount_details.__dict__
@@ -24,8 +24,10 @@ def process_an_authorization_reversal():
         message_body = json.dumps(request.__dict__)
     
         reversal_obj = ReversalApi()
-    
-        reversal_obj.auth_reversal(id, message_body)
+
+        return_data, status, body =reversal_obj.auth_reversal(id, message_body)
+        print(status)
+        print(body)
     except Exception as e:
         print(e)
 

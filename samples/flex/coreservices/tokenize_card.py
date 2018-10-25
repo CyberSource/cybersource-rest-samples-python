@@ -17,7 +17,9 @@ def tokenize_card():
     message_body = json.dumps(tokenize_card.__dict__)
 
     tokenize_obj = TokenizationApi()
-    tokenize_obj.tokenize(tokenize_request=message_body)
+    return_data, status, body =tokenize_obj.tokenize(tokenize_request=message_body)
+    print(status)
+    print(body)
 
 
 

@@ -23,7 +23,9 @@ def refund_a_capture():
         message_body = json.dumps(request.__dict__)
     
         refund_api=RefundApi()
-        refund_api.refund_capture(message_body, id)
+        return_data, status, body =refund_api.refund_capture(message_body, id)
+        print(status)
+        print(body)
     except Exception as e:
         print(e)
 

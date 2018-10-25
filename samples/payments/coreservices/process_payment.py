@@ -10,15 +10,9 @@ def process_a_payment(flag):
         request.client_reference_information = client_reference.__dict__
     
         processing_info = V2paymentsProcessingInformation()
+
         if flag :
-            processing_info.commerce_indicator = "internet"
             processing_info.capture="true"
-
-        else:
-            processing_info.commerce_indicator = "internet"
-
-
-
 
         request.processing_information = processing_info.__dict__
     
@@ -77,7 +71,10 @@ def process_a_payment(flag):
         message_body = json.dumps(request.__dict__)
         payment_obj=PaymentApi()
     
-        return payment_obj.create_payment(message_body)
+        return_data,status,body=payment_obj.create_payment(message_body)
+        print(status)
+        print(body)
+        return return_data
 
     except Exception as e:
         print(e)

@@ -77,7 +77,9 @@ def process_a_payout():
 
         message_body = json.dumps(request.__dict__)
         default_api_object = DefaultApi()
-        default_api_object.oct_create_payment(message_body)
+        return_data, status, body=default_api_object.oct_create_payment(message_body)
+        print(status)
+        print(body)
     except Exception as e:
         print(e)
 
