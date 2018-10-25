@@ -36,7 +36,10 @@ def payments_instruments_for_authorization():
         message_body = del_none(request.__dict__)
         message_body = json.dumps(message_body)
         payment_instrument_obj=PaymentInstrumentApi()
-        payment_instrument_obj.paymentinstruments_post("93B32398-AD51-4CC2-A682-EA3E93614EB1",message_body)
+        return_data, status, body =payment_instrument_obj.paymentinstruments_post("93B32398-AD51-4CC2-A682-EA3E93614EB1",message_body)
+        print(status)
+        print(body)
+        return return_data
     except Exception as e:
         print(e)
 def del_none(d):

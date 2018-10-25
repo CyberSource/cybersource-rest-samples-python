@@ -10,7 +10,9 @@ def generate_key():
         key_generation.encryption_type = "RsaOaep256"
 
         message_body = json.dumps(key_generation.__dict__)
-        key_generation_obj.generate_public_key(message_body)
+        return_data, status, body =key_generation_obj.generate_public_key(message_body)
+        print(status)
+        print(body)
     except Exception as e:
         print(e)
 

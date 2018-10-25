@@ -13,7 +13,9 @@ def void_a_payment():
         request.client_reference_information = client_reference.__dict__
         message_body = json.dumps(request.__dict__)
         void_obj = VoidApi()
-        void_obj.void_payment(message_body, id)
+        return_data, status, body =void_obj.void_payment(message_body, id)
+        print(status)
+        print(body)
     except Exception as e:
         print(e)
 

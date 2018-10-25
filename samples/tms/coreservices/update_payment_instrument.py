@@ -37,7 +37,9 @@ def update_payments_identifier():
 
         message_body = json.dumps(request.__dict__)
         payment_instrument_obj = PaymentInstrumentApi()
-        payment_instrument_obj.paymentinstruments_token_id_patch("93B32398-AD51-4CC2-A682-EA3E93614EB1",api_payment_response.id, message_body)
+        return_data, status, body =payment_instrument_obj.paymentinstruments_token_id_patch("93B32398-AD51-4CC2-A682-EA3E93614EB1",api_payment_response.id, message_body)
+        print(status)
+        print(body)
     except Exception as e:
         print(e)
 

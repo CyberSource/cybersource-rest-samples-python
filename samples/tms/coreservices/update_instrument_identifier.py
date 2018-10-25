@@ -18,7 +18,9 @@ def update_instrument_identifier():
         request.processing_information = processing_info.__dict__
         message_body = json.dumps(request.__dict__)
         instrument_identifier_obj = InstrumentIdentifierApi()
-        instrument_identifier_obj.instrumentidentifiers_token_id_patch("93B32398-AD51-4CC2-A682-EA3E93614EB1",api_instrument_identifier_response.id,body=message_body)
+        return_data, status, body =instrument_identifier_obj.instrumentidentifiers_token_id_patch("93B32398-AD51-4CC2-A682-EA3E93614EB1",api_instrument_identifier_response.id,body=message_body)
+        print(status)
+        print(body)
 
     except Exception as e:
         print(e)

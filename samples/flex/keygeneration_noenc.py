@@ -10,7 +10,10 @@ def keygeneration_noenc():
         key_generation.encryption_type = "None"
 
         message_body = json.dumps(key_generation.__dict__)
-        return key_generation_obj.generate_public_key(message_body)
+        return_data, status, body =key_generation_obj.generate_public_key(message_body)
+        print(status)
+        print(body)
+        return return_data
     except Exception as e:
         print(e)
 

@@ -61,7 +61,9 @@ def authorization_with_token():
     
         message_body = json.dumps(request.__dict__)
         payment_obj = PaymentApi()
-        payment_obj.create_payment(message_body)
+        return_data, status, body =payment_obj.create_payment(message_body)
+        print(status)
+        print(body)
     except Exception as e:
         print(e)
 
