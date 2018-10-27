@@ -1,11 +1,11 @@
-from cybersource_rest_client_python import *
-import cybersource_rest_samples_python.samples.payments.coreservices.process_credit
+from CyberSource import *
+import samples.payments.coreservices.process_credit
 import json
 
 
 def void_a_credit():
     try:
-        api_credit_response=cybersource_rest_samples_python.samples.payments.coreservices.process_credit.process_a_credit()
+        api_credit_response=samples.payments.coreservices.process_credit.process_a_credit()
         id = api_credit_response.id
         request = VoidCreditRequest()
         client_reference = V2paymentsClientReferenceInformation()

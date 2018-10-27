@@ -1,4 +1,4 @@
-from cybersource_rest_client_python import *
+from CyberSource import *
 import json
 
 
@@ -15,7 +15,6 @@ def generate_key():
         print(body)
     except Exception as e:
         print(e)
-
 
 if __name__ == "__main__":
     generate_key()

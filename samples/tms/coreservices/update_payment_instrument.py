@@ -1,11 +1,11 @@
-from cybersource_rest_client_python import *
-import cybersource_rest_samples_python.samples.tms.coreservices.create_payment_instrument
+from CyberSource import *
+import samples.tms.coreservices.create_payment_instrument
 import json
 
 
 def update_payments_identifier():
     try:
-        api_payment_response=cybersource_rest_samples_python.samples.tms.coreservices.create_payment_instrument.create_payment_instrument()
+        api_payment_response=samples.tms.coreservices.create_payment_instrument.create_payment_instrument()
         request = Body3()
 
         card_info = PaymentinstrumentsCard()
@@ -37,9 +37,10 @@ def update_payments_identifier():
 
         message_body = json.dumps(request.__dict__)
         payment_instrument_obj = PaymentInstrumentApi()
-        return_data, status, body =payment_instrument_obj.paymentinstruments_token_id_patch("93B32398-AD51-4CC2-A682-EA3E93614EB1",api_payment_response.id, message_body)
+        return_data, status, body = payment_instrument_obj.paymentinstruments_token_id_patch("93B32398-AD51-4CC2-A682-EA3E93614EB1",api_payment_response.id, message_body)
         print(status)
         print(body)
+
     except Exception as e:
         print(e)
 

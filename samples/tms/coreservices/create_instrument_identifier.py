@@ -1,4 +1,4 @@
-from cybersource_rest_client_python import *
+from CyberSource import *
 import json
 
 
@@ -7,7 +7,7 @@ def create_instrument_identifier():
         request = Body()
     
         card_info = InstrumentidentifiersCard()
-        card_info.number = "1234567890987"
+        card_info.number = "123456789098765"
         request.card = card_info.__dict__
     
         processing_info = InstrumentidentifiersProcessingInformation()

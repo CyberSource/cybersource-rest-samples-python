@@ -23,6 +23,7 @@ class Configaration:
 
     # Assigning the configaration properties in the configaration dictionary
     def get_configaration(self):
+
         configaration_dictionary = ({})
         configaration_dictionary["authentication_type"] = self.authentication_type
         configaration_dictionary["merchantid"] = self.merchantid

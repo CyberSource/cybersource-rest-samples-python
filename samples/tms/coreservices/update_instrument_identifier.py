@@ -1,5 +1,5 @@
-from cybersource_rest_client_python import *
-import cybersource_rest_samples_python.samples.tms.coreservices.create_instrument_identifier
+from CyberSource import *
+import samples.tms.coreservices.create_instrument_identifier
 import json
 
 def update_instrument_identifier():
