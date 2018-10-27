@@ -1,4 +1,5 @@
-from cybersource_rest_client_python import *
+
+from CyberSource import *
 import json
 
 

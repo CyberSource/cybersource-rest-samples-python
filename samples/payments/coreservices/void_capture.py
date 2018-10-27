@@ -1,12 +1,12 @@
-from cybersource_rest_client_python import *
-import cybersource_rest_samples_python.samples.payments.coreservices.process_payment
-import cybersource_rest_samples_python.samples.payments.coreservices.capture_payment
+from CyberSource import *
+import samples.payments.coreservices.process_payment
+import samples.payments.coreservices.capture_payment
 import json
 
 
 def void_a_capture():
     try:
-        api_capture_response=cybersource_rest_samples_python.samples.payments.coreservices.capture_payment.capture_a_payment()
+        api_capture_response=samples.payments.coreservices.capture_payment.capture_a_payment()
         id = api_capture_response.id
         request = VoidCaptureRequest()
         client_reference = V2paymentsClientReferenceInformation()

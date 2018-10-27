@@ -1,4 +1,4 @@
-from cybersource_rest_client_python import *
+from CyberSource import *
 import json
 
 
@@ -39,7 +39,6 @@ def create_payment_instrument():
         print(status)
         print(body)
         return return_data
-
     except Exception as e:
         print(e)
 def del_none(d):

@@ -1,11 +1,11 @@
-from cybersource_rest_client_python import *
-import cybersource_rest_samples_python.samples.payments.coreservices.process_payment
+from CyberSource import *
+import samples.payments.coreservices.process_payment
 import json
 
 
 def void_a_payment():
     try:
-        api_payment_response=cybersource_rest_samples_python.samples.payments.coreservices.process_payment.process_a_payment(True)
+        api_payment_response=samples.payments.coreservices.process_payment.process_a_payment(True)
         id = api_payment_response.id
         request = VoidPaymentRequest()
         client_reference = V2paymentsClientReferenceInformation()
@@ -18,6 +18,7 @@ def void_a_payment():
         print(body)
     except Exception as e:
         print(e)
+
 
 
 if __name__ == "__main__":

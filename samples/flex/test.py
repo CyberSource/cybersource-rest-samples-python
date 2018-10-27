@@ -1,5 +1,5 @@
-from cybersource_rest_samples_python.flex.tokenization.Flex_Security_Exception import *
-import cybersource_rest_samples_python.flex.tokenization.RSA_Verify
+from cybersource_rest_samples_python.samples.flex.Flex_Security_Exception import *
+import cybersource_rest_samples_python.samples.flex.RSA_Verify
 
 
 def verify(key, postparams):

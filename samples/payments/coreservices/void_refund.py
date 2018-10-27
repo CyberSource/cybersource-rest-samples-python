@@ -1,11 +1,11 @@
-from cybersource_rest_client_python import *
-import cybersource_rest_samples_python.samples.payments.coreservices.refund_payment
+from CyberSource import *
+import samples.payments.coreservices.refund_payment
 import json
 
 
 def void_a_refund():
     try:
-        api_refund_rsponse=cybersource_rest_samples_python.samples.payments.coreservices.refund_payment.refund_a_payment()
+        api_refund_rsponse=samples.payments.coreservices.refund_payment.refund_a_payment()
         id = api_refund_rsponse.id
         request = VoidRefundRequest()
         client_reference = V2paymentsClientReferenceInformation()

@@ -1,4 +1,4 @@
-from cybersource_rest_client_python import *
+from CyberSource import *
 import json
 
 
@@ -64,6 +64,7 @@ def authorization_with_token():
         return_data, status, body =payment_obj.create_payment(message_body)
         print(status)
         print(body)
+
     except Exception as e:
         print(e)
 
