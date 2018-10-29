@@ -15,7 +15,7 @@ You can also run each sample directly from the command line.
 ## Running the Samples From the Command Line
 * Clone this repository:
 ```
-    $ git clone https://github.com/CyberSource/sample-code-python.git
+    $ git clone https://github.com/CyberSource/cybersource-rest-samples-python.git
 ```
 * Install the [CyberSource Python SDK](https://www.github.com/AuthorizeNet/sdk-python):
 ```
@@ -27,6 +27,6 @@ You can also run each sample directly from the command line.
 ```
 e.g.
 ```
-    $ python PaymentTransactions/charge-credit-card.py
+    $ python PaymentTransactions/charge_credit_card.py
 ```
 
