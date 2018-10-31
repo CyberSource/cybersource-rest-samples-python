@@ -4,7 +4,7 @@ import json
 
 def update_instrument_identifier():
     try:
-        api_instrument_identifier_response=cybersource_rest_samples_python.samples.tms.coreservices.create_instrument_identifier.create_instrument_identifier()
+        api_instrument_identifier_response=samples.tms.coreservices.create_instrument_identifier.create_instrument_identifier()
         request = Body1()
 
         processing_info = InstrumentidentifiersProcessingInformation()
