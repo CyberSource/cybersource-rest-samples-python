@@ -26,10 +26,10 @@ You can also run each sample directly from the command line.
 ```  
 * Run the individual samples by name. For example:
 ```
-    $ python PaymentTransactions/[CodeSampleName]
+    $ python samples/payments/coreservices/[CodeSampleName]
 ```
 e.g.
 ```
-    $ python PaymentTransactions/charge_credit_card.py
+    $ python samples/payments/coreservices/process_payment.py
 ```
 
