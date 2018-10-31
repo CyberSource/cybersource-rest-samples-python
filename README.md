@@ -1,8 +1,12 @@
 # Python Sample Code for the CyberSource SDK
 
-This repository contains working code samples which demonstrate Python integration with the [CyberSource Python SDK](https://github.com/CyberSource/cybersource-rest-client-python).  
+This repository contains working code samples which demonstrate Node.js integration with the CyberSource REST APIs through the CyberSource Node.JS SDK.
 
-The samples are organized into categories and common usage examples, just like our [API Reference Guide](http://developer.cybersource.com/api/reference). Our API Reference Guide is an interactive reference for the CyberSource API. It explains the request and response parameters for each API method and has embedded code windows to allow you to send actual requests right within the API Reference Guide.
+**__NOTE: THIS REPO OF CODE SAMPLES HAS BEEN MADE PUBLIC FOR SDK TESTING AND SHOULD NOT BE USED FOR PRODUCTION - YET.  PLEASE RAISE AN ISSUE ON THIS REPO IF YOU HAVE FURTHER QUESTIONS AND CHECK BACK SOON FOR GENERAL AVAILABILITY__**
+
+The samples are organized into categories and common usage examples.
+
+The samples are organized into categories and common usage examples, just like our [API Reference Guide](https://developer.cybersource.com/api/reference/api-reference.html). Our API Reference Guide is an interactive reference for the CyberSource API. It explains the request and response parameters for each API method and has embedded code windows to allow you to send actual requests right within the API Reference Guide.
 
 
 ## Using the Sample Code
@@ -16,9 +20,9 @@ You can also run each sample directly from the command line.
 ```
     $ git clone https://github.com/CyberSource/cybersource-rest-samples-python.git
 ```
-* Install the [CyberSource Python SDK](https://www.github.com/AuthorizeNet/sdk-python):
+* Install the CyberSource Python SDK:
 ```
-    $ pip install CyberSourceRest
+    $ pip install cybersource-rest-client-python
 ```  
 * Run the individual samples by name. For example:
 ```
