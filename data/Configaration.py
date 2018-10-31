@@ -3,18 +3,18 @@ class Configaration:
         self.authentication_type = "http_signature"
         self.merchantid = "testrest"
         self.run_environment = "CyberSource.Environment.SANDBOX"
-        self.request_json_path = "C:/Users/sjagarag/swagger 24-9/Python/cybersource_rest_samples_python/resources/request.json"
+        self.request_json_path = "../../../../cybersource-rest-samples-python/resources/request.json"
         self.key_alias = "testrest"
         self.key_pass = "testrest"
         self.key_file_name = "testrest"
-        self.keys_directory = "C:/Users/sjagarag/swagger 24-9/Python/cybersource_rest_samples_python/resources/"
+        self.keys_directory = "../../../../cybersource-rest-samples-python/resources/"
         self.merchant_keyid = "08c94330-f618-42a3-b09d-e1e43be5efda"
         self.merchant_secretkey = "yBJxy6LjM2TmcPGu+GaJrHtkke25fPpUX+UY6/L/1tE="
         self.enable_log = False
         self.timeout = 1000
         self.log_file_name = "cybs"
         self.log_maximum_size = 10487560
-        self.log_directory = "C:/Users/sjagarag/swagger 24-9/Python/cybersource_rest_samples_python/Logs/"
+        self.log_directory = "../../../../cybersource-rest-samples-python/Logs/"
         self.proxy_address = "userproxy.visa.com"
         self.proxy_port = ""
 

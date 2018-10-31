@@ -18,7 +18,7 @@ You can also run each sample directly from the command line.
 ```
 * Install the [CyberSource Python SDK](https://www.github.com/AuthorizeNet/sdk-python):
 ```
-    $ pip install CyberSource
+    $ pip install CyberSourceRest
 ```  
 * Run the individual samples by name. For example:
 ```
