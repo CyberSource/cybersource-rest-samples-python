@@ -1,11 +1,14 @@
 from CyberSource import *
-import samples.payments.coreservices.capture_payment
+import capture_payment
 import json
-from data.Configaration import *
+import os
+from importlib.machinery import SourceFileLoader
+config_file = os.getcwd() + "\\data\\Configaration.py"
+configaration = SourceFileLoader("module.name", config_file).load_module()
 
 def refund_a_capture():
     try:
-        api_capture_response = samples.payments.coreservices.capture_payment.capture_a_payment()
+        api_capture_response = capture_payment.capture_a_payment()
         id = api_capture_response.id
         request = RefundCaptureRequest()
         client_reference = V2paymentsClientReferenceInformation()
@@ -23,7 +26,7 @@ def refund_a_capture():
 
         message_body = json.dumps(request.__dict__)
 
-        config_obj = Configaration()
+        config_obj = configaration.Configaration()
         details_dict1 = config_obj.get_configaration()
         refund_api = RefundApi(details_dict1)
         return_data, status, body = refund_api.refund_capture(message_body, id)

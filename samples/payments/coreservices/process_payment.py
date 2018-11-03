@@ -1,6 +1,9 @@
 from CyberSource import *
 import json
-from data.Configaration import *
+import os
+from importlib.machinery import SourceFileLoader
+config_file = os.getcwd() + "\\data\\Configaration.py"
+configaration = SourceFileLoader("module.name", config_file).load_module()
 
 def process_a_payment(flag):
     try:
@@ -69,7 +72,7 @@ def process_a_payment(flag):
         request.order_information = order_information.__dict__
 
         message_body = json.dumps(request.__dict__)
-        config_obj = Configaration()
+        config_obj = configaration.Configaration()
         details_dict1 = config_obj.get_configaration()
         payment_obj = PaymentApi(details_dict1)
 

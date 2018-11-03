@@ -1,6 +1,9 @@
 from CyberSource import *
 import json
-from data.Configaration import *
+import os
+from importlib.machinery import SourceFileLoader
+config_file = os.getcwd() + "\\data\\Configaration.py"
+configaration = SourceFileLoader("module.name", config_file).load_module()
 
 def create_payment_instrument():
     try:
@@ -34,7 +37,7 @@ def create_payment_instrument():
         request.instrument_identifier=instument_identifier.__dict__
         message_body = del_none(request.__dict__)
         message_body = json.dumps(message_body)
-        config_obj = Configaration()
+        config_obj = configaration.Configaration()
         details_dict1 = config_obj.get_configaration()
         payment_instrument_obj = PaymentInstrumentApi(details_dict1)
         return_data, status, body =payment_instrument_obj.paymentinstruments_post("93B32398-AD51-4CC2-A682-EA3E93614EB1", message_body)

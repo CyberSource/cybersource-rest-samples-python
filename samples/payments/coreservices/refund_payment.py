@@ -1,11 +1,14 @@
 from CyberSource import *
-import samples.payments.coreservices.process_payment
+import process_payment
 import json
-from data.Configaration import *
+import os
+from importlib.machinery import SourceFileLoader
+config_file = os.getcwd() + "\\data\\Configaration.py"
+configaration = SourceFileLoader("module.name", config_file).load_module()
 
 def refund_a_payment():
     try:
-        api_payment_response=samples.payments.coreservices.process_payment.process_a_payment(True)
+        api_payment_response=process_payment.process_a_payment(True)
         id = api_payment_response.id
         request = RefundPaymentRequest()
         client_reference = V2paymentsClientReferenceInformation()
@@ -22,7 +25,7 @@ def refund_a_payment():
         request.order_information = order_information.__dict__
 
         message_body = json.dumps(request.__dict__)
-        config_obj = Configaration()
+        config_obj = configaration.Configaration()
         details_dict1 = config_obj.get_configaration()
         refund_api = RefundApi(details_dict1)
         return_data, status, body =refund_api.refund_payment(message_body, id)
