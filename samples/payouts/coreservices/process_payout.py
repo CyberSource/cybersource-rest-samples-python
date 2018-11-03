@@ -1,5 +1,6 @@
 from CyberSource import *
 import json
+from data.Configaration import *
 
 
 def process_a_payout():
@@ -76,7 +77,9 @@ def process_a_payout():
         request.recipient_information = recepient_info.__dict__
 
         message_body = json.dumps(request.__dict__)
-        default_api_object = DefaultApi()
+        config_obj = Configaration()
+        details_dict1 = config_obj.get_configaration()
+        default_api_object = DefaultApi(details_dict1)
         return_data, status, body=default_api_object.oct_create_payment(message_body)
         print(status)
         print(body)

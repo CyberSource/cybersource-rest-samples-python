@@ -1,7 +1,7 @@
 from CyberSource import *
 import samples.tms.coreservices.create_payment_instrument
 import json
-
+from data.Configaration import *
 
 def update_payments_identifier():
     try:
@@ -36,7 +36,9 @@ def update_payments_identifier():
         request.instrument_identifier = instument_identifier.__dict__
 
         message_body = json.dumps(request.__dict__)
-        payment_instrument_obj = PaymentInstrumentApi()
+        config_obj = Configaration()
+        details_dict1 = config_obj.get_configaration()
+        payment_instrument_obj = PaymentInstrumentApi(details_dict1)
         return_data, status, body = payment_instrument_obj.paymentinstruments_token_id_patch("93B32398-AD51-4CC2-A682-EA3E93614EB1",api_payment_response.id, message_body)
         print(status)
         print(body)

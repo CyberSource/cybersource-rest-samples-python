@@ -1,6 +1,7 @@
 from CyberSource import *
 import samples.tms.coreservices.create_instrument_identifier
 import json
+from data.Configaration import *
 
 def update_instrument_identifier():
     try:
@@ -17,7 +18,9 @@ def update_instrument_identifier():
         processing_info.authorization_options = authorize_options_info.__dict__
         request.processing_information = processing_info.__dict__
         message_body = json.dumps(request.__dict__)
-        instrument_identifier_obj = InstrumentIdentifierApi()
+        config_obj = Configaration()
+        details_dict1 = config_obj.get_configaration()
+        instrument_identifier_obj = InstrumentIdentifierApi(details_dict1)
         return_data, status, body =instrument_identifier_obj.instrumentidentifiers_token_id_patch("93B32398-AD51-4CC2-A682-EA3E93614EB1",api_instrument_identifier_response.id,body=message_body)
         print(status)
         print(body)

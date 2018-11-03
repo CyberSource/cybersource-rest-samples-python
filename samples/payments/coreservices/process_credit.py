@@ -1,5 +1,6 @@
 from CyberSource import *
 import json
+from data.Configaration import *
 
 
 def process_a_credit():
@@ -37,8 +38,9 @@ def process_a_credit():
         request.order_information = order_information.__dict__
         request.payment_information = payment_information.__dict__
         message_body = json.dumps(request.__dict__)
-
-        credit_obj = CreditApi()
+        config_obj = Configaration()
+        details_dict1 = config_obj.get_configaration()
+        credit_obj = CreditApi(details_dict1)
         return_data, status, body = credit_obj.create_credit(message_body)
         print(status)
         print(body)

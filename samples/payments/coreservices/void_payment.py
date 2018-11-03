@@ -1,6 +1,7 @@
 from CyberSource import *
 import samples.payments.coreservices.process_payment
 import json
+from data.Configaration import *
 
 
 def void_a_payment():
@@ -12,7 +13,9 @@ def void_a_payment():
         client_reference.code =  "test_payment_void"
         request.client_reference_information = client_reference.__dict__
         message_body = json.dumps(request.__dict__)
-        void_obj = VoidApi()
+        config_obj = Configaration()
+        details_dict1 = config_obj.get_configaration()
+        void_obj = VoidApi(details_dict1)
         return_data, status, body =void_obj.void_payment(message_body, id)
         print(status)
         print(body)

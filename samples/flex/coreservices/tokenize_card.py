@@ -1,7 +1,7 @@
 from CyberSource import *
 import samples.flex.keygeneration_noenc
 import json
-
+from data.Configaration import *
 def tokenize_card():
     try:
         tokenize_card = TokenizeRequest()
@@ -16,8 +16,9 @@ def tokenize_card():
         tokenize_card.card_info = card_info.__dict__
 
         message_body = json.dumps(tokenize_card.__dict__)
-
-        tokenize_obj = TokenizationApi()
+        config_obj = Configaration()
+        details_dict1 = config_obj.get_configaration()
+        tokenize_obj = TokenizationApi(details_dict1)
         return_data, status, body = tokenize_obj.tokenize(tokenize_request=message_body)
         print(status)
         print(body)

@@ -1,10 +1,12 @@
 from CyberSource import *
 import json
-
+from data.Configaration import *
 
 def generate_key():
     try:
-        key_generation_obj = KeyGenerationApi()
+        config_obj = Configaration()
+        details_dict1 = config_obj.get_configaration()
+        key_generation_obj = KeyGenerationApi(details_dict1)
         # key_generation = KeyParameters()
         key_generation = GeneratePublicKeyRequest()
         key_generation.encryption_type = "RsaOaep256"

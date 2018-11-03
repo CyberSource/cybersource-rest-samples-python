@@ -1,6 +1,6 @@
 from CyberSource import *
 import json
-
+from data.Configaration import *
 
 def create_instrument_identifier():
     try:
@@ -23,7 +23,9 @@ def create_instrument_identifier():
         message_body =del_none(request.__dict__)
         
         message_body=json.dumps(message_body)
-        instrument_identifier_obj = InstrumentIdentifierApi()
+        config_obj = Configaration()
+        details_dict1 = config_obj.get_configaration()
+        instrument_identifier_obj = InstrumentIdentifierApi(details_dict1)
         return_data, status, body =instrument_identifier_obj.instrumentidentifiers_post("93B32398-AD51-4CC2-A682-EA3E93614EB1", body=message_body)
         print(status)
         print(body)

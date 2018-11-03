@@ -1,5 +1,6 @@
 from CyberSource import *
 import samples.payments.coreservices.process_payment
+from data.Configaration import *
 import json
 
 
@@ -22,8 +23,9 @@ def capture_a_payment():
         request.order_information = order_information.__dict__
 
         message_body = (json.dumps(request.__dict__))
-
-        capture_obj = CaptureApi()
+        config_obj = Configaration()
+        details_dict1 = config_obj.get_configaration()
+        capture_obj = CaptureApi(details_dict1)
         return_data, status, body = capture_obj.capture_payment(message_body, id)
         print(status)
         print(body)
