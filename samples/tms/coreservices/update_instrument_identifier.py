@@ -1,11 +1,14 @@
 from CyberSource import *
-import samples.tms.coreservices.create_instrument_identifier
+import create_instrument_identifier
 import json
-from data.Configaration import *
+import os
+from importlib.machinery import SourceFileLoader
+config_file = os.getcwd() + "\\data\\Configaration.py"
+configaration = SourceFileLoader("module.name", config_file).load_module()
 
 def update_instrument_identifier():
     try:
-        api_instrument_identifier_response=samples.tms.coreservices.create_instrument_identifier.create_instrument_identifier()
+        api_instrument_identifier_response=create_instrument_identifier.create_instrument_identifier()
         request = Body1()
 
         processing_info = InstrumentidentifiersProcessingInformation()
@@ -18,7 +21,7 @@ def update_instrument_identifier():
         processing_info.authorization_options = authorize_options_info.__dict__
         request.processing_information = processing_info.__dict__
         message_body = json.dumps(request.__dict__)
-        config_obj = Configaration()
+        config_obj = configaration.Configaration()
         details_dict1 = config_obj.get_configaration()
         instrument_identifier_obj = InstrumentIdentifierApi(details_dict1)
         return_data, status, body =instrument_identifier_obj.instrumentidentifiers_token_id_patch("93B32398-AD51-4CC2-A682-EA3E93614EB1",api_instrument_identifier_response.id,body=message_body)

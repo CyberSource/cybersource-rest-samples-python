@@ -1,13 +1,16 @@
 from CyberSource import *
-import samples.payments.coreservices.process_payment
-from data.Configaration import *
+import process_payment
 import json
+import os
+from importlib.machinery import SourceFileLoader
+config_file = os.getcwd() + "\\data\\Configaration.py"
+configaration = SourceFileLoader("module.name", config_file).load_module()
 
 
 def capture_a_payment():
     try:
 
-        api_payment_response = samples.payments.coreservices.process_payment.process_a_payment(
+        api_payment_response = process_payment.process_a_payment(
             False)
         id = api_payment_response.id
         request = CapturePaymentRequest()
@@ -23,7 +26,7 @@ def capture_a_payment():
         request.order_information = order_information.__dict__
 
         message_body = (json.dumps(request.__dict__))
-        config_obj = Configaration()
+        config_obj = configaration.Configaration()
         details_dict1 = config_obj.get_configaration()
         capture_obj = CaptureApi(details_dict1)
         return_data, status, body = capture_obj.capture_payment(message_body, id)

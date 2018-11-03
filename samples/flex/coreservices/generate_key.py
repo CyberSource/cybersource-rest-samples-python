@@ -1,10 +1,13 @@
 from CyberSource import *
 import json
-from data.Configaration import *
+import os
+from importlib.machinery import SourceFileLoader
+config_file = os.getcwd() + "\\data\\Configaration.py"
+configaration = SourceFileLoader("module.name", config_file).load_module()
 
 def generate_key():
     try:
-        config_obj = Configaration()
+        config_obj = configaration.Configaration()
         details_dict1 = config_obj.get_configaration()
         key_generation_obj = KeyGenerationApi(details_dict1)
         # key_generation = KeyParameters()
