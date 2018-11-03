@@ -1,7 +1,7 @@
 from CyberSource import *
 import samples.payments.coreservices.process_payment
 import json
-
+from data.Configaration import *
 
 
 def process_an_authorization_reversal():
@@ -22,8 +22,9 @@ def process_an_authorization_reversal():
         request.reversal_information = reversal_information.__dict__
 
         message_body = json.dumps(request.__dict__)
-
-        reversal_obj = ReversalApi()
+        config_obj = Configaration()
+        details_dict1 = config_obj.get_configaration()
+        reversal_obj = ReversalApi(details_dict1)
 
         return_data, status, body = reversal_obj.auth_reversal(id, message_body)
         print(status)

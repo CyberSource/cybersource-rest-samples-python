@@ -2,7 +2,7 @@ from CyberSource import *
 import samples.payments.coreservices.process_payment
 import samples.payments.coreservices.capture_payment
 import json
-
+from data.Configaration import *
 
 def void_a_capture():
     try:
@@ -13,7 +13,9 @@ def void_a_capture():
         client_reference.code ="test_capture_void"
         request.client_reference_information = client_reference.__dict__
         message_body = json.dumps(request.__dict__)
-        void_obj = VoidApi()
+        config_obj = Configaration()
+        details_dict1 = config_obj.get_configaration()
+        void_obj = VoidApi(details_dict1)
         return_data, status, body =void_obj.void_capture(message_body, id)
         print(status)
         print(body)

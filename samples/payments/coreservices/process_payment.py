@@ -1,6 +1,6 @@
 from CyberSource import *
 import json
-
+from data.Configaration import *
 
 def process_a_payment(flag):
     try:
@@ -69,7 +69,9 @@ def process_a_payment(flag):
         request.order_information = order_information.__dict__
 
         message_body = json.dumps(request.__dict__)
-        payment_obj = PaymentApi()
+        config_obj = Configaration()
+        details_dict1 = config_obj.get_configaration()
+        payment_obj = PaymentApi(details_dict1)
 
         return_data, status, body = payment_obj.create_payment(message_body)
         print(status)

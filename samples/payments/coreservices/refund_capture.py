@@ -1,6 +1,7 @@
 from CyberSource import *
 import samples.payments.coreservices.capture_payment
 import json
+from data.Configaration import *
 
 def refund_a_capture():
     try:
@@ -22,7 +23,9 @@ def refund_a_capture():
 
         message_body = json.dumps(request.__dict__)
 
-        refund_api = RefundApi()
+        config_obj = Configaration()
+        details_dict1 = config_obj.get_configaration()
+        refund_api = RefundApi(details_dict1)
         return_data, status, body = refund_api.refund_capture(message_body, id)
         print(status)
         print(body)

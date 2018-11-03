@@ -1,5 +1,5 @@
-from samples.flex.Flex_Security_Exception import *
-import samples.flex.RSA_Verify
+from cybersource_rest_samples_python.samples.flex.Flex_Security_Exception import *
+import cybersource_rest_samples_python.samples.flex.RSA_Verify
 
 
 def verify(key, postparams):
@@ -23,7 +23,7 @@ def verify(key, postparams):
     signed_string = "".join(signed_list)
     signed_string = signed_string[1:]
 
-    print(samples.flex.RSA_Verify.verify_sign(key, signature, signed_string))
+    print(cybersource_rest_samples_python.flex.tokenization.RSA_Verify.verify_sign(key, signature, signed_string))
 
 
 if __name__ == "__main__":
