@@ -1,6 +1,6 @@
 # Python Sample Code for the CyberSource SDK
 
-This repository contains working code samples which demonstrate Node.js integration with the CyberSource REST APIs through the CyberSource Node.JS SDK.
+This repository contains working code samples which demonstrate python integration with the CyberSource REST APIs through the CyberSource Python SDK.
 
 **__NOTE: THIS REPO OF CODE SAMPLES HAS BEEN MADE PUBLIC FOR SDK TESTING AND SHOULD NOT BE USED FOR PRODUCTION - YET.  PLEASE RAISE AN ISSUE ON THIS REPO IF YOU HAVE FURTHER QUESTIONS AND CHECK BACK SOON FOR GENERAL AVAILABILITY__**
 
@@ -14,6 +14,9 @@ The samples are organized into categories and common usage examples, just like o
 The samples are all completely independent and self-contained. You can analyze them to get an understanding of how a particular method works, or you can use the snippets as a starting point for your own project.
 
 You can also run each sample directly from the command line.
+
+## Requirements
+Python 3.3 or greater
 
 ## Running the Samples From the Command Line
 * Clone this repository:
@@ -32,48 +35,40 @@ e.g.
 ```
     $ python samples/payments/coreservices/process_payment.py
 ```
-Running SampleCode without a parameter will give you the list of sample names. 
 
-#### To set your API credentials for an API request,Configure the following information in src/App.config file:
+#### To set your API credentials for an API request,Configure the following information in data/configuration.py file:
   
   * Http
 
 ```
-   authenticationType  = http_Signature
-   merchantID 	       = testrest
-   runEnvironment      = CyberSource.Environment.SANDBOX
-   merchantKeyId       = 08c94330-f618-42a3-b09d-e1e43be5efda
-   merchantsecretKey   = yBJxy6LjM2TmcPGu+GaJrHtkke25fPpUX+UY6/L/1tE=
-   enableLog           = true
-   logDirectory        = log
-   logMaximumSize      = 5M
-   logFilename         = cybs
-```
-  * Jwt
-
-```
-   authenticationType  = Jwt
-   merchantID 	       = testrest
-   runEnvironment      = CyberSource.Environment.SANDBOX
-   keyAlias		       = testrest
-   keyPassword	       = testrest
-   keyFileName         = testrest
-   keysDirectory       = resources
-   enableLog           = true
-   logDirectory        = log
-   logMaximumSize      = 5M
-   logFilename         = cybs
+        self.authentication_type = "http_signature"
+        self.merchantid = "Your Merchant ID"
+        self.run_environment = "CyberSource.Environment.SANDBOX"
+        self.request_json_path = os.getcwd()+"\\resources\\request.json"
+        self.key_alias = "your key alias"
+        self.key_pass = "your key password"
+        self.key_file_name = "your key filename"
+        self.keys_directory = os.getcwd()+"\\resources\\"
+        self.merchant_keyid = "your key id"
+        self.merchant_secretkey = "your secret key"
+        self.enable_log = False
+        self.timeout = 1000
+        self.log_file_name = "cybs"
+        self.log_maximum_size = 10487560
+        self.log_directory = "../../../../cybersource-rest-samples-python/Logs/"
+        self.proxy_address = "userproxy.visa.com"
+        self.proxy_port = ""
 ```
 
 ### Switching between the sandbox environment and the production environment
 CyberSource maintains a complete sandbox environment for testing and development purposes. This sandbox environment is an exact
 duplicate of our production environment with the transaction authorization and settlement process simulated. By default, this SDK is 
 configured to communicate with the sandbox environment. To switch to the production environment, set the appropriate environment 
-constant in src/App.json file.  For example:
+constant in data/Configuration.py file.  For example:
 
-```java
+```python
 // For PRODUCTION use
-  runEnvironment      = CyberSource.Environment.PRODUCTION
+  self.run_environment = "CyberSource.Environment.PRODUCTION"
 ```
 
 
