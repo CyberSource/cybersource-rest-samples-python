@@ -23,7 +23,7 @@ def verify(key, postparams):
     signed_string = "".join(signed_list)
     signed_string = signed_string[1:]
 
-    print(flex.tokenization.RSA_Verify.verify_sign(key, signature, signed_string))
+    print(samples.flex.RSA_Verify.verify_sign(key, signature, signed_string))
 
 
 if __name__ == "__main__":

@@ -11,7 +11,7 @@ def void_a_credit():
         api_credit_response=process_credit.process_a_credit()
         id = api_credit_response.id
         request = VoidCreditRequest()
-        client_reference = V2paymentsClientReferenceInformation()
+        client_reference = Ptsv2paymentsClientReferenceInformation()
         client_reference._code = "test_credit_void"
         request.client_reference_information = client_reference.__dict__
         message_body = json.dumps(request.__dict__)

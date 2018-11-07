@@ -1,24 +1,22 @@
 from CyberSource import *
-import json
 import os
 from importlib.machinery import SourceFileLoader
 config_file = os.getcwd() + "\\data\\Configaration.py"
 configaration = SourceFileLoader("module.name", config_file).load_module()
-def generate_key():
+
+def get_list_of_files():
     try:
+        start_date="2018-10-20"
+        end_date="2018-10-30"
         config_obj = configaration.Configaration()
         details_dict1 = config_obj.get_configaration()
-        key_generation_obj = KeyGenerationApi(details_dict1)
-        # key_generation = KeyParameters()
-        key_generation = GeneratePublicKeyRequest()
-        key_generation.encryption_type = "RsaOaep256"
-
-        message_body = json.dumps(key_generation.__dict__)
-        return_data, status, body =key_generation_obj.generate_public_key(generate_public_key_request=message_body)
+        search_transaction_obj =SecureFileShareApi(details_dict1)
+        return_data, status, body =search_transaction_obj.get_file_details(start_date,end_date,organization_id="testrest")
         print(status)
         print(body)
     except Exception as e:
         print(e)
 
+
 if __name__ == "__main__":
-    generate_key()
+    get_list_of_files()
