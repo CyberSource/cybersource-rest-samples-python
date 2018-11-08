@@ -11,12 +11,12 @@ def refund_a_capture():
         api_capture_response = capture_payment.capture_a_payment()
         id = api_capture_response.id
         request = RefundCaptureRequest()
-        client_reference = V2paymentsClientReferenceInformation()
+        client_reference = Ptsv2paymentsClientReferenceInformation()
         client_reference._code = "test_refund_capture"
         request.client_reference_information = client_reference.__dict__
 
-        order_information = V2paymentsOrderInformation()
-        amount_details = V2paymentsOrderInformationAmountDetails()
+        order_information = Ptsv2paymentsOrderInformation()
+        amount_details = Ptsv2paymentsOrderInformationAmountDetails()
         amount_details.total_amount = "10"
         amount_details.currency = "USD"
 
@@ -25,7 +25,6 @@ def refund_a_capture():
         request.order_information = order_information.__dict__
 
         message_body = json.dumps(request.__dict__)
-
         config_obj = configaration.Configaration()
         details_dict1 = config_obj.get_configaration()
         refund_api = RefundApi(details_dict1)

@@ -29,11 +29,11 @@ Python 3.3 or greater
 ```  
 * Run the individual samples by name. For example:
 ```
-    $ python samples/payments/coreservices/[CodeSampleName]
+    $ python samples\payments\coreservices\[CodeSampleName]
 ```
 e.g.
 ```
-    $ python samples/payments/coreservices/process_payment.py
+    $ python samples\payments\coreservices\process_payment.py
 ```
 
 #### To set your API credentials for an API request,Configure the following information in data/configuration.py file:

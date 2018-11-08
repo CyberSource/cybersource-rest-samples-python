@@ -11,12 +11,12 @@ def refund_a_payment():
         api_payment_response=process_payment.process_a_payment(True)
         id = api_payment_response.id
         request = RefundPaymentRequest()
-        client_reference = V2paymentsClientReferenceInformation()
+        client_reference = Ptsv2paymentsClientReferenceInformation()
         client_reference._code =  "test_refund_payment"
         request.client_reference_information = client_reference.__dict__
 
-        order_information = V2paymentsOrderInformation()
-        amount_details = V2paymentsOrderInformationAmountDetails()
+        order_information = Ptsv2paymentsOrderInformation()
+        amount_details = Ptsv2paymentsOrderInformationAmountDetails()
         amount_details.total_amount = "10"
         amount_details.currency = "USD"
 

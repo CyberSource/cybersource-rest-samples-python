@@ -1,6 +1,5 @@
 from CyberSource import *
 import json
-
 import os
 from importlib.machinery import SourceFileLoader
 
@@ -17,11 +16,10 @@ if __name__ == "__main__" and __package__ is None:
     __package__ = "coreservices"
 import keygeneration_noenc
 
-
 def tokenize_card():
     try:
         tokenize_card = TokenizeRequest()
-        card_info = Paymentsflexv1tokensCardInfo()
+        card_info = Flexv1tokensCardInfo()
         api_response = keygeneration_noenc.keygeneration_noenc()
         tokenize_card.key_id = api_response.key_id
 
@@ -34,12 +32,16 @@ def tokenize_card():
         message_body = json.dumps(tokenize_card.__dict__)
         config_obj = configaration.Configaration()
         details_dict1 = config_obj.get_configaration()
-        tokenize_obj = TokenizationApi(details_dict1)
+        tokenize_obj = FlexTokenApi(details_dict1)
         return_data, status, body = tokenize_obj.tokenize(tokenize_request=message_body)
         print(status)
         print(body)
     except Exception as e:
         print(e)
+
+
+
+
 
 
 if __name__ == "__main__":

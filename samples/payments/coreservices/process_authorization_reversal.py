@@ -7,18 +7,19 @@ config_file = os.getcwd() + "\\data\\Configaration.py"
 configaration = SourceFileLoader("module.name", config_file).load_module()
 
 
+
 def process_an_authorization_reversal():
     try:
         api_payment_response=process_payment.process_a_payment(False)
         id = api_payment_response.id
         request = AuthReversalRequest()
-        client_reference = V2paymentsClientReferenceInformation()
+        client_reference = Ptsv2paymentsClientReferenceInformation()
         client_reference.code = "test_reversal"
         request.client_reference_information = client_reference.__dict__
 
-        reversal_information = V2paymentsidreversalsReversalInformation()
+        reversal_information = Ptsv2paymentsidreversalsReversalInformation()
         reversal_information.reason = "testing"
-        amount_details = V2paymentsidreversalsReversalInformationAmountDetails()
+        amount_details = Ptsv2paymentsidreversalsReversalInformationAmountDetails()
         amount_details.total_amount = "102.21"
         reversal_information.amount_details = amount_details.__dict__
 
