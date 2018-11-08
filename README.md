@@ -56,7 +56,7 @@ e.g.
         self.log_file_name = "cybs"
         self.log_maximum_size = 10487560
         self.log_directory = "../../../../cybersource-rest-samples-python/Logs/"
-        self.proxy_address = "userproxy.visa.com"
+        self.proxy_address = "proxy.com"
         self.proxy_port = ""
 ```
 
