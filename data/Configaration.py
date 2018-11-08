@@ -1,10 +1,10 @@
 import os
 class Configaration:
     def __init__(self):
-        self.authentication_type = "http_signature"
+        self.authentication_type ="http_signature"
         self.merchantid = "testrest"
         self.run_environment = "CyberSource.Environment.SANDBOX"
-        self.request_json_path = os.getcwd()+"\\resources\\request.json"
+        self.request_json_path = "../../../../cybersource-rest-samples-python/resources/request.json"
         self.key_alias = "testrest"
         self.key_pass = "testrest"
         self.key_file_name = "testrest"

@@ -5,19 +5,19 @@ from importlib.machinery import SourceFileLoader
 config_file = os.getcwd() + "\\data\\Configaration.py"
 configaration = SourceFileLoader("module.name", config_file).load_module()
 
+
 def process_a_credit():
     try:
-
         request = CreateCreditRequest()
-        client_reference = V2paymentsClientReferenceInformation()
+        client_reference = Ptsv2paymentsClientReferenceInformation()
         client_reference.code = "test_credits"
         request.client_reference_information = client_reference.__dict__
 
-        order_information = V2paymentsOrderInformation()
-        amount_details = V2paymentsOrderInformationAmountDetails()
+        order_information = Ptsv2paymentsOrderInformation()
+        amount_details = Ptsv2paymentsOrderInformationAmountDetails()
         amount_details.total_amount = "200"
         amount_details.currency = "usd"
-        bill_to = V2paymentsOrderInformationBillTo()
+        bill_to = Ptsv2paymentsOrderInformationBillTo()
         bill_to.country = "US"
         bill_to.first_name = "John"
         bill_to.last_name = "Doe"
@@ -30,8 +30,8 @@ def process_a_credit():
         order_information.amount_details = amount_details.__dict__
         order_information.bill_to = bill_to.__dict__
 
-        payment_information = V2paymentsPaymentInformation()
-        card_information = V2paymentsPaymentInformationCard()
+        payment_information = Ptsv2paymentsPaymentInformation()
+        card_information = Ptsv2paymentsPaymentInformationCard()
         card_information.expiration_month = "03"
         card_information.expiration_year = "2031"
         card_information.type = "001"
