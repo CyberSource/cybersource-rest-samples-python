@@ -16,7 +16,7 @@ The samples are all completely independent and self-contained. You can analyze t
 You can also run each sample directly from the command line.
 
 ## Requirements
-Python 3.3 or greater
+Python 3.6 Onwards
 
 ## Running the Samples From the Command Line
 * Clone this repository:
