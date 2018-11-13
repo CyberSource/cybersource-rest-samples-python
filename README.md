@@ -1,22 +1,19 @@
 # Python Sample Code for the CyberSource SDK
 
-This repository contains working code samples which demonstrate python integration with the CyberSource REST APIs through the CyberSource Python SDK.
-
-**__NOTE: THIS REPO OF CODE SAMPLES HAS BEEN MADE PUBLIC FOR SDK TESTING AND SHOULD NOT BE USED FOR PRODUCTION - YET.  PLEASE RAISE AN ISSUE ON THIS REPO IF YOU HAVE FURTHER QUESTIONS AND CHECK BACK SOON FOR GENERAL AVAILABILITY__**
-
-The samples are organized into categories and common usage examples.
-
-The samples are organized into categories and common usage examples, just like our [API Reference Guide](https://developer.cybersource.com/api/reference/api-reference.html). Our API Reference Guide is an interactive reference for the CyberSource API. It explains the request and response parameters for each API method and has embedded code windows to allow you to send actual requests right within the API Reference Guide.
+This repository contains working code samples which demonstrate python integration with the CyberSource REST APIs through the [CyberSource Python SDK](https://github.com/CyberSource/cybersource-rest-client-python).
 
 
 ## Using the Sample Code
 
-The samples are all completely independent and self-contained. You can analyze them to get an understanding of how a particular method works, or you can use the snippets as a starting point for your own project.
+The samples are all completely independent and self-contained. You can analyze them to get an understanding of how a particular method works, or you can use the snippets as a starting point for your own project.  The samples are organized into categories and common usage examples, similar to the [CyberSource API Reference](http://developer.cybersource.com/api/reference).
 
-You can also run each sample directly from the command line.
+You can run each sample directly from the command line.
 
 ## Requirements
-Python 3.6 Onwards
+Python 3.6 or higher
+* [CyberSource Account](https://developer.cybersource.com/api/developer-guides/dita-gettingstarted/registration.html)
+* [CyberSource API Keys](https://prod.developer.cybersource.com/api/developer-guides/dita-gettingstarted/registration/createCertSharedKey.html)
+
 
 ## Running the Samples From the Command Line
 * Clone this repository:
@@ -36,28 +33,27 @@ e.g.
     $ python samples\payments\coreservices\process_payment.py
 ```
 
-#### To set your API credentials for an API request,Configure the following information in data/configuration.py file:
-  
-  * Http
+### Setting your own API credentials for an API Request
 
-```
+Configure the following information in data/configuration.py file:
+  
+  * Http Signature
+
+```python
         self.authentication_type = "http_signature"
         self.merchantid = "Your Merchant ID"
-        self.run_environment = "CyberSource.Environment.SANDBOX"
-        self.request_json_path = os.getcwd()+"\\resources\\request.json"
+        self.merchant_keyid = "your key id"
+        self.merchant_secretkey = "your secret key"
+```
+  * Jwt
+
+```python
+        self.authentication_type = "jwt"
+        self.merchantid = "Your Merchant ID"
         self.key_alias = "your key alias"
         self.key_pass = "your key password"
         self.key_file_name = "your key filename"
         self.keys_directory = os.getcwd()+"\\resources\\"
-        self.merchant_keyid = "your key id"
-        self.merchant_secretkey = "your secret key"
-        self.enable_log = False
-        self.timeout = 1000
-        self.log_file_name = "cybs"
-        self.log_maximum_size = 10487560
-        self.log_directory = "../../../../cybersource-rest-samples-python/Logs/"
-        self.proxy_address = "proxy.com"
-        self.proxy_port = ""
 ```
 
 ### Switching between the sandbox environment and the production environment
@@ -67,6 +63,8 @@ configured to communicate with the sandbox environment. To switch to the product
 constant in data/Configuration.py file.  For example:
 
 ```python
+// For TESTING use
+  self.run_environment = "CyberSource.Environment.SANDBOX"
 // For PRODUCTION use
   self.run_environment = "CyberSource.Environment.PRODUCTION"
 ```
