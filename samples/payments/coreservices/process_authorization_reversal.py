@@ -3,8 +3,8 @@ import process_payment
 import json
 import os
 from importlib.machinery import SourceFileLoader
-config_file = os.getcwd() + "\\data\\Configaration.py"
-configaration = SourceFileLoader("module.name", config_file).load_module()
+config_file = os.getcwd() + "\\data\\Configuration.py"
+configuration = SourceFileLoader("module.name", config_file).load_module()
 
 
 
@@ -26,8 +26,8 @@ def process_an_authorization_reversal():
         request.reversal_information = reversal_information.__dict__
 
         message_body = json.dumps(request.__dict__)
-        config_obj = configaration.Configaration()
-        details_dict1 = config_obj.get_configaration()
+        config_obj = configuration.Configuration()
+        details_dict1 = config_obj.get_configuration()
         reversal_obj = ReversalApi(details_dict1)
 
         return_data, status, body = reversal_obj.auth_reversal(id, message_body)

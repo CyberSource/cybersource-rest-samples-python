@@ -3,8 +3,8 @@ import retrieve_payment_instrument
 import json
 import os
 from importlib.machinery import SourceFileLoader
-config_file = os.getcwd() + "\\data\\Configaration.py"
-configaration = SourceFileLoader("module.name", config_file).load_module()
+config_file = os.getcwd() + "\\data\\Configuration.py"
+configuration = SourceFileLoader("module.name", config_file).load_module()
 
 def update_payments_identifier():
     try:
@@ -39,8 +39,8 @@ def update_payments_identifier():
         request.instrument_identifier = instument_identifier.__dict__
         message_body = del_none(request.__dict__)
         message_body = json.dumps(message_body)
-        config_obj = configaration.Configaration()
-        details_dict1 = config_obj.get_configaration()
+        config_obj = configuration.Configuration()
+        details_dict1 = config_obj.get_configuration()
 
         payment_instrument_obj = PaymentInstrumentsApi(details_dict1)
         return_data, status, body = payment_instrument_obj.tms_v1_paymentinstruments_token_id_patch("93B32398-AD51-4CC2-A682-EA3E93614EB1",api_payment_response.id, message_body)

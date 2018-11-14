@@ -2,13 +2,13 @@ from CyberSource import *
 import json
 import os
 from importlib.machinery import SourceFileLoader
-config_file = os.getcwd() + "\\data\\Configaration.py"
-configaration = SourceFileLoader("module.name", config_file).load_module()
+config_file = os.getcwd() + "\\data\\Configuration.py"
+configuration = SourceFileLoader("module.name", config_file).load_module()
 
 def keygeneration_noenc():
     try:
-        config_obj = configaration.Configaration()
-        details_dict1 = config_obj.get_configaration()
+        config_obj = configuration.Configuration()
+        details_dict1 = config_obj.get_configuration()
 
         key_generation_obj = KeyGenerationApi(details_dict1)
         #key_generation = KeyParameters()

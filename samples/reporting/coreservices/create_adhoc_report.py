@@ -2,8 +2,8 @@ from CyberSource import *
 import json
 import os
 from importlib.machinery import SourceFileLoader
-config_file = os.getcwd() + "\\data\\Configaration.py"
-configaration = SourceFileLoader("module.name", config_file).load_module()
+config_file = os.getcwd() + "\\data\\Configuration.py"
+configuration = SourceFileLoader("module.name", config_file).load_module()
 
 
 def create_adhoc_report():
@@ -12,7 +12,7 @@ def create_adhoc_report():
         request.report_definition_name = "TransactionRequestClass"
         request.timezone = "GMT"
         request.report_mime_type = "application/xml"
-        request.report_name = "Cyb_5207"
+        request.report_name = "Cyb_8207"
         request.report_start_time = "2018-09-01T12:00:00+05:00"
         request.report_end_time = "2018-09-02T12:00:00+05:00"
         request.report_filters = {
@@ -22,8 +22,8 @@ def create_adhoc_report():
         request.report_fields = ["Request.RequestID","Request.TransactionDate","Request.MerchantID"]
 
         message_body = json.dumps(request.__dict__)
-        config_obj =configaration.Configaration()
-        details_dict1 = config_obj.get_configaration()
+        config_obj =configuration.Configuration()
+        details_dict1 = config_obj.get_configuration()
         report_obj = ReportsApi(details_dict1)
         return_data, status, body=report_obj.create_report(message_body)
         print(status)

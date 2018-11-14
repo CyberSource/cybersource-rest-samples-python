@@ -1,5 +1,5 @@
 import os
-class Configaration:
+class Configuration:
     def __init__(self):
         self.authentication_type ="http_signature"
         self.merchantid = "testrest"
@@ -9,13 +9,13 @@ class Configaration:
         self.key_pass = "testrest"
         self.key_file_name = "testrest"
         self.keys_directory = os.getcwd()+"\\resources\\"
-        self.merchant_keyid = "08c94330-f618-42a3-b09d-e1e43be5efda"
+        self.merchant_keyid = "08c94330-f618-42a3-b09d-e1e43be5efda"#08c94330-f618-42a3-b09d-e1e43be5efda
         self.merchant_secretkey = "yBJxy6LjM2TmcPGu+GaJrHtkke25fPpUX+UY6/L/1tE="
-        self.enable_log = False
+        self.enable_log = True
         self.timeout = 1000
         self.log_file_name = "cybs"
         self.log_maximum_size = 10487560
-        self.log_directory = "../../../../cybersource-rest-samples-python/Logs/"
+        self.log_directory = os.getcwd()+"\\Logs\\"
         self.proxy_address = "userproxy.visa.com"
         self.proxy_port = ""
 
@@ -23,7 +23,7 @@ class Configaration:
 
 
     # Assigning the configaration properties in the configaration dictionary
-    def get_configaration(self):
+    def get_configuration(self):
 
         configaration_dictionary = ({})
         configaration_dictionary["authentication_type"] = self.authentication_type

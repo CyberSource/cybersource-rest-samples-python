@@ -2,8 +2,8 @@ from CyberSource import *
 import json
 import os
 from importlib.machinery import SourceFileLoader
-config_file = os.getcwd() + "\\data\\Configaration.py"
-configaration = SourceFileLoader("module.name", config_file).load_module()
+config_file = os.getcwd() + "\\data\\Configuration.py"
+configuration = SourceFileLoader("module.name", config_file).load_module()
 
 
 def process_a_payout():
@@ -80,8 +80,8 @@ def process_a_payout():
         request.recipient_information = recepient_info.__dict__
 
         message_body = json.dumps(request.__dict__)
-        config_obj = configaration.Configaration()
-        details_dict1 = config_obj.get_configaration()
+        config_obj = configuration.Configuration()
+        details_dict1 = config_obj.get_configuration()
 
         process_payout_obj = ProcessAPayoutApi(details_dict1)
         return_data, status, body=process_payout_obj.oct_create_payment(message_body)

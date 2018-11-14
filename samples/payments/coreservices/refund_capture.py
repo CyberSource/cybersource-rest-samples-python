@@ -3,8 +3,8 @@ import capture_payment
 import json
 import os
 from importlib.machinery import SourceFileLoader
-config_file = os.getcwd() + "\\data\\Configaration.py"
-configaration = SourceFileLoader("module.name", config_file).load_module()
+config_file = os.getcwd() + "\\data\\Configuration.py"
+configuration = SourceFileLoader("module.name", config_file).load_module()
 
 def refund_a_capture():
     try:
@@ -25,8 +25,8 @@ def refund_a_capture():
         request.order_information = order_information.__dict__
 
         message_body = json.dumps(request.__dict__)
-        config_obj = configaration.Configaration()
-        details_dict1 = config_obj.get_configaration()
+        config_obj = configuration.Configuration()
+        details_dict1 = config_obj.get_configuration()
         refund_api = RefundApi(details_dict1)
         return_data, status, body = refund_api.refund_capture(message_body, id)
         print(status)

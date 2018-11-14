@@ -1,13 +1,13 @@
 from CyberSource import *
 import os
 from importlib.machinery import SourceFileLoader
-config_file = os.getcwd() + "\\data\\Configaration.py"
-configaration = SourceFileLoader("module.name", config_file).load_module()
+config_file = os.getcwd() + "\\data\\Configuration.py"
+configuration = SourceFileLoader("module.name", config_file).load_module()
 
 def get_all_subscriptions():
     try:
-        config_obj = configaration.Configaration()
-        details_dict1 = config_obj.get_configaration()
+        config_obj = configuration.Configuration()
+        details_dict1 = config_obj.get_configuration()
         get_subscription_obj = ReportSubscriptionsApi(details_dict1)
         return_data, status, body =get_subscription_obj.get_all_subscriptions()
         print(status)

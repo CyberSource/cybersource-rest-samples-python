@@ -19,7 +19,7 @@ def verify_sign(public_key_loc, signature, data):
     signer = PKCS1_v1_5.new(rsakey)
     digest = SHA512.new()
     # Assumes the data is base64 encoded to begin with
-    digest.update(b64decode(data.encode('utf-8')))
-    if signer.verify(digest, b64decode(signature.encode("utf-8"))):
+    digest.update(b64decode(data))
+    if signer.verify(digest, b64decode(signature)):
         return True
     return False
