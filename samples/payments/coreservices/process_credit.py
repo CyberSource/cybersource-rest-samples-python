@@ -2,8 +2,8 @@ from CyberSource import *
 import json
 import os
 from importlib.machinery import SourceFileLoader
-config_file = os.getcwd() + "\\data\\Configaration.py"
-configaration = SourceFileLoader("module.name", config_file).load_module()
+config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
+configuration = SourceFileLoader("module.name", config_file).load_module()
 
 
 def process_a_credit():
@@ -40,8 +40,8 @@ def process_a_credit():
         request.order_information = order_information.__dict__
         request.payment_information = payment_information.__dict__
         message_body = json.dumps(request.__dict__)
-        config_obj = configaration.Configaration()
-        details_dict1 = config_obj.get_configaration()
+        config_obj = configuration.Configuration()
+        details_dict1 = config_obj.get_configuration()
         credit_obj = CreditApi(details_dict1)
         return_data, status, body = credit_obj.create_credit(message_body)
         print(status)

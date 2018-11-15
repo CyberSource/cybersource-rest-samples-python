@@ -1,14 +1,14 @@
 from CyberSource import *
 import os
 from importlib.machinery import SourceFileLoader
-config_file = os.getcwd() + "\\data\\Configaration.py"
-configaration = SourceFileLoader("module.name", config_file).load_module()
+config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
+configuration = SourceFileLoader("module.name", config_file).load_module()
 def delete_subscriptions_report(reportname):
     try:
 
         report_name=reportname
-        config_obj = configaration.Configaration()
-        details_dict1 = config_obj.get_configaration()
+        config_obj = configuration.Configuration()
+        details_dict1 = config_obj.get_configuration()
         report_subscription_obj = ReportSubscriptionsApi(details_dict1)
         return_data, status, body =report_subscription_obj.delete_subscription(report_name)
 

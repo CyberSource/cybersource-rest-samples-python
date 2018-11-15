@@ -2,14 +2,14 @@ from CyberSource import *
 import create_instrument_identifier
 import os
 from importlib.machinery import SourceFileLoader
-config_file = os.getcwd() + "\\data\\Configaration.py"
-configaration = SourceFileLoader("module.name", config_file).load_module()
+config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
+configuration = SourceFileLoader("module.name", config_file).load_module()
 
 def retrieve_all_payments():
     try:
         api_instrument_identifier_response = create_instrument_identifier.create_instrument_identifier()
-        config_obj = configaration.Configaration()
-        details_dict1 = config_obj.get_configaration()
+        config_obj = configuration.Configuration()
+        details_dict1 = config_obj.get_configuration()
 
         instrument_identifier = PaymentInstrumentsApi(details_dict1)
         return_data, status, body =instrument_identifier.tms_v1_instrumentidentifiers_token_id_paymentinstruments_get("93B32398-AD51-4CC2-A682-EA3E93614EB1",api_instrument_identifier_response.id)

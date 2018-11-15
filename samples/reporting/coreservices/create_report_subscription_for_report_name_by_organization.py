@@ -3,8 +3,8 @@ import json
 import os
 import delete_subscription_of_report_name_by_organization
 from importlib.machinery import SourceFileLoader
-config_file = os.getcwd() + "\\data\\Configaration.py"
-configaration = SourceFileLoader("module.name", config_file).load_module()
+config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
+configuration = SourceFileLoader("module.name", config_file).load_module()
 
 
 def create_report_subscription():
@@ -15,13 +15,13 @@ def create_report_subscription():
         request.report_mime_type = "application/xml"
         request.report_frequency = "WEEKLY"
         request.timezone = "GMT"
-        request.start_time = "0557"
+        request.start_time = "0847"
         request.start_day = 1
         request.report_name="Cybersource-rest-py"
 
         message_body = json.dumps(request.__dict__)
-        config_obj = configaration.Configaration()
-        details_dict1 = config_obj.get_configaration()
+        config_obj = configuration.Configuration()
+        details_dict1 = config_obj.get_configuration()
         report_subscription_obj = ReportSubscriptionsApi(details_dict1)
         return_data, status, body = report_subscription_obj.create_subscription(message_body)
         print(status)
