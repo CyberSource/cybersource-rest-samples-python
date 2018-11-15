@@ -8,14 +8,14 @@ class Configuration:
         self.key_alias = "testrest"
         self.key_pass = "testrest"
         self.key_file_name = "testrest"
-        self.keys_directory = os.getcwd()+"\\resources\\"
-        self.merchant_keyid = "08c94330-f618-42a3-b09d-e1e43be5efda"#08c94330-f618-42a3-b09d-e1e43be5efda
+        self.keys_directory = os.path.join(os.getcwd(),"resources")
+        self.merchant_keyid = "08c94330-f618-42a3-b09d-e1e43be5efda"
         self.merchant_secretkey = "yBJxy6LjM2TmcPGu+GaJrHtkke25fPpUX+UY6/L/1tE="
         self.enable_log = True
         self.timeout = 1000
         self.log_file_name = "cybs"
         self.log_maximum_size = 10487560
-        self.log_directory = os.getcwd()+"\\Logs\\"
+        self.log_directory = os.path.join(os.getcwd(),"Logs")
         self.proxy_address = "userproxy.visa.com"
         self.proxy_port = ""
 

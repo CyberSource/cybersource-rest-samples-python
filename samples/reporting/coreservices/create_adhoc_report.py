@@ -2,7 +2,7 @@ from CyberSource import *
 import json
 import os
 from importlib.machinery import SourceFileLoader
-config_file = os.getcwd() + "\\data\\Configuration.py"
+config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
 configuration = SourceFileLoader("module.name", config_file).load_module()
 
 
@@ -12,7 +12,7 @@ def create_adhoc_report():
         request.report_definition_name = "TransactionRequestClass"
         request.timezone = "GMT"
         request.report_mime_type = "application/xml"
-        request.report_name = "Cyb_8207"
+        request.report_name = "Cybs_1707"
         request.report_start_time = "2018-09-01T12:00:00+05:00"
         request.report_end_time = "2018-09-02T12:00:00+05:00"
         request.report_filters = {

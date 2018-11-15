@@ -2,9 +2,7 @@ from CyberSource import *
 import json
 import os
 from importlib.machinery import SourceFileLoader
-
-config_file = os.getcwd() + "\\data\\Configuration.py"
-
+config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
 configuration = SourceFileLoader("module.name", config_file).load_module()
 
 # Following code is to handle the Sibling Package Import

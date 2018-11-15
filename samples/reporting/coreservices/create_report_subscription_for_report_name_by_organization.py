@@ -3,7 +3,7 @@ import json
 import os
 import delete_subscription_of_report_name_by_organization
 from importlib.machinery import SourceFileLoader
-config_file = os.getcwd() + "\\data\\Configuration.py"
+config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
 configuration = SourceFileLoader("module.name", config_file).load_module()
 
 
@@ -15,7 +15,7 @@ def create_report_subscription():
         request.report_mime_type = "application/xml"
         request.report_frequency = "WEEKLY"
         request.timezone = "GMT"
-        request.start_time = "0547"
+        request.start_time = "0847"
         request.start_day = 1
         request.report_name="Cybersource-rest-py"
 
