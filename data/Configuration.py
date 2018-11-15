@@ -8,7 +8,7 @@ class Configuration:
         self.key_alias = "testrest"
         self.key_pass = "testrest"
         self.key_file_name = "testrest"
-        self.keys_directory = os.path.join(os.getcwd(),"resources")
+        self.keys_directory = os.getcwd() + "\\resources\\"
         self.merchant_keyid = "08c94330-f618-42a3-b09d-e1e43be5efda"
         self.merchant_secretkey = "yBJxy6LjM2TmcPGu+GaJrHtkke25fPpUX+UY6/L/1tE="
         self.enable_log = True
