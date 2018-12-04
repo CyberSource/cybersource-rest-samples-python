@@ -1,6 +1,6 @@
 # Python Sample Code for the CyberSource SDK
 
-This repository contains working code samples which demonstrate python integration with the CyberSource REST APIs through the [CyberSource Python SDK](https://github.com/CyberSource/cybersource-rest-client-python).
+This repository contains working code samples which demonstrate python integration with the CyberSource REST APIs through the [CyberSource Python SDK] (https://github.com/CyberSource/cybersource-rest-client-python).
 
 
 ## Using the Sample Code
@@ -10,7 +10,7 @@ The samples are all completely independent and self-contained. You can analyze t
 You can run each sample directly from the command line.
 
 ## Requirements
-Python 3.6 or higher
+* Python 3.3 or higher
 * [CyberSource Account](https://developer.cybersource.com/api/developer-guides/dita-gettingstarted/registration.html)
 * [CyberSource API Keys](https://prod.developer.cybersource.com/api/developer-guides/dita-gettingstarted/registration/createCertSharedKey.html)
 
@@ -26,7 +26,7 @@ Python 3.6 or higher
 ```  
 * Run the individual samples by name. For example:
 ```
-    $ python samples\payments\coreservices\[CodeSampleName]
+    $ python [DirectoryPath]\[CodeSampleName]
 ```
 e.g.
 ```
