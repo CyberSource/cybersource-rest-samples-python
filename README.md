@@ -63,10 +63,10 @@ configured to communicate with the sandbox environment. To switch to the product
 constant in data/Configuration.py file.  For example:
 
 ```python
-// For TESTING use
+   For TESTING use
   self.run_environment = "CyberSource.Environment.SANDBOX"
-// For PRODUCTION use
-  self.run_environment = "CyberSource.Environment.PRODUCTION"
+   #For PRODUCTION use
+   #self.run_environment = "CyberSource.Environment.PRODUCTION"
 ```
 
 ## API Reference
