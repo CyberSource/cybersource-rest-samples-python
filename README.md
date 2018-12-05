@@ -64,7 +64,7 @@ constant in data/Configuration.py file.  For example:
 
 ```python
    For TESTING use
-  self.run_environment = "CyberSource.Environment.SANDBOX"
+    self.run_environment = "CyberSource.Environment.SANDBOX"
    #For PRODUCTION use
    #self.run_environment = "CyberSource.Environment.PRODUCTION"
 ```
