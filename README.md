@@ -1,6 +1,6 @@
 # Python Sample Code for the CyberSource SDK
 
-This repository contains working code samples which demonstrate python integration with the CyberSource REST APIs through the [CyberSource Python SDK] (https://github.com/CyberSource/cybersource-rest-client-python).
+This repository contains working code samples which demonstrate python integration with the CyberSource REST APIs through the [CyberSource Python SDK](https://github.com/CyberSource/cybersource-rest-client-python).
 
 
 ## Using the Sample Code
