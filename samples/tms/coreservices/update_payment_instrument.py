@@ -3,14 +3,17 @@ import retrieve_payment_instrument
 import json
 import os
 from importlib.machinery import SourceFileLoader
+
 config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
 configuration = SourceFileLoader("module.name", config_file).load_module()
 
-def update_payments_identifier():
-    try:
-        api_payment_response=retrieve_payment_instrument.retrieve_payment_instrument()
-        request = Body3()
 
+def update_payment_instrument():
+    try:
+        # Getting the api_payment_response-id dynamically using retrieve_payment_instrument method
+        api_payment_response = retrieve_payment_instrument.retrieve_payment_instrument()
+        # Setting the json message body
+        request = Body3()
         card_info = Tmsv1paymentinstrumentsCard()
         card_info.expiration_month = "09"
         card_info.expiration_year = "2022"
@@ -39,18 +42,19 @@ def update_payments_identifier():
         request.instrument_identifier = instument_identifier.__dict__
         message_body = del_none(request.__dict__)
         message_body = json.dumps(message_body)
+        # Reading Merchant details from Configuration file
         config_obj = configuration.Configuration()
         details_dict1 = config_obj.get_configuration()
-
         payment_instrument_obj = PaymentInstrumentsApi(details_dict1)
-        return_data, status, body = payment_instrument_obj.tms_v1_paymentinstruments_token_id_patch("93B32398-AD51-4CC2-A682-EA3E93614EB1",api_payment_response.id, message_body)
-        print(status)
-        print(body)
+        return_data, status, body = payment_instrument_obj.tms_v1_paymentinstruments_token_id_patch(
+            "93B32398-AD51-4CC2-A682-EA3E93614EB1", api_payment_response.id, message_body)
+        print("API RESPONSE CODE : ", status)
+        print("API RESPONSE BODY : ", body)
 
     except Exception as e:
-        print(e)
+        print("Exception when calling PaymentInstrumentsApi->tms_v1_paymentinstruments_token_id_patch: %s\n" % e)
 
-
+# To delete None values in Input Request Json body
 def del_none(d):
     for key, value in list(d.items()):
         if value is None:
@@ -58,5 +62,7 @@ def del_none(d):
         elif isinstance(value, dict):
             del_none(value)
     return d
+
+
 if __name__ == "__main__":
-    update_payments_identifier()
+    update_payment_instrument()

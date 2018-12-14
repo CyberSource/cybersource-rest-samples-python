@@ -3,14 +3,18 @@ import process_payment
 import json
 import os
 from importlib.machinery import SourceFileLoader
+
 config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
 configuration = SourceFileLoader("module.name", config_file).load_module()
+
+
 def capture_a_payment():
     try:
-
+        # Getting the payment_id dynamically using process_a_payment method
         api_payment_response = process_payment.process_a_payment(
             False)
-        id = api_payment_response.id
+        payment_id = api_payment_response.id
+        # Setting the json message body
         request = CapturePaymentRequest()
         client_reference = Ptsv2paymentsClientReferenceInformation()
         client_reference.code = "test_capture"
@@ -24,15 +28,16 @@ def capture_a_payment():
         request.order_information = order_information.__dict__
 
         message_body = (json.dumps(request.__dict__))
-        config_obj=configuration.Configuration()
-        details_dict1=config_obj.get_configuration()
+        # Reading Merchant details from Configuration file
+        config_obj = configuration.Configuration()
+        details_dict1 = config_obj.get_configuration()
         capture_obj = CaptureApi(details_dict1)
-        return_data, status, body = capture_obj.capture_payment(message_body, id)
-        print(status)
-        print(body)
+        return_data, status, body = capture_obj.capture_payment(message_body, payment_id)
+        print("API RESPONSE CODE : ", status)
+        print("API RESPONSE BODY : ", body)
         return return_data
     except Exception as e:
-        print(e)
+        print("Exception when calling CaptureApi->capture_payment: %s\n" % e)
 
 
 if __name__ == "__main__":

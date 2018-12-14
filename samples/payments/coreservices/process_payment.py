@@ -2,12 +2,14 @@ from CyberSource import *
 import json
 import os
 from importlib.machinery import SourceFileLoader
+
 config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
 configuration = SourceFileLoader("module.name", config_file).load_module()
 
 
 def process_a_payment(flag):
     try:
+        # Setting the json message body
         request = CreatePaymentRequest()
         client_reference = Ptsv2paymentsClientReferenceInformation()
         client_reference.code = "test_payment"
@@ -73,16 +75,18 @@ def process_a_payment(flag):
         request.order_information = order_information.__dict__
 
         message_body = json.dumps(request.__dict__)
+
+        # Reading Merchant details from Configuration file
         config_obj = configuration.Configuration()
         details_dict1 = config_obj.get_configuration()
         payment_obj = PaymentsApi(details_dict1)
-
         return_data, status, body = payment_obj.create_payment(message_body)
-        print(status)
-        print(body)
+        print("API RESPONSE CODE : ", status)
+        print("API RESPONSE BODY : ", body)
+
         return return_data
     except Exception as e:
-        print(e)
+        print("Exception when calling PaymentsApi->create_payment: %s\n" % e)
 
 
 if __name__ == "__main__":
