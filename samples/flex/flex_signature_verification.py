@@ -15,7 +15,7 @@ def verify(key, postparams):
         raise Flex_Security_Exception("Missing required field: signedFields")
 
     signed_field = (signed_fields.split(","))
-    #print(signed_field)
+    
 
     for i in signed_field:
         signed_list.append(",")
@@ -23,6 +23,3 @@ def verify(key, postparams):
 
     signed_string = "".join(signed_list)
     signed_string = signed_string[1:]
-    #print(signed_string)
-
-    #print("Flex Signature Verification: ",rsa_verify.verify_sign(key, signature, signed_string))

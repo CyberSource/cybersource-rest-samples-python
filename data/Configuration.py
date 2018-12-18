@@ -23,8 +23,8 @@ class Configuration:
         self.log_maximum_size = 10487560
         self.log_directory = os.path.join(os.getcwd(), "Logs")
         # PROXY PARAMETERS
-        self.proxy_address = "userproxy.visa.com"
-        self.proxy_port = ""
+        #self.proxy_address = "userproxy.com"
+        #self.proxy_port = ""
 
     # Assigning the configuration properties in the configuration dictionary
     def get_configuration(self):
@@ -44,6 +44,6 @@ class Configuration:
         configaration_dictionary["log_file_name"] = self.log_file_name
         configaration_dictionary["log_maximum_size"] = self.log_maximum_size
         configaration_dictionary["log_directory"] = self.log_directory
-        configaration_dictionary["proxy_address"] = self.proxy_address
-        configaration_dictionary["proxy_port"] = self.proxy_port
+        #configaration_dictionary["proxy_address"] = self.proxy_address
+        #configaration_dictionary["proxy_port"] = self.proxy_port
         return configaration_dictionary
