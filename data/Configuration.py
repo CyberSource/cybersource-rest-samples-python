@@ -28,22 +28,22 @@ class Configuration:
 
     # Assigning the configuration properties in the configuration dictionary
     def get_configuration(self):
-        configaration_dictionary = ({})
-        configaration_dictionary["authentication_type"] = self.authentication_type
-        configaration_dictionary["merchantid"] = self.merchantid
-        configaration_dictionary["run_environment"] = self.run_environment
-        configaration_dictionary["request_json_path"] = self.request_json_path
-        configaration_dictionary["key_alias"] = self.key_alias
-        configaration_dictionary["key_password"] = self.key_pass
-        configaration_dictionary["key_file_name"] = self.key_file_name
-        configaration_dictionary["keys_directory"] = self.keys_directory
-        configaration_dictionary["merchant_keyid"] = self.merchant_keyid
-        configaration_dictionary["merchant_secretkey"] = self.merchant_secretkey
-        configaration_dictionary["enable_log"] = self.enable_log
-        configaration_dictionary["timeout"] = self.timeout
-        configaration_dictionary["log_file_name"] = self.log_file_name
-        configaration_dictionary["log_maximum_size"] = self.log_maximum_size
-        configaration_dictionary["log_directory"] = self.log_directory
-        #configaration_dictionary["proxy_address"] = self.proxy_address
-        #configaration_dictionary["proxy_port"] = self.proxy_port
-        return configaration_dictionary
+        configuration_dictionary = ({})
+        configuration_dictionary["authentication_type"] = self.authentication_type
+        configuration_dictionary["merchantid"] = self.merchantid
+        configuration_dictionary["run_environment"] = self.run_environment
+        configuration_dictionary["request_json_path"] = self.request_json_path
+        configuration_dictionary["key_alias"] = self.key_alias
+        configuration_dictionary["key_password"] = self.key_pass
+        configuration_dictionary["key_file_name"] = self.key_file_name
+        configuration_dictionary["keys_directory"] = self.keys_directory
+        configuration_dictionary["merchant_keyid"] = self.merchant_keyid
+        configuration_dictionary["merchant_secretkey"] = self.merchant_secretkey
+        configuration_dictionary["enable_log"] = self.enable_log
+        configuration_dictionary["timeout"] = self.timeout
+        configuration_dictionary["log_file_name"] = self.log_file_name
+        configuration_dictionary["log_maximum_size"] = self.log_maximum_size
+        configuration_dictionary["log_directory"] = self.log_directory
+        #configuration_dictionary["proxy_address"] = self.proxy_address
+        #configuration_dictionary["proxy_port"] = self.proxy_port
+        return configuration_dictionary
