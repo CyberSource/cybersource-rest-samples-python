@@ -2,14 +2,15 @@ from CyberSource import *
 import json
 import os
 from importlib.machinery import SourceFileLoader
+
 config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
 configuration = SourceFileLoader("module.name", config_file).load_module()
 
 
 def process_a_payout():
     try:
-
-        request =PtsV2PayoutsPostResponse()
+        # Setting the json message body
+        request = PtsV2PayoutsPostResponse()
         client_reference = Ptsv2paymentsClientReferenceInformation()
         client_reference._code = "33557799"
         request.client_reference_information = client_reference.__dict__
@@ -78,18 +79,16 @@ def process_a_payout():
         recepient_info.country = "US"
         recepient_info.date_of_birth = "19801009"
         request.recipient_information = recepient_info.__dict__
-
         message_body = json.dumps(request.__dict__)
+        # Reading Merchant details from Configuration file
         config_obj = configuration.Configuration()
         details_dict1 = config_obj.get_configuration()
-
         process_payout_obj = ProcessAPayoutApi(details_dict1)
-        return_data, status, body=process_payout_obj.oct_create_payment(message_body)
-        print(status)
-        print(body)
+        return_data, status, body = process_payout_obj.oct_create_payment(message_body)
+        print("API RESPONSE CODE : ", status)
+        print("API RESPONSE BODY : ", body)
     except Exception as e:
-        print(e)
-
+        print("Exception when calling ProcessAPayoutApi->oct_create_payment: %s\n" % e)
 
 
 if __name__ == "__main__":

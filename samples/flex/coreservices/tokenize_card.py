@@ -2,6 +2,7 @@ from CyberSource import *
 import json
 import os
 from importlib.machinery import SourceFileLoader
+
 config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
 configuration = SourceFileLoader("module.name", config_file).load_module()
 
@@ -13,11 +14,15 @@ if __name__ == "__main__" and __package__ is None:
     path.append(dir(path[0]))
     __package__ = "coreservices"
 import keygeneration_noenc
+import flex_signature_verification
+
 
 def tokenize_card():
     try:
+        # Setting the json message body
         tokenize_card = TokenizeRequest()
         card_info = Flexv1tokensCardInfo()
+        # Getting the key_id dynamically
         api_response = keygeneration_noenc.keygeneration_noenc()
         tokenize_card.key_id = api_response.key_id
 
@@ -26,20 +31,17 @@ def tokenize_card():
         card_info.card_type = "002"
         card_info.card_expiration_month = "03"
         tokenize_card.card_info = card_info.__dict__
-
         message_body = json.dumps(tokenize_card.__dict__)
+        # Reading Merchant details from Configuration file
         config_obj = configuration.Configuration()
         details_dict1 = config_obj.get_configuration()
         tokenize_obj = FlexTokenApi(details_dict1)
         return_data, status, body = tokenize_obj.tokenize(tokenize_request=message_body)
-        print(status)
-        print(body)
+        print("API RESPONSE CODE : ", status)
+        print("API RESPONSE BODY : ", body)
+        flex_signature_verification.verify(api_response.der.public_key,json.loads(body))
     except Exception as e:
-        print(e)
-
-
-
-
+        print("Exception when calling FlexTokenApi->tokenize: %s\n" % e)
 
 
 if __name__ == "__main__":
