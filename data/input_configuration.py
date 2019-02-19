@@ -1,7 +1,7 @@
 import os
+from CyberSource.configuration import Configuration
 
-
-class Configuration:
+class InputConfiguration:
     def __init__(self):
         self.authentication_type ="http_signature"
         self.merchantid = "testrest"
@@ -46,4 +46,16 @@ class Configuration:
         configuration_dictionary["log_directory"] = self.log_directory
         #configuration_dictionary["proxy_address"] = self.proxy_address
         #configuration_dictionary["proxy_port"] = self.proxy_port
+        #self.set_config()
         return configuration_dictionary
+
+    '''def set_config(self):
+        #logger_file = self.log_directory
+        config = Configuration()
+        # config_logger.proxy = True
+        # http = urllib3.ProxyManager('https://userproxy.visa.com:443', maxsize=1)
+        # config.proxy = 'http://userproxy.visa.com:80'
+        config.debug = self.enable_log
+        #config.logger_file = logger_file
+        # config_logger.logger_file_handler = 'Logs'
+        # config_logger.logger_stream_handler = sys.stdout'''
