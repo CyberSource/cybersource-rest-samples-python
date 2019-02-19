@@ -1,14 +1,16 @@
 from CyberSource import *
 import json
 import os
+import inspect
 from importlib.machinery import SourceFileLoader
 
-config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
+config_file = os.path.join(os.getcwd(), "data", "input_configuration.py")
 configuration = SourceFileLoader("module.name", config_file).load_module()
 
 
 def process_a_credit():
     try:
+        print("\n[BEGIN] EXECUTION OF SAMPLE CODE:" + inspect.currentframe().f_code.co_name)
         # Setting the json message body
         request = CreateCreditRequest()
         client_reference = Ptsv2paymentsClientReferenceInformation()
@@ -42,17 +44,29 @@ def process_a_credit():
         request.order_information = order_information.__dict__
         request.payment_information = payment_information.__dict__
         message_body = json.dumps(request.__dict__)
+
         # Reading Merchant details from Configuration file
-        config_obj = configuration.Configuration()
+        config_obj = configuration.InputConfiguration()
         details_dict1 = config_obj.get_configuration()
         credit_obj = CreditApi(details_dict1)
-        return_data, status, body = credit_obj.create_credit(message_body)
-        print("API RESPONSE CODE : ", status)
-        print("API RESPONSE BODY : ", body)
-        return return_data
+        # Calling api_client variable in Configuration file
+        config = Configuration()
+        print("\nAPI REQUEST BODY: ",
+              config.api_client.masking(json.dumps(config.api_client.replace_underscore(json.loads(message_body)))))
+        response_data = credit_obj.create_credit(message_body)
+        # Calling api_client variable in Configuration file
+        request_headers = config.api_client.request_headers
+        # Statements to print on console
+        print("\nAPI REQUEST HEADERS: ", request_headers)
+        print("\nAPI RESPONSE CODE : ", response_data.status)
+        print("\nAPI RESPONSE BODY : ", response_data.data)
+        print("\nAPI RESPONSE HEADERS: ", response_data.getheaders())
+        return json.loads(response_data.data)
 
     except Exception as e:
-        print("Exception when calling CreditApi->create_credit: %s\n" % e)
+        print("\nException when calling CreditApi->create_credit: %s\n" % e)
+    finally:
+        print("\n[END] EXECUTION OF SAMPLE CODE:" + inspect.currentframe().f_code.co_name)
 
 
 if __name__ == "__main__":
