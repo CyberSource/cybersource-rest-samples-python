@@ -14,8 +14,7 @@ def generate_key():
         details_dict1 = config_obj.get_configuration()
         key_generation_obj = KeyGenerationApi(details_dict1)
         # Setting the json message body
-        key_generation = GeneratePublicKeyRequest()
-        key_generation.encryption_type = "RsaOaep256"
+        key_generation = GeneratePublicKeyRequest(encryption_type = "RsaOaep256")
         message_body = json.dumps(key_generation.__dict__)
         return_data, status, body = key_generation_obj.generate_public_key(generate_public_key_request=message_body)
         print("API RESPONSE CODE : ",status)

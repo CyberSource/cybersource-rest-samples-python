@@ -23,3 +23,4 @@ def verify(key, postparams):
 
     signed_string = "".join(signed_list)
     signed_string = signed_string[1:]
+    print("Flex Signature Verification: ", rsa_verify.verify_sign(key, signature, signed_string))

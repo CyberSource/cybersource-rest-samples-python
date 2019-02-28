@@ -10,11 +10,11 @@ configuration = SourceFileLoader("module.name", config_file).load_module()
 def create_adhoc_report():
     try:
         # Setting the json message body
-        request = RequestBody1()
+        request = RequestBody()
         request.report_definition_name = "TransactionRequestClass"
         request.timezone = "GMT"
         request.report_mime_type = "application/xml"
-        request.report_name = "cybersource-dec-17"
+        request.report_name = "testrest_v2"
         request.report_start_time = "2018-09-01T12:00:00+05:00"
         request.report_end_time = "2018-09-02T12:00:00+05:00"
         request.report_filters = {
