@@ -11,15 +11,10 @@ configuration = SourceFileLoader("module.name", config_file).load_module()
 def create_report_subscription():
     try:
         # Setting the json message body
-        request = RequestBody()
-        request.report_definition_name = "TransactionRequestClass"
-        request.report_fields = ["Request.RequestID", "Request.TransactionDate", "Request.MerchantID"]
-        request.report_mime_type = "application/xml"
-        request.report_frequency = "WEEKLY"
-        request.timezone = "GMT"
-        request.start_time = "0827"
-        request.start_day = 1
-        request.report_name = "Cybersource-rest-py"
+        request = RequestBody1(report_definition_name="TransactionRequestClass",
+                               report_fields=["Request.RequestID", "Request.TransactionDate", "Request.MerchantID"],
+                               report_mime_type="application/xml", report_frequency="WEEKLY",
+                               report_name="Cybersource-rest-py", timezone="GMT", start_time="0847")
         message_body = json.dumps(request.__dict__)
         # Reading Merchant details from Configuration file
         config_obj = configuration.Configuration()
