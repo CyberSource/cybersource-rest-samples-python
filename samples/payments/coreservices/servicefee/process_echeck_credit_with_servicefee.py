@@ -6,7 +6,7 @@ from importlib.machinery import SourceFileLoader
 config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
 configuration = SourceFileLoader("module.name", config_file).load_module()
 
- #Following code is to handle the Sibling Package Import
+#Following code is to handle the Sibling Package Import
 if __name__ == "__main__" and __package__ is None:
     from sys import path
     from os.path import dirname as dir
@@ -16,25 +16,29 @@ if __name__ == "__main__" and __package__ is None:
 
 import process_payment
 
-#This is sample code to process echeck credit with service fee 
-# Sample code intially makes transaction and refunds   
 def process_echeck_credit_with_servicefee():
     try:
         # Getting the payment_id dynamically using process_a_payment method
         api_payment_response = process_payment.process_a_payment(True)
+		
         payment_id = api_payment_response.id
-        # Setting the json message body
+		
+        # Setting the request body
         request = RefundPaymentRequest()
+		
         client_reference = Ptsv2paymentsClientReferenceInformation()
         client_reference._code = "test_refund_payment"
+		
         request.client_reference_information = client_reference.__dict__
 
-        processing_information=Ptsv2paymentsProcessingInformation()
-        processing_information.commerce_indicator="internet"
-        request.processing_information=processing_information.__dict__
+        processing_information = Ptsv2paymentsProcessingInformation()
+        processing_information.commerce_indicator = "internet"
+		
+        request.processing_information = processing_information.__dict__
 
-         #Set order information details and makes sure we set bill to information 
+        # Setting order information details and bill to information 
         order_information = Ptsv2paymentsOrderInformation()
+		
         bill_to = Ptsv2paymentsOrderInformationBillTo()
         bill_to.country = "US"
         bill_to.last_name = "Doe"
@@ -47,45 +51,49 @@ def process_echeck_credit_with_servicefee():
         bill_to.phone_number = "999999999"
         bill_to.district = "MI"
         bill_to.building_number = "123"
-        bill_to.company = "Visa"
+        bill_to.company = "ABC Company"
         bill_to.email = "test@cybs.com"
 
-         #set the ampunt details which needs to be refunded
+        # Setting the amount details which needs to be refunded
         amount_details = Ptsv2paymentsOrderInformationAmountDetails()
         amount_details.total_amount = "2325.00"
         amount_details.currency = "USD"
-        amount_details.service_fee_amount="30.0"
+        amount_details.service_fee_amount = "30.00"
 
         order_information.bill_to = bill_to.__dict__
         order_information.amount_details = amount_details.__dict__
+		
         request.order_information = order_information.__dict__
     
-        #set payment information. Make sure we set bank information details
+        # Setting payment information. Make sure we set bank information details
         payment_info = Ptsv2paymentsPaymentInformation()
+		
         payment_info_bank = Ptsv2paymentsPaymentInformationBank()
-        payment_info_bank_account_info=Ptsv2paymentsPaymentInformationBankAccount();
-        payment_info_bank_account_info.number="4100"
-        payment_info_bank_account_info.type="C"
-        payment_info_bank.account=payment_info_bank_account_info.__dict__
-        payment_info_bank.routing_number="071923284";
-        payment_info.bank=payment_info_bank.__dict__;
+        payment_info_bank_account_info = Ptsv2paymentsPaymentInformationBankAccount();
+        payment_info_bank_account_info.number = "4100"
+        payment_info_bank_account_info.type = "C"
+        payment_info_bank.account = payment_info_bank_account_info.__dict__
+        payment_info_bank.routing_number = "071923284";
+        payment_info.bank = payment_info_bank.__dict__;
+		
         request.payment_information = payment_info.__dict__
-
-
         
         message_body = json.dumps(request.__dict__)
+		
         # Reading Merchant details from Configuration file
         config_obj = configuration.Configuration()
         details_dict1 = config_obj.get_configuration()
         refund_api = RefundApi(details_dict1)
+		
         return_data, status, body = refund_api.refund_payment(message_body, payment_id)
+		
         print("API RESPONSE CODE : ", status)
         print("API RESPONSE BODY : ", body)
+		
         return return_data
 
     except Exception as e:
         print("Exception when calling RefundApi->refund_payment: %s\n" % e)
-
 
 if __name__ == "__main__":
     process_echeck_credit_with_servicefee()
