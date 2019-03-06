@@ -14,7 +14,7 @@ def get_list_of_batch_files():
         start_time = "2018-10-01T20:34:24.000Z"
         end_time = "2018-10-29T23:27:25.000Z"
         transction_api_obj = TransactionBatchesApi(details_dict1)
-        return_data, status, body = transction_api_obj.pts_v1_transaction_batches_get(start_time, end_time)
+        return_data, status, body = transction_api_obj.get_transaction_batches(start_time, end_time)
         print("API RESPONSE CODE : ", status)
         print("API RESPONSE BODY : ", body)
     except Exception as e:
