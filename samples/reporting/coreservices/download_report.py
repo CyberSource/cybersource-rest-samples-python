@@ -9,8 +9,8 @@ configuration = SourceFileLoader("module.name", config_file).load_module()
 
 def download_reports():
     try:
-        report_name = "testrest_v2"
-        report_date = "2018-09-02"
+        report_name = "ML4IDIBI"
+        report_date = "2019-03-12"
         # Reading Merchant details from Configuration file
         config_obj = configuration.Configuration()
         details_dict1 = config_obj.get_configuration()
