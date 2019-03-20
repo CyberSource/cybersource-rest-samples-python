@@ -8,7 +8,7 @@ configuration = SourceFileLoader("module.name", config_file).load_module()
 
 def get_subscriptions_by_name():
     try:
-        report_name = "Cybersource-rest-py"
+        report_name = "1111muy"
         # Reading Merchant details from Configuration file
         config_obj = configuration.Configuration()
         details_dict1 = config_obj.get_configuration()
