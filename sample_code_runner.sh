@@ -8,8 +8,8 @@ do
     printf '\n#### SKIPPED - %s ####\n' "$p"
   else
     printf '\n\n**** RUNNING - %s ****\n' "$p"
+    python $p
 	FILECOUNT=$((FILECOUNT+1))
   fi
-  python $p
 done < list.txt
 printf '\n\n**** %s Sample Codes ran successfully ****\n' "$FILECOUNT"
