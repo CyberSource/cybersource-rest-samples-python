@@ -26,7 +26,7 @@ You can run each sample directly from the command line.
 ```  
 * Install the Sample Codes (required for running Authentication samples only)
 ```
-	$ python setup.py -e .
+	$ pip install -e .
 ```
 * Run the individual samples by name. For example:
 ```
