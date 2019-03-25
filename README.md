@@ -24,6 +24,10 @@ You can run each sample directly from the command line.
 ```
     $ pip install cybersource-rest-client-python
 ```  
+* Install the Sample Codes (required for running Authentication samples only)
+```
+	$ pip install -e .
+```
 * Run the individual samples by name. For example:
 ```
     $ python [DirectoryPath]\[CodeSampleName]
