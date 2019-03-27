@@ -6,25 +6,35 @@ from importlib.machinery import SourceFileLoader
 config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
 configuration = SourceFileLoader("module.name", config_file).load_module()
 
-def process_echeck_credit(flag):
-    try:
-        # Setting the request body
-        request = CreatePaymentRequest()
+#Following code is to handle the Sibling Package Import
+if __name__ == "__main__" and __package__ is None:
+    from sys import path
+    from os.path import dirname as dir
 
-        # This is the section to set Client reference information details
-        client_reference = Ptsv2paymentsClientReferenceInformation()    
-        client_reference.code = "test_payment"
+    path.append(dir(path[0]))
+    __package__ = "servicefee"
+
+import process_payment
+
+def process_echeck_refund_with_servicefee():
+    try:
+        # Getting the payment_id dynamically using process_a_payment method
+        api_payment_response = process_payment.process_a_payment(True)
+		
+        payment_id = api_payment_response.id
+		
+        # Setting the request body
+        request = RefundPaymentRequest()
+		
+        client_reference = Ptsv2paymentsClientReferenceInformation()
+        client_reference._code = "test_refund_payment"
 		
         request.client_reference_information = client_reference.__dict__
 
-        # This is the secion to set processing information
-        processing_info = Ptsv2paymentsProcessingInformation()
-        processing_info.commerce_indicator = "internet"
-
-        if flag:
-            processing_info.capture = "true"
-
-        request.processing_information = processing_info.__dict__
+        processing_information = Ptsv2paymentsProcessingInformation()
+        processing_information.commerce_indicator = "internet"
+		
+        request.processing_information = processing_information.__dict__
 
         # Setting order information details and bill to information 
         order_information = Ptsv2paymentsOrderInformation()
@@ -46,13 +56,16 @@ def process_echeck_credit(flag):
 
         # Setting the amount details which needs to be refunded
         amount_details = Ptsv2paymentsOrderInformationAmountDetails()
-        amount_details.total_amount = "102.21"
+        amount_details.total_amount = "2325.00"
         amount_details.currency = "USD"
+        amount_details.service_fee_amount = "30.00"
 
         order_information.bill_to = bill_to.__dict__
         order_information.amount_details = amount_details.__dict__
-
-        # Setting payment information and bank information details
+		
+        request.order_information = order_information.__dict__
+    
+        # Setting payment information. Make sure we set bank information details
         payment_info = Ptsv2paymentsPaymentInformation()
 		
         payment_info_bank = Ptsv2paymentsPaymentInformationBank()
@@ -62,25 +75,25 @@ def process_echeck_credit(flag):
         payment_info_bank.account = payment_info_bank_account_info.__dict__
         payment_info_bank.routing_number = "071923284";
         payment_info.bank = payment_info_bank.__dict__;
-
-        request.payment_information = payment_info.__dict__
-        request.order_information = order_information.__dict__
 		
+        request.payment_information = payment_info.__dict__
+        
         message_body = json.dumps(request.__dict__)
-
+		
         # Reading Merchant details from Configuration file
         config_obj = configuration.Configuration()
         details_dict1 = config_obj.get_configuration()
-        payment_obj = PaymentsApi(details_dict1)
+        refund_api = RefundApi(details_dict1)
 		
-        return_data, status, body = payment_obj.create_payment(message_body)
+        return_data, status, body = refund_api.refund_payment(message_body, payment_id)
 		
         print("API RESPONSE CODE : ", status)
         print("API RESPONSE BODY : ", body)
-
+		
         return return_data
+
     except Exception as e:
-        print("Exception when calling PaymentsApi->create_payment: %s\n" % e)
+        print("Exception when calling RefundApi->refund_payment: %s\n" % e)
 
 if __name__ == "__main__":
-    process_echeck_credit(False)
+    process_echeck_refund_with_servicefee()
