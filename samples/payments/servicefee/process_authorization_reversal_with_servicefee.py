@@ -8,7 +8,7 @@ config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
 configuration = SourceFileLoader("module.name", config_file).load_module()
 
 
-def process_service_fee_authorization_reversal():
+def process_authorization_reversal_with_servicefee():
     try:
         # Getting the payment_id dynamically using process_a_payment method
         api_payment_response = process_payment_with_servicefee.process_payment_with_servicefee(False)
@@ -38,4 +38,4 @@ def process_service_fee_authorization_reversal():
 
 
 if __name__ == "__main__":
-    process_service_fee_authorization_reversal()
+    process_authorization_reversal_with_servicefee()
