@@ -14,12 +14,12 @@ if __name__ == "__main__" and __package__ is None:
     path.append(dir(path[0]))
     __package__ = "servicefee"
 
-import process_payment
+import process_echeck_payment_with_servicefee
 
 def process_echeck_refund_with_servicefee():
     try:
         # Getting the payment_id dynamically using process_a_payment method
-        api_payment_response = process_payment.process_a_payment(True)
+        api_payment_response = process_echeck_payment_with_servicefee.process_echeck_payment_with_servicefee(True)
 		
         payment_id = api_payment_response.id
 		
