@@ -12,7 +12,7 @@ def process_echeck_payment(flag):
         request = CreatePaymentRequest()
 		
         client_reference = Ptsv2paymentsClientReferenceInformation()
-        client_reference.code = "test_payment"
+        client_reference.code = "TC46181-6"
 		
         request.client_reference_information = client_reference.__dict__
 
@@ -49,7 +49,7 @@ def process_echeck_payment(flag):
 
         # Setting the amount details which needs to be authorized
         amount_details = Ptsv2paymentsOrderInformationAmountDetails()
-        amount_details.total_amount = "102.21"
+        amount_details.total_amount = "100"
         amount_details.currency = "USD"
 
         order_information.bill_to = bill_to.__dict__
