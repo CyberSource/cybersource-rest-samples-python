@@ -8,6 +8,9 @@ python:
   - "pypy"
   - "pypy3"
   
+env:
+  - PYTHONWARNINGS="ignore:Unverified HTTPS request"
+  
 matrix:
   fast_finish: true
   include:
