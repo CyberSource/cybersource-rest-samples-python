@@ -40,7 +40,7 @@ class JwtUrlConnection(Headers, Connection):
                 response_message = self.delete(logger)
             message = response_message.content.decode("utf-8")
             if self.jwt_method.upper() == GlobalLabelParameters.GET or self.jwt_method.upper() == GlobalLabelParameters.POST or self.jwt_method.upper() == GlobalLabelParameters.PUT:
-                mask_values = lib.sampleapiclient.masking.Masking.masking(response_message.content)
+                mask_values = lib.sampleapiclient.masking.Masking.masking(response_message.content.decode('utf-8'))
                 message = mask_values
             if self.merchantconfig.enable_log is True:
                 logger.info(GlobalLabelParameters.URL + ":   " + self.merchantconfig.url)

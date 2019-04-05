@@ -95,7 +95,7 @@ class HttpConnection(Headers, Connection):
             message = r.content.decode("utf-8")
 
             if not (self.request_type.upper() == GlobalLabelParameters.DELETE):
-                mask_values = lib.sampleapiclient.masking.Masking.masking(r.content)
+                mask_values = lib.sampleapiclient.masking.Masking.masking(r.content.decode('utf-8'))
                 message = mask_values
 
             # Logging the URL,v_c_correlation_id,status code,content
