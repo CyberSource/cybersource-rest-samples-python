@@ -5,7 +5,7 @@ from authenticationsdk.util.GlobalLabelParameters import *
 # This method reads the items to be masked and accordingly masks the response from the server
 def masking(r):
     try:
-        j = json.loads(r)
+        j = json.loads(r.decode('utf-8'))
 
         maskdata = json.dumps(
             remove_key(j, "expirationMonth", "expirationYear", "email", "firstName", "lastName", "phoneNumber",
