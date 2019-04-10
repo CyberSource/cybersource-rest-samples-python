@@ -7,7 +7,7 @@ configuration = SourceFileLoader("module.name", config_file).load_module()
 
 #This is the sample code to get conversion details 
 #Merchant must pass start tiem and endtime 
-def get_conversion_details():
+def get_conversion_detail_transactions():
     try:
         start_time="2019-03-21T00:00:00.0Z"
         end_time="2019-03-21T23:00:00.0Z"
@@ -23,4 +23,4 @@ def get_conversion_details():
 
 
 if __name__ == "__main__":
-    get_conversion_details()
+    get_conversion_detail_transactions()

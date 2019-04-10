@@ -6,7 +6,7 @@ config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
 configuration = SourceFileLoader("module.name", config_file).load_module()
 
 #* This is the method to get net funding information for merchant information user should pass starttime, end time
-def get_netfunding_information_details():
+def get_netfunding_information_for_account_or_merchant():
     try:
         start_time="2019-03-21T00:00:00.0Z"
         end_time="2019-03-21T23:00:00.0Z"
@@ -23,4 +23,4 @@ def get_netfunding_information_details():
 
 
 if __name__ == "__main__":
-    get_netfunding_information_details()
+    get_netfunding_information_for_account_or_merchant()
