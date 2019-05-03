@@ -12,7 +12,7 @@ def retrieve_transaction():
         config_obj = configuration.Configuration()
         details_dict1 = config_obj.get_configuration()
         transction_details_obj = TransactionDetailsApi(details_dict1)
-        retrieve_transaction_id = "5526393937886329903001"
+        retrieve_transaction_id = "5568628895326770703005"
         return_data, status, body = transction_details_obj.get_transaction(retrieve_transaction_id)
         print("API RESPONSE CODE : ", status)
         print("API RESPONSE BODY : ", body)
