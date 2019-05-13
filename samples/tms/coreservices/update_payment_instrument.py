@@ -13,14 +13,11 @@ def update_payment_instrument():
         # Getting the api_payment_response-id dynamically using retrieve_payment_instrument method
         api_payment_response = retrieve_payment_instrument.retrieve_payment_instrument()
         # Setting the json message body
-        request = Body3()
-        card_info = Tmsv1paymentinstrumentsCard()
-        card_info.expiration_month = "09"
-        card_info.expiration_year = "2022"
-        card_info.type = "visa"
+        request = UpdatePaymentInstrumentRequest()
+        card_info = TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedCard("09","2022","visa")
         request.card = card_info.__dict__
 
-        bill_to_info = Tmsv1paymentinstrumentsBillTo()
+        bill_to_info = TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedBillTo()
         bill_to_info.first_name = "John"
         bill_to_info.last_name = "Deo"
         bill_to_info.company = "CyberSource"
@@ -34,9 +31,9 @@ def update_payment_instrument():
         bill_to_info.phone_number = "555123456"
         request.bill_to = bill_to_info.__dict__
 
-        instument_identifier = Tmsv1paymentinstrumentsInstrumentIdentifier()
+        instument_identifier = TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedInstrumentIdentifier()
 
-        card_info = Tmsv1instrumentidentifiersCard()
+        card_info = TmsV1InstrumentIdentifiersPost200ResponseCard()
         card_info.number = "4111111111111111"
         instument_identifier.card = card_info.__dict__
         request.instrument_identifier = instument_identifier.__dict__
@@ -45,14 +42,14 @@ def update_payment_instrument():
         # Reading Merchant details from Configuration file
         config_obj = configuration.Configuration()
         details_dict1 = config_obj.get_configuration()
-        payment_instrument_obj = PaymentInstrumentsApi(details_dict1)
-        return_data, status, body = payment_instrument_obj.tms_v1_paymentinstruments_token_id_patch(
+        payment_instrument_obj = PaymentInstrumentApi(details_dict1)
+        return_data, status, body = payment_instrument_obj.update_payment_instrument(
             "93B32398-AD51-4CC2-A682-EA3E93614EB1", api_payment_response.id, message_body)
         print("API RESPONSE CODE : ", status)
         print("API RESPONSE BODY : ", body)
 
     except Exception as e:
-        print("Exception when calling PaymentInstrumentsApi->tms_v1_paymentinstruments_token_id_patch: %s\n" % e)
+        print("Exception when calling PaymentInstrumentApi->update_payment_instrument: %s\n" % e)
 
 # To delete None values in Input Request Json body
 def del_none(d):
