@@ -15,7 +15,7 @@ def get_netfunding_information_for_account_or_merchant():
         config_obj = configuration.Configuration()
         details_dict1 = config_obj.get_configuration()
         get_netFundings_obj = NetFundingsApi(details_dict1)
-        return_data, status, body = get_netFundings_obj.get_net_funding_info(start_time,end_time, organization_id="testrest")
+        return_data, status, body = get_netFundings_obj.get_net_funding_details(start_time,end_time, organization_id="testrest")
         print("API RESPONSE CODE : ", status)
         print("API RESPONSE BODY : ", body)
     except Exception as e:

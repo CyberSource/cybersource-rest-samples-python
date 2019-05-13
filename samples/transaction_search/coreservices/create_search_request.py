@@ -10,13 +10,13 @@ configuration = SourceFileLoader("module.name", config_file).load_module()
 def create_search_request():
     try:
         # Setting the json message body
-        create_search_request = TssV2TransactionsPostResponse()
+        create_search_request = CreateSearchRequest()
         create_search_request.save = "false"
         create_search_request.name = "TSS search"
         create_search_request.timezone = "America/Chicago"
         create_search_request.query = "clientReferenceInformation.code:12345"
         create_search_request.offset = 0
-        create_search_request.limit = 100
+        create_search_request.limit = 10
         create_search_request.sort = "id:asc, submitTimeUtc:asc"
         message_body = json.dumps(create_search_request.__dict__)
         # Reading Merchant details from Configuration file

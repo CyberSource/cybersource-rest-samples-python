@@ -15,13 +15,13 @@ def remove_instrument_identifiers():
         config_obj = configuration.Configuration()
         details_dict1 = config_obj.get_configuration()
         instrument_identifier_obj = InstrumentIdentifierApi(details_dict1)
-        return_data, status, body = instrument_identifier_obj.tms_v1_instrumentidentifiers_token_id_delete(
+        return_data, status, body = instrument_identifier_obj.delete_instrument_identifier(
             "93B32398-AD51-4CC2-A682-EA3E93614EB1", api_instrument_response.id)
         print("API RESPONSE CODE : ", status)
         print("API RESPONSE BODY : ", body)
 
     except Exception as e:
-        print("Exception when calling InstrumentIdentifierApi->tms_v1_instrumentidentifiers_token_id_delete: %s\n" % e)
+        print("Exception when calling InstrumentIdentifierApi->delete_instrument_identifier: %s\n" % e)
 
 
 if __name__ == "__main__":

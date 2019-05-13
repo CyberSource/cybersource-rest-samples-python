@@ -10,7 +10,7 @@ configuration = SourceFileLoader("module.name", config_file).load_module()
 def process_a_payout():
     try:
         # Setting the json message body
-        request = PtsV2PayoutsPostResponse()
+        request = OctCreatePaymentRequest()
         client_reference = Ptsv2paymentsClientReferenceInformation()
         client_reference._code = "33557799"
         request.client_reference_information = client_reference.__dict__
@@ -83,7 +83,7 @@ def process_a_payout():
         # Reading Merchant details from Configuration file
         config_obj = configuration.Configuration()
         details_dict1 = config_obj.get_configuration()
-        process_payout_obj = ProcessAPayoutApi(details_dict1)
+        process_payout_obj = PayoutsApi(details_dict1)
         return_data, status, body = process_payout_obj.oct_create_payment(message_body)
         print("API RESPONSE CODE : ", status)
         print("API RESPONSE BODY : ", body)
