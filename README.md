@@ -1,4 +1,5 @@
 # Python Sample Code for the CyberSource SDK
+[![Travis CI Status](https://travis-ci.org/CyberSource/cybersource-rest-samples-python.svg?branch=master)](https://travis-ci.org/CyberSource/cybersource-rest-samples-python)
 
 This repository contains working code samples which demonstrate python integration with the CyberSource REST APIs through the [CyberSource Python SDK](https://github.com/CyberSource/cybersource-rest-client-python).
 
@@ -24,6 +25,10 @@ You can run each sample directly from the command line.
 ```
     $ pip install cybersource-rest-client-python
 ```  
+* Install the Sample Codes (required for running Authentication samples only)
+```
+	$ pip install -e .
+```
 * Run the individual samples by name. For example:
 ```
     $ python [DirectoryPath]\[CodeSampleName]
