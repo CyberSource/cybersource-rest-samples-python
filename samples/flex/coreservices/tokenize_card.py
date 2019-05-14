@@ -19,22 +19,19 @@ import keygeneration_noenc
 def tokenize_card():
     try:
         # Setting the json message body
-        tokenize_card = TokenizeRequest()
-        card_info = Flexv1tokensCardInfo()
+        tokenize_card = TokenizeRequest("None")
+        card_info = Flexv1tokensCardInfo("5555555555554444","03","2031","002")
         # Getting the key_id dynamically
         api_response = keygeneration_noenc.keygeneration_noenc()
+        print(api_response)
         tokenize_card.key_id = api_response.key_id
 
-        card_info.card_expiration_year = "2031"
-        card_info.card_number = "5555555555554444"
-        card_info.card_type = "002"
-        card_info.card_expiration_month = "03"
         tokenize_card.card_info = card_info.__dict__
         message_body = json.dumps(tokenize_card.__dict__)
         # Reading Merchant details from Configuration file
         config_obj = configuration.Configuration()
         details_dict1 = config_obj.get_configuration()
-        tokenize_obj = FlexTokenApi(details_dict1)
+        tokenize_obj = TokenizationApi(details_dict1)
         return_data, status, body = tokenize_obj.tokenize(tokenize_request=message_body)
         print("API RESPONSE CODE : ", status)
         print("API RESPONSE BODY : ", body)
