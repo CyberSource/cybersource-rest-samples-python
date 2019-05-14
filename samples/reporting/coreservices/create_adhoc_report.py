@@ -1,6 +1,8 @@
 from CyberSource import *
 import json
 import os
+import random, string
+from datetime import datetime, timedelta
 from importlib.machinery import SourceFileLoader
 
 config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
@@ -10,13 +12,13 @@ configuration = SourceFileLoader("module.name", config_file).load_module()
 def create_adhoc_report():
     try:
         # Setting the json message body
-        request = RequestBody1()
+        request = RequestBody()
         request.report_definition_name = "TransactionRequestClass"
         request.timezone = "GMT"
         request.report_mime_type = "application/xml"
-        request.report_name = "cybersource-dec-17"
-        request.report_start_time = "2018-09-01T12:00:00+05:00"
-        request.report_end_time = "2018-09-02T12:00:00+05:00"
+        request.report_name = "".join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(8))
+        request.report_start_time = (datetime.now() - timedelta(days=5)).strftime("%Y-%m-%dT%H:%M:%SZ%Z")
+        request.report_end_time = (datetime.now() - timedelta(days=3)).strftime("%Y-%m-%dT%H:%M:%SZ%Z")
         request.report_filters = {
             "Application.Name": []
         }
@@ -30,6 +32,7 @@ def create_adhoc_report():
         return_data, status, body = report_obj.create_report(message_body)
         print("API RESPONSE CODE : ", status)
         print("API RESPONSE BODY : ", body)
+        print("REPORT NAME : ", request.report_name)
     except Exception as e:
         print("Exception when calling ReportsApi->create_report: %s\n" % e)
 
