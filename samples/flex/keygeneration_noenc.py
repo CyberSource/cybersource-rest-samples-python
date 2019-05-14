@@ -14,8 +14,7 @@ def keygeneration_noenc():
         details_dict1 = config_obj.get_configuration()
         key_generation_obj = KeyGenerationApi(details_dict1)
         # Setting the json message body
-        key_generation = GeneratePublicKeyRequest("None")
-
+        key_generation = GeneratePublicKeyRequest(encryption_type = "None")
         message_body = json.dumps(key_generation.__dict__)
 
         return_data, status, body = key_generation_obj.generate_public_key(generate_public_key_request=message_body)

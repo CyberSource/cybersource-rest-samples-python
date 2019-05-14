@@ -14,6 +14,7 @@ if __name__ == "__main__" and __package__ is None:
     path.append(dir(path[0]))
     __package__ = "coreservices"
 import keygeneration_noenc
+import flex_signature_verification
 
 
 def tokenize_card():
@@ -35,6 +36,7 @@ def tokenize_card():
         return_data, status, body = tokenize_obj.tokenize(tokenize_request=message_body)
         print("API RESPONSE CODE : ", status)
         print("API RESPONSE BODY : ", body)
+        flex_signature_verification.verify(api_response.der.public_key, json.loads(body))
 
     except Exception as e:
         print("Exception when calling FlexTokenApi->tokenize: %s\n" % e)
