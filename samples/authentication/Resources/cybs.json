@@ -1,0 +1,18 @@
+{
+  "authentication_type":"jwt",
+  "merchantid": "testrest",
+  "run_environment": "CyberSource.Environment.SANDBOX",
+  "key_alias": "testrest",
+  "key_password": "testrest",
+  "key_file_name": "testrest",
+  "keys_directory": "samples/authentication/Resources/",
+  "merchant_keyid": "08c94330-f618-42a3-b09d-e1e43be5efda",
+  "merchant_secretkey": "yBJxy6LjM2TmcPGu+GaJrHtkke25fPpUX+UY6/L/1tE=",
+  "enable_log": true,
+  "log_file_name": "cybs",
+  "log_maximum_size": 10485760,
+  "log_directory": "Logs/",
+  "proxy_address": "userproxy.visa.com",
+  "proxy_port": ""
+}
+
