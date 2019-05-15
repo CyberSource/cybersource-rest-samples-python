@@ -7,7 +7,7 @@ config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
 configuration = SourceFileLoader("module.name", config_file).load_module()
 
 
-def decision_profie_reject():
+def decision_profile_reject():
     try:
         # Setting the json message body
         request = CreateDecisionManagerCaseRequest()
@@ -71,5 +71,5 @@ def decision_profie_reject():
 
 
 if __name__ == "__main__":
-    decision_profie_reject()
+    decision_profile_reject()
 
