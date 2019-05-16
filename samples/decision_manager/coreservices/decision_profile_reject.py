@@ -7,7 +7,7 @@ config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
 configuration = SourceFileLoader("module.name", config_file).load_module()
 
 
-def basic_decision_manager_transaction():
+def decision_profile_reject():
     try:
         # Setting the json message body
         request = CreateDecisionManagerCaseRequest()
@@ -32,12 +32,13 @@ def basic_decision_manager_transaction():
         bill_to.phone_number = "7606160717"
         bill_to.company = "Visa"
         bill_to.email = "test@cybs.com"
+        order_information.bill_to = bill_to.__dict__
 
         amount_details = Riskv1decisionsOrderInformationAmountDetails("USD")
         amount_details.total_amount = "144.14"
 
-        order_information.bill_to = bill_to.__dict__
         order_information.amount_details = amount_details.__dict__
+        request.order_information = order_information.__dict__
 
         payment_info = Riskv1decisionsPaymentInformation()
         card = Riskv1decisionsPaymentInformationCard()
@@ -47,7 +48,11 @@ def basic_decision_manager_transaction():
         payment_info.card = card.__dict__
         request.payment_information = payment_info.__dict__
 
-        request.order_information = order_information.__dict__
+        risk_information = Riskv1decisionsRiskInformation()
+        profile = Riskv1decisionsRiskInformationProfile()
+        profile.name = "profile2"
+        risk_information.profile = profile.__dict__
+        request.risk_information = risk_information.__dict__
 
         message_body = json.dumps(request.__dict__)
 
@@ -66,5 +71,5 @@ def basic_decision_manager_transaction():
 
 
 if __name__ == "__main__":
-    basic_decision_manager_transaction()
+    decision_profile_reject()
 
