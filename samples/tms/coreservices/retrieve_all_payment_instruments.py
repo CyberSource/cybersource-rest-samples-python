@@ -14,8 +14,8 @@ def retrieve_all_payments():
         # Reading Merchant details from Configuration file
         config_obj = configuration.Configuration()
         details_dict1 = config_obj.get_configuration()
-        instrument_identifier = PaymentInstrumentsApi(details_dict1)
-        return_data, status, body = instrument_identifier.tms_v1_instrumentidentifiers_token_id_paymentinstruments_get(
+        instrument_identifier = InstrumentIdentifierApi(details_dict1)
+        return_data, status, body = instrument_identifier.get_all_payment_instruments(
             "93B32398-AD51-4CC2-A682-EA3E93614EB1", api_instrument_identifier_response.id)
         print("API RESPONSE CODE : ", status)
         print("API RESPONSE BODY : ", body)
@@ -23,7 +23,7 @@ def retrieve_all_payments():
 
     except Exception as e:
         print(
-            "Exception when calling PaymentInstrumentsApi->tms_v1_instrumentidentifiers_token_id_paymentinstruments_get: %s\n" % e)
+            "Exception when calling InstrumentIdentifierApi->get_all_payment_instruments: %s\n" % e)
 
 
 if __name__ == "__main__":

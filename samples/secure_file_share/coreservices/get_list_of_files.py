@@ -14,7 +14,7 @@ def get_list_of_files():
         config_obj = configuration.Configuration()
         details_dict1 = config_obj.get_configuration()
         search_transaction_obj = SecureFileShareApi(details_dict1)
-        return_data, status, body = search_transaction_obj.get_file_details(start_date, end_date,
+        return_data, status, body = search_transaction_obj.get_file_detail(start_date, end_date,
                                                                             organization_id="testrest")
         print("API RESPONSE CODE : ", status)
         print("API RESPONSE BODY : ", body)
