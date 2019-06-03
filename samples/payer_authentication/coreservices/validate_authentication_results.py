@@ -33,7 +33,7 @@ def validate_authentication_results():
 
         request.order_information = order_information.__dict__
 
-        consumer_authentication_information = Riskv1authenticationresultsConsumerAuthenticationInformation('PYffv9G3sa1e0CQr5fV0','J4D90zD4yMz45PEFVhHzgA2zwjXnzhQ984Nvw61dAV1')
+        consumer_authentication_information = Riskv1authenticationresultsConsumerAuthenticationInformation('PYffv9G3sa1e0CQr5fV0','eNqdmFmT4jgSgN+J4D90zD4yMz45PEFVhHzgA2zwjXnzhQ984Nvw61dAV1')
 
         request.consumer_authentication_information = consumer_authentication_information.__dict__
 

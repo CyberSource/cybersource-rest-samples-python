@@ -36,8 +36,7 @@ def enroll_with_pending_authentication():
 
         request.buyer_information = buyer_information.__dict__
 
-        consumer_authentication_information = Riskv1authenticationsConsumerAuthenticationInformation(mcc = '', reference_id = '', transaction_mode = '')
-        consumer_authentication_information.transaction_mode = 'MOTO'
+        consumer_authentication_information = Riskv1authenticationsConsumerAuthenticationInformation(mcc = '', reference_id = '', transaction_mode = 'MOTO')
 
         request.consumer_authentication_information = consumer_authentication_information.__dict__
 

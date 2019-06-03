@@ -46,8 +46,7 @@ def authentication_with_new_account():
 
         request.risk_information = risk_information.__dict__
 
-        consumer_authentication_information = Riskv1authenticationsConsumerAuthenticationInformation(mcc = '', reference_id = '', transaction_mode = '')
-        consumer_authentication_information.transaction_mode = 'MOTO'
+        consumer_authentication_information = Riskv1authenticationsConsumerAuthenticationInformation(mcc = '', reference_id = '', transaction_mode = 'MOTO')
 
         request.consumer_authentication_information = consumer_authentication_information.__dict__
 
