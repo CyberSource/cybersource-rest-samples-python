@@ -35,7 +35,7 @@ def authentication_with_new_account():
         customer_account.creation_history = "NEW_ACCOUNT"
 
         account_history = Riskv1authenticationsRiskInformationBuyerHistoryAccountHistory()
-		account_history.ship_address_usage_date = '2017-05-06'
+        account_history.ship_address_usage_date = "2017-05-06"
         account_history.first_use_of_shipping_address = "false"
 
         buyer_history = Riskv1authenticationsRiskInformationBuyerHistory()
