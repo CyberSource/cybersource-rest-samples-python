@@ -7,7 +7,7 @@ config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
 configuration = SourceFileLoader("module.name", config_file).load_module()
 
 
-def create_decision_manager_request():
+def create_decision_manager_case():
     try:
         # Setting the json message body
         request = CreateDecisionManagerCaseRequest()
@@ -66,5 +66,5 @@ def create_decision_manager_request():
 
 
 if __name__ == "__main__":
-    create_decision_manager_request()
+    create_decision_manager_case()
 
