@@ -18,7 +18,7 @@ def get_list_of_batch_files():
         print("API RESPONSE CODE : ", status)
         print("API RESPONSE BODY : ", body)
     except Exception as e:
-        print("Exception when calling TransactionBatchesApi->pts_v1_transaction_batches_get: %s\n" % e)
+        print("Exception when calling TransactionBatchesApi->get_transaction_batches: %s\n" % e)
 
 
 if __name__ == "__main__":

@@ -17,7 +17,7 @@ def get_individual_batch_file():
         print("API RESPONSE CODE : ", status)
         print("API RESPONSE BODY : ", body)
     except Exception as e:
-        print("Exception when calling TransactionBatchApi->pts_v1_transaction_batches_id_get: %s\n" % e)
+        print("Exception when calling TransactionBatchApi->get_transaction_batch_id: %s\n" % e)
 
 
 if __name__ == "__main__":
