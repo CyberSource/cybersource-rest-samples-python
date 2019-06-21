@@ -33,7 +33,7 @@ def create_payment_instrument():
         card_info.number = "4111111111111111"
         instument_identifier.card = card_info.__dict__
         request.instrument_identifier = instument_identifier.__dict__
-        message_body = del_none(request.__dict__)
+        message_body = request.__dict__
         message_body = json.dumps(message_body)
 
         # Reading Merchant details from Configuration file
