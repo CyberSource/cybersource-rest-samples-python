@@ -125,24 +125,6 @@ class StandAloneJWT:
         return {key: self.sanitize_for_serialization(val)
                 for key, val in iteritems(obj_dict)}
 
-    def replace_underscore(self, d):
-        for oldkey, v in list(d.items()):
-            if isinstance(v, dict):
-                if re.findall('[^A-Za-z0-9]', oldkey):
-                    newkey = self.to_camel_case(oldkey)
-                    d[newkey] = d.pop(oldkey)
-                    self.replace_underscore(v)
-            else:
-                for oldkey, w in list(d.items()):
-                    if not isinstance(w, dict):
-                        if re.findall('[^A-Za-z0-9]', oldkey):
-                            newkey = self.to_camel_case(oldkey)
-                            d[newkey] = d.pop(oldkey)
-                    else:
-                        self.replace_underscore(w)
-
-        return d
-        
     def parameters_to_tuples(self, params, collection_formats):
         """
         Get parameters as list of tuples, formatting collections.
