@@ -276,8 +276,7 @@ class StandAloneHttpSignature:
         return 0
     
     def process_get(self):
-        # resource = '/reporting/v3/reports?startTime=2019-05-01T00:00:00.0Z&endTime=2019-05-30T23:59:59.0Z&timeQueryType=executedTime&reportMimeType=application/xml'
-        resource = '/ums/v1/users?organizationId=testrest'
+        resource = '/reporting/v3/reports?startTime=2019-05-01T00:00:00.0Z&endTime=2019-05-30T23:59:59.0Z&timeQueryType=executedTime&reportMimeType=application/xml'
         method = 'get'
         
         time = self.get_time()
