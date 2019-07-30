@@ -14,7 +14,7 @@ def create_search_request():
         create_search_request.save = "false"
         create_search_request.name = "TSS search"
         create_search_request.timezone = "America/Chicago"
-        create_search_request.query = "clientReferenceInformation.code:12345"
+        create_search_request.query = "clientReferenceInformation.code:TC50171_3 AND submitTimeUtc:[NOW/DAY-7DAYS TO NOW/DAY+1DAY}"
         create_search_request.offset = 0
         create_search_request.limit = 10
         create_search_request.sort = "id:asc, submitTimeUtc:asc"
