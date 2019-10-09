@@ -22,7 +22,8 @@ matrix:
     - python: "pypy3"
       # pypy will just crash due to an incompatibility with lxml.
       # Newer versions of pypy seem to crash also, so we probably have to fix with a newer version of lxml
-    - python: "3.5"  
+    - python: "3.4"
+    - python: "3.5"
   
 install:
  - pip install cybersource-rest-client-python
