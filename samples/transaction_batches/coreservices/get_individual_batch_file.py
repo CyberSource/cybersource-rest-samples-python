@@ -12,7 +12,7 @@ def get_individual_batch_file():
         config_obj = configuration.Configuration()
         details_dict1 = config_obj.get_configuration()
         transction_api_obj = TransactionBatchesApi(details_dict1)
-        batch_file_id = "Owcyk6pl"
+        batch_file_id = "20190110"
         return_data, status, body = transction_api_obj.get_transaction_batch_id(batch_file_id)
         print("API RESPONSE CODE : ", status)
         print("API RESPONSE BODY : ", body)

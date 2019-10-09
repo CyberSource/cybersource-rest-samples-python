@@ -8,7 +8,7 @@ configuration = SourceFileLoader("module.name", config_file).load_module()
 
 def download_file_with_file_identifier():
     try:
-        field_id = "VFJSUmVwb3J0LTc4NTVkMTNmLTkzOTgtNTExMy1lMDUzLWEyNTg4ZTBhNzE5Mi5jc3YtMjAxOC0xMC0yMA=="
+        field_id = "QmF0Y2hGaWxlc0RldGFpbFJlcG9ydC5jc3YtMjAxOC0xMC0zMA=="
         # Reading Merchant details from Configuration file
         config_obj = configuration.Configuration()
         details_dict1 = config_obj.get_configuration()
@@ -18,10 +18,9 @@ def download_file_with_file_identifier():
         print("API RESPONSE BODY : ", body)
 
         # The Report obtained is being stored in a CSV file
-        f = open(os.path.join(os.getcwd(), "resources", "fileshare_report.csv"), "a+")
-        f.write("\n********************** Start Of Report***********************\n")
+        file_extension = (api_instance.api_client.last_response.urllib3_response.headers['Content-Type'])[-3:]
+        f = open(os.path.join(os.getcwd(), "resources", "fileshare_report." + file_extension), "a+")
         f.write(body)
-        f.write("\n********************** End Of Report*************************\n")
         f.close()
         print("File Downloaded at the Location :  " + os.path.join(os.getcwd(), "resources", "fileshare_report.csv"))
     except Exception as e:

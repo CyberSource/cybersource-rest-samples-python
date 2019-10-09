@@ -11,7 +11,7 @@ configuration = SourceFileLoader("module.name", config_file).load_module()
 def create_report_subscription():
     try:
         # Setting the json message body
-        request = RequestBody1(report_definition_name="TransactionRequestClass",
+        request = CreateReportSubscriptionRequest(report_definition_name="TransactionRequestClass",
                                report_fields=["Request.RequestID", "Request.TransactionDate", "Request.MerchantID"],
                                report_mime_type="application/xml", report_frequency="WEEKLY",
                                report_name="Cybersource-rest-py", timezone="GMT", start_time="0847")

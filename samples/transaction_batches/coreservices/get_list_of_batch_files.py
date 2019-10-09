@@ -11,8 +11,8 @@ def get_list_of_batch_files():
         # Reading Merchant details from Configuration file
         config_obj = configuration.Configuration()
         details_dict1 = config_obj.get_configuration()
-        start_time = "2018-10-01T20:34:24.000Z"
-        end_time = "2018-10-29T23:27:25.000Z"
+        start_time = "2019-09-25T20:34:24.000Z"
+        end_time = "2019-10-03T23:27:25.000Z"
         transction_api_obj = TransactionBatchesApi(details_dict1)
         return_data, status, body = transction_api_obj.get_transaction_batches(start_time, end_time)
         print("API RESPONSE CODE : ", status)

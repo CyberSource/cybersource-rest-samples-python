@@ -12,7 +12,7 @@ configuration = SourceFileLoader("module.name", config_file).load_module()
 def create_adhoc_report():
     try:
         # Setting the json message body
-        request = RequestBody()
+        request = CreateAdhocReportRequest()
         request.report_definition_name = "TransactionRequestClass"
         request.timezone = "GMT"
         request.report_mime_type = "application/xml"
