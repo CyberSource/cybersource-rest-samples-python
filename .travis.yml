@@ -30,8 +30,7 @@ install:
  - pip install -e .
 
 script:
- - bash test/sample_code_runner.sh
- - cat output.log
-
+# - bash test/sample_code_runner.sh
+# - cat output.log
 # For RoadRunner
-# - python test/RoadRunner.py
+ - python test/RoadRunner.py
