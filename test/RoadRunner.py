@@ -44,7 +44,7 @@ class Test(unittest.TestCase):
 
     def test_cases(self):
         #Loading data from JSON File
-        f = open('test\\executor.json','r')
+        f = open(os.path.join(os.getcwd(), "test", "executor.json"),'r')
         d_roads = json.load(f)
         f.close()
 
