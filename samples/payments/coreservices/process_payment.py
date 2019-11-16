@@ -18,7 +18,7 @@ def process_a_payment(flag):
         processing_info = Ptsv2paymentsProcessingInformation()
 
         if flag:
-            processing_info.capture = "true"
+            processing_info.capture = True
 
         request.processing_information = processing_info.__dict__
 
