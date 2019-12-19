@@ -1,6 +1,6 @@
 from CyberSource import *
 import create_instrument_identifier
-import os
+import os, time
 from importlib.machinery import SourceFileLoader
 
 config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
@@ -11,6 +11,7 @@ def retrieve_instrument_identifier():
     try:
         # Getting the api_instrument_identifier_response-id dynamically using create_instrument_identifier method
         api_instrument_identifier_response = create_instrument_identifier.create_instrument_identifier()
+        print('test', api_instrument_identifier_response.id)
         # Reading Merchant details from Configuration file
         config_obj = configuration.Configuration()
         details_dict1 = config_obj.get_configuration()
