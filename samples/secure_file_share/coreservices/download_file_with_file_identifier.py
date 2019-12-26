@@ -18,7 +18,7 @@ def download_file_with_file_identifier():
         print("API RESPONSE BODY : ", body)
 
         # The Report obtained is being stored in a CSV file
-        file_extension = (api_instance.api_client.last_response.urllib3_response.headers['Content-Type'])[-3:]
+        file_extension = (search_transaction_obj.api_client.last_response.urllib3_response.headers['Content-Type'])[-3:]
         f = open(os.path.join(os.getcwd(), "resources", "fileshare_report." + file_extension), "a+")
         f.write(body)
         f.close()

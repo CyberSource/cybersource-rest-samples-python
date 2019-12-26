@@ -28,7 +28,7 @@ def create_payment_instrument():
         bill_to_info.phone_number = "555123456"
         request.bill_to = bill_to_info.__dict__
 
-        instument_identifier = TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedInstrumentIdentifier()
+        instument_identifier = Tmsv1paymentinstrumentsInstrumentIdentifier()
         card_info = TmsV1InstrumentIdentifiersPost200ResponseCard()
         card_info.number = "4111111111111111"
         instument_identifier.card = card_info.__dict__

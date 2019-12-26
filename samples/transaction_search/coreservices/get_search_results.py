@@ -12,7 +12,7 @@ def get_search_results():
         config_obj = configuration.Configuration()
         details_dict1 = config_obj.get_configuration()
         search_transaction_obj = SearchTransactionsApi(details_dict1)
-        id_input = "ba5d64bb-36a2-424a-a93a-376565f8d1b4"
+        id_input = "49df9838-b120-4b37-9ce6-7e6197270d91"
         return_data, status, body = search_transaction_obj.get_search(id_input)
         print("API RESPONSE CODE : ", status)
         print("API RESPONSE BODY : ", body)
