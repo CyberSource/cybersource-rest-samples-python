@@ -11,7 +11,7 @@ The samples are all completely independent and self-contained. You can analyze t
 You can run each sample directly from the command line.
 
 ## Requirements
-* Python 3.4 or later
+* Python 3.6 or later
 * [CyberSource Account](https://developer.cybersource.com/api/developer-guides/dita-gettingstarted/registration.html)
 * [CyberSource API Keys](https://developer.cybersource.com/api/developer-guides/dita-gettingstarted/registration/createCertSharedKey.html)
 
