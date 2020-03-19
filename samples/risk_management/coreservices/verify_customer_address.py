@@ -15,7 +15,7 @@ def del_none(d):
             del_none(value)
     return d
 
-def verbose_request_with_all_fields():
+def verify_customer_address():
     clientReferenceInformationCode = "addressEg"
     clientReferenceInformationComments = "dav-All fields"
     clientReferenceInformation = Riskv1addressverificationsClientReferenceInformation(
@@ -110,4 +110,4 @@ def verbose_request_with_all_fields():
         print("\nException when calling VerificationApi->verify_customer_address: %s\n" % e)
 
 if __name__ == "__main__":
-    verbose_request_with_all_fields()
+    verify_customer_address()

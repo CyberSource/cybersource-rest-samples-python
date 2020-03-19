@@ -15,7 +15,7 @@ def del_none(d):
             del_none(value)
     return d
 
-def customer_match_denied_parties_list():
+def validate_export_compliance():
     clientReferenceInformationCode = "verification example"
     clientReferenceInformationComments = "Export-basic"
     clientReferenceInformation = Riskv1addressverificationsClientReferenceInformation(
@@ -100,4 +100,4 @@ def customer_match_denied_parties_list():
         print("\nException when calling VerificationApi->validate_export_compliance: %s\n" % e)
 
 if __name__ == "__main__":
-    customer_match_denied_parties_list()
+    validate_export_compliance()
