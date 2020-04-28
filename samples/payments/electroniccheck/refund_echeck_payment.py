@@ -50,7 +50,6 @@ def refund_echeck_payment():
         bill_to.phone_number = "999999999"
         bill_to.district = "MI"
         bill_to.building_number = "123"
-        bill_to.company = "ABC Company"
         bill_to.email = "test@cybs.com"
 
         # Setting the amount details which needs to be refunded

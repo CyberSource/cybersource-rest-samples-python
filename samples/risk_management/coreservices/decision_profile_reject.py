@@ -49,7 +49,7 @@ def decision_profile_reject():
         request.payment_information = payment_info.__dict__
 
         risk_information = Riskv1decisionsRiskInformation()
-        profile = Riskv1decisionsRiskInformationProfile()
+        profile = Ptsv2paymentsRiskInformationProfile()
         profile.name = "profile2"
         risk_information.profile = profile.__dict__
         request.risk_information = risk_information.__dict__

@@ -11,7 +11,7 @@ def process_a_payout():
     try:
         # Setting the json message body
         request = OctCreatePaymentRequest()
-        client_reference = Ptsv2paymentsClientReferenceInformation()
+        client_reference = Ptsv2payoutsClientReferenceInformation()
         client_reference._code = "33557799"
         request.client_reference_information = client_reference.__dict__
 

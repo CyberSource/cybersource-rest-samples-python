@@ -52,7 +52,6 @@ def process_a_payment(flag):
         bill_to.phone_number = "999999999"
         bill_to.district = "MI"
         bill_to.building_number = "123"
-        bill_to.company = "Visa"
         bill_to.email = "test@cybs.com"
 
         amount_details = Ptsv2paymentsOrderInformationAmountDetails()
