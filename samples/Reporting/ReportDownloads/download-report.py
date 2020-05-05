@@ -22,14 +22,13 @@ def download_report():
     organizationId = "testrest"
     reportDate = "2020-03-03"
     reportName = "testrest_subcription_v2989"
-    reportTime = "00:00:00Z"
 
     try:
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = ReportDownloadsApi(client_config)
         api_instance.api_client.download_file_path = os.path.join(os.getcwd(), "resources", "download_report.csv")
-        status, headers = api_instance.download_report(reportDate, reportName, organization_id=organizationId, report_time=reportTime)
+        status, headers = api_instance.download_report(reportDate, reportName, organization_id=organizationId)
 
         print("Download Status : ", status)
         print("Response Headers : ", headers)

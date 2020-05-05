@@ -68,7 +68,7 @@ def dm_with_decision_profile_reject_response():
     )
 
     riskInformationProfileName = "profile2"
-    riskInformationProfile = Riskv1decisionsRiskInformationProfile(
+    riskInformationProfile = Ptsv2paymentsRiskInformationProfile(
         name = riskInformationProfileName
     )
 
