@@ -11,8 +11,7 @@ configuration = SourceFileLoader("module.name", config_file).load_module()
 def capture_a_payment():
     try:
         # Getting the payment_id dynamically using process_a_payment method
-        api_payment_response = process_payment.process_a_payment(
-            False)
+        api_payment_response = process_payment.process_a_payment(False)
         payment_id = api_payment_response.id
         # Setting the json message body
         request = CapturePaymentRequest()

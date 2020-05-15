@@ -7,10 +7,10 @@ config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
 configuration = SourceFileLoader("module.name", config_file).load_module()
 
 
-def create_decision_manager_case():
+def create_bundled_decision_manager_case():
     try:
         # Setting the json message body
-        request = CreateDecisionManagerCaseRequest()
+        request = CreateBundledDecisionManagerCaseRequest()
         client_reference = Riskv1decisionsClientReferenceInformation()
         client_reference.code = "54323007"
         request.client_reference_information = client_reference.__dict__
@@ -56,15 +56,15 @@ def create_decision_manager_case():
         details_dict1 = config_obj.get_configuration()
 
         dm_obj = DecisionManagerApi(details_dict1)
-        return_data, status, body = dm_obj.create_decision_manager_case(message_body)
+        return_data, status, body = dm_obj.create_bundled_decision_manager_case(message_body)
         print("API RESPONSE CODE : ", status)
         print("API RESPONSE BODY : ", body)
 
         return return_data
     except Exception as e:
-        print("Exception when calling DecisionManagerApi->create_decision_manager_case: %s\n" % e)
+        print("Exception when calling DecisionManagerApi->create_bundled_decision_manager_case: %s\n" % e)
 
 
 if __name__ == "__main__":
-    create_decision_manager_case()
+    create_bundled_decision_manager_case()
 
