@@ -13,7 +13,6 @@ def download_file_with_file_identifier():
         config_obj = configuration.Configuration()
         details_dict1 = config_obj.get_configuration()
         search_transaction_obj = SecureFileShareApi(details_dict1)
-        search_transaction_obj.api_client.set_user_defined_accept_header("text/csv")
         return_data, status, body = search_transaction_obj.get_file(field_id, organization_id="testrest")
         print("API RESPONSE CODE : ", status)
         print("API RESPONSE BODY : ", body)
