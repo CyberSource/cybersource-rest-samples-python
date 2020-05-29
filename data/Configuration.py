@@ -5,16 +5,22 @@ class Configuration:
     def __init__(self):
         self.authentication_type ="http_signature"
         self.merchantid = "testrest"
+        self.alternative_merchantid = "testrest_cpctv"
         self.run_environment = "CyberSource.Environment.SANDBOX"
         self.request_json_path = ""
         # JWT PARAMETERS
         self.key_alias = "testrest"
         self.key_pass = "testrest"
         self.key_file_name = "testrest"
+        self.alternative_key_alias = "testrest_cpctv"
+        self.alternative_key_pass = "testrest_cpctv"
+        self.alternative_key_file_name = "testrest_cpctv"
         self.keys_directory = os.path.join(os.getcwd(), "resources")
         # HTTP PARAMETERS
         self.merchant_keyid = "08c94330-f618-42a3-b09d-e1e43be5efda"
         self.merchant_secretkey = "yBJxy6LjM2TmcPGu+GaJrHtkke25fPpUX+UY6/L/1tE="
+        self.alternative_merchant_keyid = "e547c3d3-16e4-444c-9313-2a08784b906a"
+        self.alternative_merchant_secretkey = "JXm4dqKYIxWofM1TIbtYY9HuYo7Cg1HPHxn29f6waRo="
         # CONNECTION TIMEOUT PARAMETER
         self.timeout = 1000
         # LOG PARAMETERS
@@ -39,6 +45,27 @@ class Configuration:
         configuration_dictionary["keys_directory"] = self.keys_directory
         configuration_dictionary["merchant_keyid"] = self.merchant_keyid
         configuration_dictionary["merchant_secretkey"] = self.merchant_secretkey
+        configuration_dictionary["enable_log"] = self.enable_log
+        configuration_dictionary["timeout"] = self.timeout
+        configuration_dictionary["log_file_name"] = self.log_file_name
+        configuration_dictionary["log_maximum_size"] = self.log_maximum_size
+        configuration_dictionary["log_directory"] = self.log_directory
+        #configuration_dictionary["proxy_address"] = self.proxy_address
+        #configuration_dictionary["proxy_port"] = self.proxy_port
+        return configuration_dictionary
+
+    def get_alternative_configuration(self):
+        configuration_dictionary = ({})
+        configuration_dictionary["authentication_type"] = self.authentication_type
+        configuration_dictionary["merchantid"] = self.alternative_merchantid
+        configuration_dictionary["run_environment"] = self.run_environment
+        configuration_dictionary["request_json_path"] = self.request_json_path
+        configuration_dictionary["key_alias"] = self.alternative_key_alias
+        configuration_dictionary["key_password"] = self.alternative_key_pass
+        configuration_dictionary["key_file_name"] = self.alternative_key_file_name
+        configuration_dictionary["keys_directory"] = self.keys_directory
+        configuration_dictionary["merchant_keyid"] = self.alternative_merchant_keyid
+        configuration_dictionary["merchant_secretkey"] = self.alternative_merchant_secretkey
         configuration_dictionary["enable_log"] = self.enable_log
         configuration_dictionary["timeout"] = self.timeout
         configuration_dictionary["log_file_name"] = self.log_file_name
