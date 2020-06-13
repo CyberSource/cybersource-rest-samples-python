@@ -15,31 +15,19 @@ def del_none(d):
             del_none(value)
     return d
 
-def simple_authorizationinternet(flag):
+def authorization_with_customer_token_id():
     clientReferenceInformationCode = "TC50171_3"
     clientReferenceInformation = Ptsv2paymentsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 
-    processingInformationCapture = False
-    if flag:
-        processingInformationCapture = True
-    
-    processingInformation = Ptsv2paymentsProcessingInformation(
-        capture = processingInformationCapture
-    )
-
-    paymentInformationCardNumber = "4111111111111111"
-    paymentInformationCardExpirationMonth = "12"
-    paymentInformationCardExpirationYear = "2031"
-    paymentInformationCard = Ptsv2paymentsPaymentInformationCard(
-        number = paymentInformationCardNumber,
-        expiration_month = paymentInformationCardExpirationMonth,
-        expiration_year = paymentInformationCardExpirationYear
+    paymentInformationCustomerId = "7500BB199B4270EFE05340588D0AFCAD"
+    paymentInformationCustomer = Ptsv2paymentsPaymentInformationCustomer(
+        id = paymentInformationCustomerId
     )
 
     paymentInformation = Ptsv2paymentsPaymentInformation(
-        card = paymentInformationCard.__dict__
+        customer = paymentInformationCustomer.__dict__
     )
 
     orderInformationAmountDetailsTotalAmount = "102.21"
@@ -49,35 +37,12 @@ def simple_authorizationinternet(flag):
         currency = orderInformationAmountDetailsCurrency
     )
 
-    orderInformationBillToFirstName = "John"
-    orderInformationBillToLastName = "Doe"
-    orderInformationBillToAddress1 = "1 Market St"
-    orderInformationBillToLocality = "san francisco"
-    orderInformationBillToAdministrativeArea = "CA"
-    orderInformationBillToPostalCode = "94105"
-    orderInformationBillToCountry = "US"
-    orderInformationBillToEmail = "test@cybs.com"
-    orderInformationBillToPhoneNumber = "4158880000"
-    orderInformationBillTo = Ptsv2paymentsOrderInformationBillTo(
-        first_name = orderInformationBillToFirstName,
-        last_name = orderInformationBillToLastName,
-        address1 = orderInformationBillToAddress1,
-        locality = orderInformationBillToLocality,
-        administrative_area = orderInformationBillToAdministrativeArea,
-        postal_code = orderInformationBillToPostalCode,
-        country = orderInformationBillToCountry,
-        email = orderInformationBillToEmail,
-        phone_number = orderInformationBillToPhoneNumber
-    )
-
     orderInformation = Ptsv2paymentsOrderInformation(
-        amount_details = orderInformationAmountDetails.__dict__,
-        bill_to = orderInformationBillTo.__dict__
+        amount_details = orderInformationAmountDetails.__dict__
     )
 
     requestObj = CreatePaymentRequest(
         client_reference_information = clientReferenceInformation.__dict__,
-        processing_information = processingInformation.__dict__,
         payment_information = paymentInformation.__dict__,
         order_information = orderInformation.__dict__
     )
@@ -101,4 +66,4 @@ def simple_authorizationinternet(flag):
         print("\nException when calling PaymentsApi->create_payment: %s\n" % e)
 
 if __name__ == "__main__":
-    simple_authorizationinternet(False)
+    authorization_with_customer_token_id()

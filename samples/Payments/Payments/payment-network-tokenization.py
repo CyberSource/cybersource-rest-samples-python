@@ -25,7 +25,7 @@ def payment_network_tokenization(flag):
     if flag:
         processingInformationCapture = True
 
-    processingInformationCommerceIndicator = "internet"
+    processingInformationCommerceIndicator = "vbv"
     processingInformation = Ptsv2paymentsProcessingInformation(
         capture = processingInformationCapture,
         commerce_indicator = processingInformationCommerceIndicator

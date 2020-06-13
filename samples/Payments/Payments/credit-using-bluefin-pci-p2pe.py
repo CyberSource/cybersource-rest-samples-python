@@ -15,38 +15,37 @@ def del_none(d):
             del_none(value)
     return d
 
-def electronic_check_standalone_credits():
-    clientReferenceInformationCode = "TC46125-1"
+def credit_using_bluefin_pci_p2pe():
+    clientReferenceInformationCode = "demomerchant"
     clientReferenceInformation = Ptsv2paymentsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 
-    paymentInformationBankAccountType = "C"
-    paymentInformationBankAccountNumber = "4100"
-    paymentInformationBankAccountCheckNumber = "123456"
-    paymentInformationBankAccount = Ptsv2paymentsPaymentInformationBankAccount(
-        type = paymentInformationBankAccountType,
-        number = paymentInformationBankAccountNumber,
-        check_number = paymentInformationBankAccountCheckNumber
+    processingInformationCommerceIndicator = "retail"
+    processingInformation = Ptsv2creditsProcessingInformation(
+        commerce_indicator = processingInformationCommerceIndicator
     )
 
-    paymentInformationBankRoutingNumber = "071923284"
-    paymentInformationBank = Ptsv2paymentsPaymentInformationBank(
-        account = paymentInformationBankAccount.__dict__,
-        routing_number = paymentInformationBankRoutingNumber
+    paymentInformationCardExpirationMonth = "12"
+    paymentInformationCardExpirationYear = "2050"
+    paymentInformationCard = Ptsv2paymentsidrefundsPaymentInformationCard(
+        expiration_month = paymentInformationCardExpirationMonth,
+        expiration_year = paymentInformationCardExpirationYear
     )
 
-    paymentInformationPaymentTypeName = "CHECK"
-    paymentInformationPaymentType = Ptsv2paymentsPaymentInformationPaymentType(
-        name = paymentInformationPaymentTypeName
+    paymentInformationFluidDataDescriptor = "Ymx1ZWZpbg=="
+    paymentInformationFluidDataValue = "02d700801f3c20008383252a363031312a2a2a2a2a2a2a2a303030395e46444d53202020202020202020202020202020202020202020205e323231322a2a2a2a2a2a2a2a3f2a3b363031312a2a2a2a2a2a2a2a303030393d323231322a2a2a2a2a2a2a2a3f2a7a75ad15d25217290c54b3d9d1c3868602136c68d339d52d98423391f3e631511d548fff08b414feac9ff6c6dede8fb09bae870e4e32f6f462d6a75fa0a178c3bd18d0d3ade21bc7a0ea687a2eef64551751e502d97cb98dc53ea55162cdfa395431323439323830303762994901000001a000731a8003"
+    paymentInformationFluidData = Ptsv2paymentsPaymentInformationFluidData(
+        descriptor = paymentInformationFluidDataDescriptor,
+        value = paymentInformationFluidDataValue
     )
 
     paymentInformation = Ptsv2paymentsidrefundsPaymentInformation(
-        bank = paymentInformationBank.__dict__,
-        payment_type = paymentInformationPaymentType.__dict__
+        card = paymentInformationCard.__dict__,
+        fluid_data = paymentInformationFluidData.__dict__
     )
 
-    orderInformationAmountDetailsTotalAmount = "100"
+    orderInformationAmountDetailsTotalAmount = "100.00"
     orderInformationAmountDetailsCurrency = "USD"
     orderInformationAmountDetails = Ptsv2paymentsidcapturesOrderInformationAmountDetails(
         total_amount = orderInformationAmountDetailsTotalAmount,
@@ -54,14 +53,14 @@ def electronic_check_standalone_credits():
     )
 
     orderInformationBillToFirstName = "John"
-    orderInformationBillToLastName = "Doe"
-    orderInformationBillToAddress1 = "1 Market St"
-    orderInformationBillToLocality = "san francisco"
-    orderInformationBillToAdministrativeArea = "CA"
-    orderInformationBillToPostalCode = "94105"
+    orderInformationBillToLastName = "Deo"
+    orderInformationBillToAddress1 = "201 S. Division St."
+    orderInformationBillToLocality = "Ann Arbor"
+    orderInformationBillToAdministrativeArea = "MI"
+    orderInformationBillToPostalCode = "48104-2201"
     orderInformationBillToCountry = "US"
     orderInformationBillToEmail = "test@cybs.com"
-    orderInformationBillToPhoneNumber = "4158880000"
+    orderInformationBillToPhoneNumber = "999999999"
     orderInformationBillTo = Ptsv2paymentsidcapturesOrderInformationBillTo(
         first_name = orderInformationBillToFirstName,
         last_name = orderInformationBillToLastName,
@@ -79,10 +78,21 @@ def electronic_check_standalone_credits():
         bill_to = orderInformationBillTo.__dict__
     )
 
+    pointOfSaleInformationCatLevel = 1
+    pointOfSaleInformationEntryMode = "keyed"
+    pointOfSaleInformationTerminalCapability = 2
+    pointOfSaleInformation = Ptsv2paymentsPointOfSaleInformation(
+        cat_level = pointOfSaleInformationCatLevel,
+        entry_mode = pointOfSaleInformationEntryMode,
+        terminal_capability = pointOfSaleInformationTerminalCapability
+    )
+
     requestObj = CreateCreditRequest(
         client_reference_information = clientReferenceInformation.__dict__,
+        processing_information = processingInformation.__dict__,
         payment_information = paymentInformation.__dict__,
-        order_information = orderInformation.__dict__
+        order_information = orderInformation.__dict__,
+        point_of_sale_information = pointOfSaleInformation.__dict__
     )
 
 
@@ -104,4 +114,4 @@ def electronic_check_standalone_credits():
         print("\nException when calling CreditApi->create_credit: %s\n" % e)
 
 if __name__ == "__main__":
-    electronic_check_standalone_credits()
+    credit_using_bluefin_pci_p2pe()

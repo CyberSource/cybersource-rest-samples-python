@@ -15,52 +15,48 @@ def del_none(d):
             del_none(value)
     return d
 
-def zero_dollar_authorization(flag):
-    clientReferenceInformationCode = "1234567890"
+def credit_with_instrument_identifier_token_id():
+    clientReferenceInformationCode = "12345678"
     clientReferenceInformation = Ptsv2paymentsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 
-    processingInformationCapture = False
-    if flag:
-        processingInformationCapture = True
-
-    processingInformation = Ptsv2paymentsProcessingInformation(
-        capture = processingInformationCapture
-    )
-
-    paymentInformationCardNumber = "5555555555554444"
-    paymentInformationCardExpirationMonth = "12"
+    paymentInformationCardExpirationMonth = "03"
     paymentInformationCardExpirationYear = "2031"
-    paymentInformationCardSecurityCode = "123"
-    paymentInformationCard = Ptsv2paymentsPaymentInformationCard(
-        number = paymentInformationCardNumber,
+    paymentInformationCardType = "001"
+    paymentInformationCard = Ptsv2paymentsidrefundsPaymentInformationCard(
         expiration_month = paymentInformationCardExpirationMonth,
         expiration_year = paymentInformationCardExpirationYear,
-        security_code = paymentInformationCardSecurityCode
+        type = paymentInformationCardType
     )
 
-    paymentInformation = Ptsv2paymentsPaymentInformation(
-        card = paymentInformationCard.__dict__
+    paymentInformationInstrumentIdentifierId = "7500BB199B4270EFE05340588D0AFCII"
+    paymentInformationInstrumentIdentifier = Ptsv2paymentsPaymentInformationInstrumentIdentifier(
+        id = paymentInformationInstrumentIdentifierId
     )
 
-    orderInformationAmountDetailsTotalAmount = "0"
-    orderInformationAmountDetailsCurrency = "USD"
-    orderInformationAmountDetails = Ptsv2paymentsOrderInformationAmountDetails(
+    paymentInformation = Ptsv2paymentsidrefundsPaymentInformation(
+        card = paymentInformationCard.__dict__,
+        instrument_identifier = paymentInformationInstrumentIdentifier.__dict__
+    )
+
+    orderInformationAmountDetailsTotalAmount = "200"
+    orderInformationAmountDetailsCurrency = "usd"
+    orderInformationAmountDetails = Ptsv2paymentsidcapturesOrderInformationAmountDetails(
         total_amount = orderInformationAmountDetailsTotalAmount,
         currency = orderInformationAmountDetailsCurrency
     )
 
     orderInformationBillToFirstName = "John"
-    orderInformationBillToLastName = "Doe"
-    orderInformationBillToAddress1 = "1 Market St"
-    orderInformationBillToLocality = "san francisco"
+    orderInformationBillToLastName = "Deo"
+    orderInformationBillToAddress1 = "900 Metro Center Blvd"
+    orderInformationBillToLocality = "Foster City"
     orderInformationBillToAdministrativeArea = "CA"
-    orderInformationBillToPostalCode = "94105"
+    orderInformationBillToPostalCode = "48104-2201"
     orderInformationBillToCountry = "US"
     orderInformationBillToEmail = "test@cybs.com"
-    orderInformationBillToPhoneNumber = "4158880000"
-    orderInformationBillTo = Ptsv2paymentsOrderInformationBillTo(
+    orderInformationBillToPhoneNumber = "9321499232"
+    orderInformationBillTo = Ptsv2paymentsidcapturesOrderInformationBillTo(
         first_name = orderInformationBillToFirstName,
         last_name = orderInformationBillToLastName,
         address1 = orderInformationBillToAddress1,
@@ -72,14 +68,13 @@ def zero_dollar_authorization(flag):
         phone_number = orderInformationBillToPhoneNumber
     )
 
-    orderInformation = Ptsv2paymentsOrderInformation(
+    orderInformation = Ptsv2paymentsidrefundsOrderInformation(
         amount_details = orderInformationAmountDetails.__dict__,
         bill_to = orderInformationBillTo.__dict__
     )
 
-    requestObj = CreatePaymentRequest(
+    requestObj = CreateCreditRequest(
         client_reference_information = clientReferenceInformation.__dict__,
-        processing_information = processingInformation.__dict__,
         payment_information = paymentInformation.__dict__,
         order_information = orderInformation.__dict__
     )
@@ -92,15 +87,15 @@ def zero_dollar_authorization(flag):
     try:
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
-        api_instance = PaymentsApi(client_config)
-        return_data, status, body = api_instance.create_payment(requestObj)
+        api_instance = CreditApi(client_config)
+        return_data, status, body = api_instance.create_credit(requestObj)
 
         print("\nAPI RESPONSE CODE : ", status)
         print("\nAPI RESPONSE BODY : ", body)
 
         return return_data
     except Exception as e:
-        print("\nException when calling PaymentsApi->create_payment: %s\n" % e)
+        print("\nException when calling CreditApi->create_credit: %s\n" % e)
 
 if __name__ == "__main__":
-    zero_dollar_authorization(False)
+    credit_with_instrument_identifier_token_id()

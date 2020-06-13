@@ -25,11 +25,9 @@ def level_iii_data(flag):
     if flag:
         processingInformationCapture = True
 
-    processingInformationCommerceIndicator = "internet"
     processingInformationPurchaseLevel = "3"
     processingInformation = Ptsv2paymentsProcessingInformation(
         capture = processingInformationCapture,
-        commerce_indicator = processingInformationCommerceIndicator,
         purchase_level = processingInformationPurchaseLevel
     )
 

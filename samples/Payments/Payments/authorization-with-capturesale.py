@@ -15,36 +15,31 @@ def del_none(d):
             del_none(value)
     return d
 
-def zero_dollar_authorization(flag):
-    clientReferenceInformationCode = "1234567890"
+def authorization_with_capturesale():
+    clientReferenceInformationCode = "TC50171_3"
     clientReferenceInformation = Ptsv2paymentsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 
-    processingInformationCapture = False
-    if flag:
-        processingInformationCapture = True
-
+    processingInformationCapture = True
     processingInformation = Ptsv2paymentsProcessingInformation(
         capture = processingInformationCapture
     )
 
-    paymentInformationCardNumber = "5555555555554444"
+    paymentInformationCardNumber = "4111111111111111"
     paymentInformationCardExpirationMonth = "12"
     paymentInformationCardExpirationYear = "2031"
-    paymentInformationCardSecurityCode = "123"
     paymentInformationCard = Ptsv2paymentsPaymentInformationCard(
         number = paymentInformationCardNumber,
         expiration_month = paymentInformationCardExpirationMonth,
-        expiration_year = paymentInformationCardExpirationYear,
-        security_code = paymentInformationCardSecurityCode
+        expiration_year = paymentInformationCardExpirationYear
     )
 
     paymentInformation = Ptsv2paymentsPaymentInformation(
         card = paymentInformationCard.__dict__
     )
 
-    orderInformationAmountDetailsTotalAmount = "0"
+    orderInformationAmountDetailsTotalAmount = "102.21"
     orderInformationAmountDetailsCurrency = "USD"
     orderInformationAmountDetails = Ptsv2paymentsOrderInformationAmountDetails(
         total_amount = orderInformationAmountDetailsTotalAmount,
@@ -103,4 +98,4 @@ def zero_dollar_authorization(flag):
         print("\nException when calling PaymentsApi->create_payment: %s\n" % e)
 
 if __name__ == "__main__":
-    zero_dollar_authorization(False)
+    authorization_with_capturesale()

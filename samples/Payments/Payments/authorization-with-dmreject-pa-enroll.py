@@ -15,24 +15,25 @@ def del_none(d):
             del_none(value)
     return d
 
-def zero_dollar_authorization(flag):
-    clientReferenceInformationCode = "1234567890"
+def authorization_with_dmreject_pa_enroll():
+    clientReferenceInformationCode = "TC50171_3"
     clientReferenceInformation = Ptsv2paymentsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 
-    processingInformationCapture = False
-    if flag:
-        processingInformationCapture = True
 
+    processingInformationActionList = []
+    processingInformationActionList.append("CONSUMER_AUTHENTICATION")
+    processingInformationCapture = False
     processingInformation = Ptsv2paymentsProcessingInformation(
+        action_list = processingInformationActionList,
         capture = processingInformationCapture
     )
 
-    paymentInformationCardNumber = "5555555555554444"
+    paymentInformationCardNumber = "372425119311008"
     paymentInformationCardExpirationMonth = "12"
     paymentInformationCardExpirationYear = "2031"
-    paymentInformationCardSecurityCode = "123"
+    paymentInformationCardSecurityCode = "1234"
     paymentInformationCard = Ptsv2paymentsPaymentInformationCard(
         number = paymentInformationCardNumber,
         expiration_month = paymentInformationCardExpirationMonth,
@@ -44,7 +45,7 @@ def zero_dollar_authorization(flag):
         card = paymentInformationCard.__dict__
     )
 
-    orderInformationAmountDetailsTotalAmount = "0"
+    orderInformationAmountDetailsTotalAmount = "102.21"
     orderInformationAmountDetailsCurrency = "USD"
     orderInformationAmountDetails = Ptsv2paymentsOrderInformationAmountDetails(
         total_amount = orderInformationAmountDetailsTotalAmount,
@@ -58,7 +59,7 @@ def zero_dollar_authorization(flag):
     orderInformationBillToAdministrativeArea = "CA"
     orderInformationBillToPostalCode = "94105"
     orderInformationBillToCountry = "US"
-    orderInformationBillToEmail = "test@cybs.com"
+    orderInformationBillToEmail = "reject@domain.com"
     orderInformationBillToPhoneNumber = "4158880000"
     orderInformationBillTo = Ptsv2paymentsOrderInformationBillTo(
         first_name = orderInformationBillToFirstName,
@@ -103,4 +104,4 @@ def zero_dollar_authorization(flag):
         print("\nException when calling PaymentsApi->create_payment: %s\n" % e)
 
 if __name__ == "__main__":
-    zero_dollar_authorization(False)
+    authorization_with_dmreject_pa_enroll()

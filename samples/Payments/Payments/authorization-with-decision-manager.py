@@ -15,51 +15,41 @@ def del_none(d):
             del_none(value)
     return d
 
-def zero_dollar_authorization(flag):
-    clientReferenceInformationCode = "1234567890"
+def authorization_with_decision_manager():
+    clientReferenceInformationCode = "TSYS_Eh_FE_01"
     clientReferenceInformation = Ptsv2paymentsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 
-    processingInformationCapture = False
-    if flag:
-        processingInformationCapture = True
-
-    processingInformation = Ptsv2paymentsProcessingInformation(
-        capture = processingInformationCapture
-    )
-
-    paymentInformationCardNumber = "5555555555554444"
-    paymentInformationCardExpirationMonth = "12"
-    paymentInformationCardExpirationYear = "2031"
-    paymentInformationCardSecurityCode = "123"
+    paymentInformationCardNumber = "4111111111111111"
+    paymentInformationCardExpirationMonth = "11"
+    paymentInformationCardExpirationYear = "2025"
     paymentInformationCard = Ptsv2paymentsPaymentInformationCard(
         number = paymentInformationCardNumber,
         expiration_month = paymentInformationCardExpirationMonth,
-        expiration_year = paymentInformationCardExpirationYear,
-        security_code = paymentInformationCardSecurityCode
+        expiration_year = paymentInformationCardExpirationYear
     )
 
     paymentInformation = Ptsv2paymentsPaymentInformation(
         card = paymentInformationCard.__dict__
     )
 
-    orderInformationAmountDetailsTotalAmount = "0"
+    orderInformationAmountDetailsTotalAmount = "10"
     orderInformationAmountDetailsCurrency = "USD"
     orderInformationAmountDetails = Ptsv2paymentsOrderInformationAmountDetails(
         total_amount = orderInformationAmountDetailsTotalAmount,
         currency = orderInformationAmountDetailsCurrency
     )
 
-    orderInformationBillToFirstName = "John"
-    orderInformationBillToLastName = "Doe"
-    orderInformationBillToAddress1 = "1 Market St"
-    orderInformationBillToLocality = "san francisco"
+    orderInformationBillToFirstName = "JSON"
+    orderInformationBillToLastName = "RTS"
+    orderInformationBillToAddress1 = "201 S. Division St._1"
+    orderInformationBillToLocality = "Foster City"
     orderInformationBillToAdministrativeArea = "CA"
-    orderInformationBillToPostalCode = "94105"
+    orderInformationBillToPostalCode = "94404"
     orderInformationBillToCountry = "US"
-    orderInformationBillToEmail = "test@cybs.com"
-    orderInformationBillToPhoneNumber = "4158880000"
+    orderInformationBillToEmail = "beforeauth@cybersource.com"
+    orderInformationBillToPhoneNumber = "6504327113"
     orderInformationBillTo = Ptsv2paymentsOrderInformationBillTo(
         first_name = orderInformationBillToFirstName,
         last_name = orderInformationBillToLastName,
@@ -79,7 +69,6 @@ def zero_dollar_authorization(flag):
 
     requestObj = CreatePaymentRequest(
         client_reference_information = clientReferenceInformation.__dict__,
-        processing_information = processingInformation.__dict__,
         payment_information = paymentInformation.__dict__,
         order_information = orderInformation.__dict__
     )
@@ -103,4 +92,4 @@ def zero_dollar_authorization(flag):
         print("\nException when calling PaymentsApi->create_payment: %s\n" % e)
 
 if __name__ == "__main__":
-    zero_dollar_authorization(False)
+    authorization_with_decision_manager()

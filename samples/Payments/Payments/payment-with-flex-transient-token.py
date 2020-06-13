@@ -15,51 +15,30 @@ def del_none(d):
             del_none(value)
     return d
 
-def zero_dollar_authorization(flag):
-    clientReferenceInformationCode = "1234567890"
+def payment_with_flex_transient_token():
+    clientReferenceInformationCode = "TC50171_3"
     clientReferenceInformation = Ptsv2paymentsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 
-    processingInformationCapture = False
-    if flag:
-        processingInformationCapture = True
-
-    processingInformation = Ptsv2paymentsProcessingInformation(
-        capture = processingInformationCapture
-    )
-
-    paymentInformationCardNumber = "5555555555554444"
-    paymentInformationCardExpirationMonth = "12"
-    paymentInformationCardExpirationYear = "2031"
-    paymentInformationCardSecurityCode = "123"
-    paymentInformationCard = Ptsv2paymentsPaymentInformationCard(
-        number = paymentInformationCardNumber,
-        expiration_month = paymentInformationCardExpirationMonth,
-        expiration_year = paymentInformationCardExpirationYear,
-        security_code = paymentInformationCardSecurityCode
-    )
-
-    paymentInformation = Ptsv2paymentsPaymentInformation(
-        card = paymentInformationCard.__dict__
-    )
-
-    orderInformationAmountDetailsTotalAmount = "0"
+    orderInformationAmountDetailsTotalAmount = "102.21"
     orderInformationAmountDetailsCurrency = "USD"
     orderInformationAmountDetails = Ptsv2paymentsOrderInformationAmountDetails(
         total_amount = orderInformationAmountDetailsTotalAmount,
         currency = orderInformationAmountDetailsCurrency
     )
 
-    orderInformationBillToFirstName = "John"
-    orderInformationBillToLastName = "Doe"
-    orderInformationBillToAddress1 = "1 Market St"
-    orderInformationBillToLocality = "san francisco"
-    orderInformationBillToAdministrativeArea = "CA"
-    orderInformationBillToPostalCode = "94105"
+    orderInformationBillToFirstName = "RTS"
+    orderInformationBillToLastName = "VDP"
+    orderInformationBillToAddress1 = "201 S. Division St."
+    orderInformationBillToLocality = "Ann Arbor"
+    orderInformationBillToAdministrativeArea = "MI"
+    orderInformationBillToPostalCode = "48104-2201"
     orderInformationBillToCountry = "US"
+    orderInformationBillToDistrict = "MI"
+    orderInformationBillToBuildingNumber = "123"
     orderInformationBillToEmail = "test@cybs.com"
-    orderInformationBillToPhoneNumber = "4158880000"
+    orderInformationBillToPhoneNumber = "999999999"
     orderInformationBillTo = Ptsv2paymentsOrderInformationBillTo(
         first_name = orderInformationBillToFirstName,
         last_name = orderInformationBillToLastName,
@@ -68,6 +47,8 @@ def zero_dollar_authorization(flag):
         administrative_area = orderInformationBillToAdministrativeArea,
         postal_code = orderInformationBillToPostalCode,
         country = orderInformationBillToCountry,
+        district = orderInformationBillToDistrict,
+        building_number = orderInformationBillToBuildingNumber,
         email = orderInformationBillToEmail,
         phone_number = orderInformationBillToPhoneNumber
     )
@@ -77,11 +58,15 @@ def zero_dollar_authorization(flag):
         bill_to = orderInformationBillTo.__dict__
     )
 
+    tokenInformationTransientTokenJwt = "eyJraWQiOiIwN0JwSE9abkhJM3c3UVAycmhNZkhuWE9XQlhwa1ZHTiIsImFsZyI6IlJTMjU2In0.eyJkYXRhIjp7ImV4cGlyYXRpb25ZZWFyIjoiMjAyMCIsIm51bWJlciI6IjQxMTExMVhYWFhYWDExMTEiLCJleHBpcmF0aW9uTW9udGgiOiIxMCIsInR5cGUiOiIwMDEifSwiaXNzIjoiRmxleC8wNyIsImV4cCI6MTU5MTc0NjAyNCwidHlwZSI6Im1mLTAuMTEuMCIsImlhdCI6MTU5MTc0NTEyNCwianRpIjoiMUMzWjdUTkpaVjI4OVM5MTdQM0JHSFM1T0ZQNFNBRERCUUtKMFFKMzMzOEhRR0MwWTg0QjVFRTAxREU4NEZDQiJ9.cfwzUMJf115K2T9-wE_A_k2jZptXlovls8-fKY0muO8YzGatE5fu9r6aC4q7n0YOvEU6G7XdH4ASG32mWnYu-kKlqN4IY_cquRJeUvV89ZPZ5WTttyrgVH17LSTE2EvwMawKNYnjh0lJwqYJ51cLnJiVlyqTdEAv3DJ3vInXP1YeQjLX5_vF-OWEuZfJxahHfUdsjeGhGaaOGVMUZJSkzpTu9zDLTvpb1px3WGGPu8FcHoxrcCGGpcKk456AZgYMBSHNjr-pPkRr3Dnd7XgNF6shfzIPbcXeWDYPTpS4PNY8ZsWKx8nFQIeROMWCSxIZOmu3Wt71KN9iK6DfOPro7w"
+    tokenInformation = Ptsv2paymentsTokenInformation(
+        transient_token_jwt = tokenInformationTransientTokenJwt
+    )
+
     requestObj = CreatePaymentRequest(
         client_reference_information = clientReferenceInformation.__dict__,
-        processing_information = processingInformation.__dict__,
-        payment_information = paymentInformation.__dict__,
-        order_information = orderInformation.__dict__
+        order_information = orderInformation.__dict__,
+        token_information = tokenInformation.__dict__
     )
 
 
@@ -103,4 +88,4 @@ def zero_dollar_authorization(flag):
         print("\nException when calling PaymentsApi->create_payment: %s\n" % e)
 
 if __name__ == "__main__":
-    zero_dollar_authorization(False)
+    payment_with_flex_transient_token()

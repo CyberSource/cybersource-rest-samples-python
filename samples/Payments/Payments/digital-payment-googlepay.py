@@ -25,11 +25,9 @@ def digital_payment_googlepay(flag):
     if flag:
         processingInformationCapture = True
 
-    processingInformationCommerceIndicator = "internet"
     processingInformationPaymentSolution = "012"
     processingInformation = Ptsv2paymentsProcessingInformation(
         capture = processingInformationCapture,
-        commerce_indicator = processingInformationCommerceIndicator,
         payment_solution = processingInformationPaymentSolution
     )
 

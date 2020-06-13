@@ -25,10 +25,8 @@ def service_fees_with_credit_card_transaction(flag):
     if flag:
         processingInformationCapture = True
 
-    processingInformationCommerceIndicator = "internet"
     processingInformation = Ptsv2paymentsProcessingInformation(
-        capture = processingInformationCapture,
-        commerce_indicator = processingInformationCommerceIndicator
+        capture = processingInformationCapture
     )
 
     paymentInformationCardNumber = "4111111111111111"

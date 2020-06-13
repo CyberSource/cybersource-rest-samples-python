@@ -15,36 +15,49 @@ def del_none(d):
             del_none(value)
     return d
 
-def zero_dollar_authorization(flag):
-    clientReferenceInformationCode = "1234567890"
+def authorization_using_bluefin_pci_p2pe():
+    clientReferenceInformationCode = "demomerchant"
     clientReferenceInformation = Ptsv2paymentsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 
     processingInformationCapture = False
-    if flag:
-        processingInformationCapture = True
-
-    processingInformation = Ptsv2paymentsProcessingInformation(
-        capture = processingInformationCapture
+    processingInformationCommerceIndicator = "retail"
+    processingInformationAuthorizationOptionsPartialAuthIndicator = True
+    processingInformationAuthorizationOptionsIgnoreAvsResult = True
+    processingInformationAuthorizationOptionsIgnoreCvResult = True
+    processingInformationAuthorizationOptions = Ptsv2paymentsProcessingInformationAuthorizationOptions(
+        partial_auth_indicator = processingInformationAuthorizationOptionsPartialAuthIndicator,
+        ignore_avs_result = processingInformationAuthorizationOptionsIgnoreAvsResult,
+        ignore_cv_result = processingInformationAuthorizationOptionsIgnoreCvResult
     )
 
-    paymentInformationCardNumber = "5555555555554444"
+    processingInformation = Ptsv2paymentsProcessingInformation(
+        capture = processingInformationCapture,
+        commerce_indicator = processingInformationCommerceIndicator,
+        authorization_options = processingInformationAuthorizationOptions.__dict__
+    )
+
     paymentInformationCardExpirationMonth = "12"
-    paymentInformationCardExpirationYear = "2031"
-    paymentInformationCardSecurityCode = "123"
+    paymentInformationCardExpirationYear = "2050"
     paymentInformationCard = Ptsv2paymentsPaymentInformationCard(
-        number = paymentInformationCardNumber,
         expiration_month = paymentInformationCardExpirationMonth,
-        expiration_year = paymentInformationCardExpirationYear,
-        security_code = paymentInformationCardSecurityCode
+        expiration_year = paymentInformationCardExpirationYear
+    )
+
+    paymentInformationFluidDataDescriptor = "Ymx1ZWZpbg=="
+    paymentInformationFluidDataValue = "02d700801f3c20008383252a363031312a2a2a2a2a2a2a2a303030395e46444d53202020202020202020202020202020202020202020205e323231322a2a2a2a2a2a2a2a3f2a3b363031312a2a2a2a2a2a2a2a303030393d323231322a2a2a2a2a2a2a2a3f2a7a75ad15d25217290c54b3d9d1c3868602136c68d339d52d98423391f3e631511d548fff08b414feac9ff6c6dede8fb09bae870e4e32f6f462d6a75fa0a178c3bd18d0d3ade21bc7a0ea687a2eef64551751e502d97cb98dc53ea55162cdfa395431323439323830303762994901000001a000731a8003"
+    paymentInformationFluidData = Ptsv2paymentsPaymentInformationFluidData(
+        descriptor = paymentInformationFluidDataDescriptor,
+        value = paymentInformationFluidDataValue
     )
 
     paymentInformation = Ptsv2paymentsPaymentInformation(
-        card = paymentInformationCard.__dict__
+        card = paymentInformationCard.__dict__,
+        fluid_data = paymentInformationFluidData.__dict__
     )
 
-    orderInformationAmountDetailsTotalAmount = "0"
+    orderInformationAmountDetailsTotalAmount = "100.00"
     orderInformationAmountDetailsCurrency = "USD"
     orderInformationAmountDetails = Ptsv2paymentsOrderInformationAmountDetails(
         total_amount = orderInformationAmountDetailsTotalAmount,
@@ -52,14 +65,15 @@ def zero_dollar_authorization(flag):
     )
 
     orderInformationBillToFirstName = "John"
-    orderInformationBillToLastName = "Doe"
-    orderInformationBillToAddress1 = "1 Market St"
-    orderInformationBillToLocality = "san francisco"
-    orderInformationBillToAdministrativeArea = "CA"
-    orderInformationBillToPostalCode = "94105"
+    orderInformationBillToLastName = "Deo"
+    orderInformationBillToAddress1 = "201 S. Division St."
+    orderInformationBillToLocality = "Ann Arbor"
+    orderInformationBillToAdministrativeArea = "MI"
+    orderInformationBillToPostalCode = "48104-2201"
     orderInformationBillToCountry = "US"
+    orderInformationBillToDistrict = "MI"
     orderInformationBillToEmail = "test@cybs.com"
-    orderInformationBillToPhoneNumber = "4158880000"
+    orderInformationBillToPhoneNumber = "999999999"
     orderInformationBillTo = Ptsv2paymentsOrderInformationBillTo(
         first_name = orderInformationBillToFirstName,
         last_name = orderInformationBillToLastName,
@@ -68,6 +82,7 @@ def zero_dollar_authorization(flag):
         administrative_area = orderInformationBillToAdministrativeArea,
         postal_code = orderInformationBillToPostalCode,
         country = orderInformationBillToCountry,
+        district = orderInformationBillToDistrict,
         email = orderInformationBillToEmail,
         phone_number = orderInformationBillToPhoneNumber
     )
@@ -77,11 +92,21 @@ def zero_dollar_authorization(flag):
         bill_to = orderInformationBillTo.__dict__
     )
 
+    pointOfSaleInformationCatLevel = 1
+    pointOfSaleInformationEntryMode = "keyed"
+    pointOfSaleInformationTerminalCapability = 2
+    pointOfSaleInformation = Ptsv2paymentsPointOfSaleInformation(
+        cat_level = pointOfSaleInformationCatLevel,
+        entry_mode = pointOfSaleInformationEntryMode,
+        terminal_capability = pointOfSaleInformationTerminalCapability
+    )
+
     requestObj = CreatePaymentRequest(
         client_reference_information = clientReferenceInformation.__dict__,
         processing_information = processingInformation.__dict__,
         payment_information = paymentInformation.__dict__,
-        order_information = orderInformation.__dict__
+        order_information = orderInformation.__dict__,
+        point_of_sale_information = pointOfSaleInformation.__dict__
     )
 
 
@@ -103,4 +128,4 @@ def zero_dollar_authorization(flag):
         print("\nException when calling PaymentsApi->create_payment: %s\n" % e)
 
 if __name__ == "__main__":
-    zero_dollar_authorization(False)
+    authorization_using_bluefin_pci_p2pe()

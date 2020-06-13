@@ -15,21 +15,36 @@ def del_none(d):
             del_none(value)
     return d
 
-def zero_dollar_authorization(flag):
-    clientReferenceInformationCode = "1234567890"
-    clientReferenceInformation = Ptsv2paymentsClientReferenceInformation(
-        code = clientReferenceInformationCode
+def sale_using_keyed_data_with_balance_inquiry():
+    clientReferenceInformationCode = "123456"
+    clientReferenceInformationPartnerThirdPartyCertificationNumber = "123456789012"
+    clientReferenceInformationPartner = Ptsv2paymentsClientReferenceInformationPartner(
+        third_party_certification_number = clientReferenceInformationPartnerThirdPartyCertificationNumber
     )
 
-    processingInformationCapture = False
-    if flag:
-        processingInformationCapture = True
+    clientReferenceInformation = Ptsv2paymentsClientReferenceInformation(
+        code = clientReferenceInformationCode,
+        partner = clientReferenceInformationPartner.__dict__
+    )
+
+    processingInformationCapture = True
+    processingInformationCommerceIndicator = "retail"
+    processingInformationAuthorizationOptionsPartialAuthIndicator = True
+    processingInformationAuthorizationOptionsIgnoreAvsResult = True
+    processingInformationAuthorizationOptionsIgnoreCvResult = True
+    processingInformationAuthorizationOptions = Ptsv2paymentsProcessingInformationAuthorizationOptions(
+        partial_auth_indicator = processingInformationAuthorizationOptionsPartialAuthIndicator,
+        ignore_avs_result = processingInformationAuthorizationOptionsIgnoreAvsResult,
+        ignore_cv_result = processingInformationAuthorizationOptionsIgnoreCvResult
+    )
 
     processingInformation = Ptsv2paymentsProcessingInformation(
-        capture = processingInformationCapture
+        capture = processingInformationCapture,
+        commerce_indicator = processingInformationCommerceIndicator,
+        authorization_options = processingInformationAuthorizationOptions.__dict__
     )
 
-    paymentInformationCardNumber = "5555555555554444"
+    paymentInformationCardNumber = "4111111111111111"
     paymentInformationCardExpirationMonth = "12"
     paymentInformationCardExpirationYear = "2031"
     paymentInformationCardSecurityCode = "123"
@@ -44,44 +59,30 @@ def zero_dollar_authorization(flag):
         card = paymentInformationCard.__dict__
     )
 
-    orderInformationAmountDetailsTotalAmount = "0"
+    orderInformationAmountDetailsTotalAmount = "100.00"
     orderInformationAmountDetailsCurrency = "USD"
     orderInformationAmountDetails = Ptsv2paymentsOrderInformationAmountDetails(
         total_amount = orderInformationAmountDetailsTotalAmount,
         currency = orderInformationAmountDetailsCurrency
     )
 
-    orderInformationBillToFirstName = "John"
-    orderInformationBillToLastName = "Doe"
-    orderInformationBillToAddress1 = "1 Market St"
-    orderInformationBillToLocality = "san francisco"
-    orderInformationBillToAdministrativeArea = "CA"
-    orderInformationBillToPostalCode = "94105"
-    orderInformationBillToCountry = "US"
-    orderInformationBillToEmail = "test@cybs.com"
-    orderInformationBillToPhoneNumber = "4158880000"
-    orderInformationBillTo = Ptsv2paymentsOrderInformationBillTo(
-        first_name = orderInformationBillToFirstName,
-        last_name = orderInformationBillToLastName,
-        address1 = orderInformationBillToAddress1,
-        locality = orderInformationBillToLocality,
-        administrative_area = orderInformationBillToAdministrativeArea,
-        postal_code = orderInformationBillToPostalCode,
-        country = orderInformationBillToCountry,
-        email = orderInformationBillToEmail,
-        phone_number = orderInformationBillToPhoneNumber
+    orderInformation = Ptsv2paymentsOrderInformation(
+        amount_details = orderInformationAmountDetails.__dict__
     )
 
-    orderInformation = Ptsv2paymentsOrderInformation(
-        amount_details = orderInformationAmountDetails.__dict__,
-        bill_to = orderInformationBillTo.__dict__
+    pointOfSaleInformationEntryMode = "keyed"
+    pointOfSaleInformationTerminalCapability = 2
+    pointOfSaleInformation = Ptsv2paymentsPointOfSaleInformation(
+        entry_mode = pointOfSaleInformationEntryMode,
+        terminal_capability = pointOfSaleInformationTerminalCapability
     )
 
     requestObj = CreatePaymentRequest(
         client_reference_information = clientReferenceInformation.__dict__,
         processing_information = processingInformation.__dict__,
         payment_information = paymentInformation.__dict__,
-        order_information = orderInformation.__dict__
+        order_information = orderInformation.__dict__,
+        point_of_sale_information = pointOfSaleInformation.__dict__
     )
 
 
@@ -103,4 +104,4 @@ def zero_dollar_authorization(flag):
         print("\nException when calling PaymentsApi->create_payment: %s\n" % e)
 
 if __name__ == "__main__":
-    zero_dollar_authorization(False)
+    sale_using_keyed_data_with_balance_inquiry()

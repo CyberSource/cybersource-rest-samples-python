@@ -20,17 +20,9 @@ def del_none(d):
 
 def incremental_authorization():
     id = authorization.authorization_for_incremental_authorization_flow().id
-    clientReferenceInformationPartnerOriginalTransactionId = "12345"
-    clientReferenceInformationPartnerDeveloperId = "12345"
-    clientReferenceInformationPartnerSolutionId = "12345"
-    clientReferenceInformationPartner = Ptsv2paymentsidClientReferenceInformationPartner(
-        original_transaction_id = clientReferenceInformationPartnerOriginalTransactionId,
-        developer_id = clientReferenceInformationPartnerDeveloperId,
-        solution_id = clientReferenceInformationPartnerSolutionId
-    )
-
+    clientReferenceInformationCode = "TC50171_3"
     clientReferenceInformation = Ptsv2paymentsidClientReferenceInformation(
-        partner = clientReferenceInformationPartner.__dict__
+        code = clientReferenceInformationCode
     )
 
     processingInformationAuthorizationOptionsInitiatorStoredCredentialUsed = True
@@ -46,7 +38,7 @@ def incremental_authorization():
         authorization_options = processingInformationAuthorizationOptions.__dict__
     )
 
-    orderInformationAmountDetailsAdditionalAmount = "100"
+    orderInformationAmountDetailsAdditionalAmount = "22.49"
     orderInformationAmountDetailsCurrency = "USD"
     orderInformationAmountDetails = Ptsv2paymentsidOrderInformationAmountDetails(
         additional_amount = orderInformationAmountDetailsAdditionalAmount,
@@ -57,17 +49,12 @@ def incremental_authorization():
         amount_details = orderInformationAmountDetails.__dict__
     )
 
-    merchantDescriptorContact = "965-6000"
-
-    merchantInformationMerchantDescriptor = Ptsv2paymentsMerchantInformationMerchantDescriptor(
-        contact = merchantDescriptorContact
+    merchantInformationTransactionLocalDateTime = "20191002080000"
+    merchantInformation = Ptsv2paymentsidMerchantInformation(
+        transaction_local_date_time = merchantInformationTransactionLocalDateTime
     )
 
-    merchantInformation = Ptsv2paymentsMerchantInformation(
-        merchant_descriptor = merchantInformationMerchantDescriptor.__dict__
-    )
-
-    travelInformationDuration = "3"
+    travelInformationDuration = "4"
     travelInformation = Ptsv2paymentsidTravelInformation(
         duration = travelInformationDuration
     )

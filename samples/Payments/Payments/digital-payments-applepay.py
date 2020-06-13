@@ -25,11 +25,9 @@ def digital_payments_applepay(flag):
     if flag:
         processingInformationCapture = True
 
-    processingInformationCommerceIndicator = "internet"
     processingInformationPaymentSolution = "001"
     processingInformation = Ptsv2paymentsProcessingInformation(
         capture = processingInformationCapture,
-        commerce_indicator = processingInformationCommerceIndicator,
         payment_solution = processingInformationPaymentSolution
     )
 
@@ -60,7 +58,6 @@ def digital_payments_applepay(flag):
     orderInformationBillToFirstName = "John"
     orderInformationBillToLastName = "Deo"
     orderInformationBillToAddress1 = "901 Metro Center Blvd"
-    orderInformationBillToAddress2 = "Desk M3-5573"
     orderInformationBillToLocality = "Foster City"
     orderInformationBillToAdministrativeArea = "CA"
     orderInformationBillToPostalCode = "94404"
@@ -71,7 +68,6 @@ def digital_payments_applepay(flag):
         first_name = orderInformationBillToFirstName,
         last_name = orderInformationBillToLastName,
         address1 = orderInformationBillToAddress1,
-        address2 = orderInformationBillToAddress2,
         locality = orderInformationBillToLocality,
         administrative_area = orderInformationBillToAdministrativeArea,
         postal_code = orderInformationBillToPostalCode,

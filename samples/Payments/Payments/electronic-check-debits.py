@@ -15,20 +15,10 @@ def del_none(d):
             del_none(value)
     return d
 
-def electronic_check_debits(flag):
+def electronic_check_debits():
     clientReferenceInformationCode = "TC50171_3"
     clientReferenceInformation = Ptsv2paymentsClientReferenceInformation(
         code = clientReferenceInformationCode
-    )
-
-    processingInformationCapture = False
-    if flag:
-        processingInformationCapture = True
-
-    processingInformationCommerceIndicator = "internet"
-    processingInformation = Ptsv2paymentsProcessingInformation(
-        capture = processingInformationCapture,
-        commerce_indicator = processingInformationCommerceIndicator
     )
 
     paymentInformationBankAccountType = "C"
@@ -44,8 +34,14 @@ def electronic_check_debits(flag):
         routing_number = paymentInformationBankRoutingNumber
     )
 
+    paymentInformationPaymentTypeName = "CHECK"
+    paymentInformationPaymentType = Ptsv2paymentsPaymentInformationPaymentType(
+        name = paymentInformationPaymentTypeName
+    )
+
     paymentInformation = Ptsv2paymentsPaymentInformation(
-        bank = paymentInformationBank.__dict__
+        bank = paymentInformationBank.__dict__,
+        payment_type = paymentInformationPaymentType.__dict__
     )
 
     orderInformationAmountDetailsTotalAmount = "100"
@@ -81,7 +77,6 @@ def electronic_check_debits(flag):
 
     requestObj = CreatePaymentRequest(
         client_reference_information = clientReferenceInformation.__dict__,
-        processing_information = processingInformation.__dict__,
         payment_information = paymentInformation.__dict__,
         order_information = orderInformation.__dict__
     )
@@ -105,4 +100,4 @@ def electronic_check_debits(flag):
         print("\nException when calling PaymentsApi->create_payment: %s\n" % e)
 
 if __name__ == "__main__":
-    electronic_check_debits(False)
+    electronic_check_debits()

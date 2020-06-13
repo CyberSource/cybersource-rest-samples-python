@@ -15,21 +15,27 @@ def del_none(d):
             del_none(value)
     return d
 
-def zero_dollar_authorization(flag):
-    clientReferenceInformationCode = "1234567890"
+def authorization_with_customer_default_payment_instrument_shipping_address_creation():
+    clientReferenceInformationCode = "TC50171_3"
     clientReferenceInformation = Ptsv2paymentsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 
-    processingInformationCapture = False
-    if flag:
-        processingInformationCapture = True
 
+    processingInformationActionList = []
+    processingInformationActionList.append("TOKEN_CREATE")
+
+    processingInformationActionTokenTypes = []
+    processingInformationActionTokenTypes.append("paymentInstrument")
+    processingInformationActionTokenTypes.append("shippingAddress")
+    processingInformationCapture = False
     processingInformation = Ptsv2paymentsProcessingInformation(
+        action_list = processingInformationActionList,
+        action_token_types = processingInformationActionTokenTypes,
         capture = processingInformationCapture
     )
 
-    paymentInformationCardNumber = "5555555555554444"
+    paymentInformationCardNumber = "4111111111111111"
     paymentInformationCardExpirationMonth = "12"
     paymentInformationCardExpirationYear = "2031"
     paymentInformationCardSecurityCode = "123"
@@ -40,11 +46,17 @@ def zero_dollar_authorization(flag):
         security_code = paymentInformationCardSecurityCode
     )
 
-    paymentInformation = Ptsv2paymentsPaymentInformation(
-        card = paymentInformationCard.__dict__
+    paymentInformationCustomerId = "7500BB199B4270EFE05340588D0AFCAD"
+    paymentInformationCustomer = Ptsv2paymentsPaymentInformationCustomer(
+        id = paymentInformationCustomerId
     )
 
-    orderInformationAmountDetailsTotalAmount = "0"
+    paymentInformation = Ptsv2paymentsPaymentInformation(
+        card = paymentInformationCard.__dict__,
+        customer = paymentInformationCustomer.__dict__
+    )
+
+    orderInformationAmountDetailsTotalAmount = "102.21"
     orderInformationAmountDetailsCurrency = "USD"
     orderInformationAmountDetails = Ptsv2paymentsOrderInformationAmountDetails(
         total_amount = orderInformationAmountDetailsTotalAmount,
@@ -72,16 +84,50 @@ def zero_dollar_authorization(flag):
         phone_number = orderInformationBillToPhoneNumber
     )
 
+    orderInformationShipToFirstName = "John"
+    orderInformationShipToLastName = "Doe"
+    orderInformationShipToAddress1 = "1 Market St"
+    orderInformationShipToLocality = "san francisco"
+    orderInformationShipToAdministrativeArea = "CA"
+    orderInformationShipToPostalCode = "94105"
+    orderInformationShipToCountry = "US"
+    orderInformationShipTo = Ptsv2paymentsOrderInformationShipTo(
+        first_name = orderInformationShipToFirstName,
+        last_name = orderInformationShipToLastName,
+        address1 = orderInformationShipToAddress1,
+        locality = orderInformationShipToLocality,
+        administrative_area = orderInformationShipToAdministrativeArea,
+        postal_code = orderInformationShipToPostalCode,
+        country = orderInformationShipToCountry
+    )
+
     orderInformation = Ptsv2paymentsOrderInformation(
         amount_details = orderInformationAmountDetails.__dict__,
-        bill_to = orderInformationBillTo.__dict__
+        bill_to = orderInformationBillTo.__dict__,
+        ship_to = orderInformationShipTo.__dict__
+    )
+
+    tokenInformationPaymentInstrument_default = True
+    tokenInformationPaymentInstrument = Ptsv2paymentsTokenInformationPaymentInstrument(
+        _default = tokenInformationPaymentInstrument_default
+    )
+
+    tokenInformationShippingAddress_default = True
+    tokenInformationShippingAddress = Ptsv2paymentsTokenInformationShippingAddress(
+        _default = tokenInformationShippingAddress_default
+    )
+
+    tokenInformation = Ptsv2paymentsTokenInformation(
+        payment_instrument = tokenInformationPaymentInstrument.__dict__,
+        shipping_address = tokenInformationShippingAddress.__dict__
     )
 
     requestObj = CreatePaymentRequest(
         client_reference_information = clientReferenceInformation.__dict__,
         processing_information = processingInformation.__dict__,
         payment_information = paymentInformation.__dict__,
-        order_information = orderInformation.__dict__
+        order_information = orderInformation.__dict__,
+        token_information = tokenInformation.__dict__
     )
 
 
@@ -103,4 +149,4 @@ def zero_dollar_authorization(flag):
         print("\nException when calling PaymentsApi->create_payment: %s\n" % e)
 
 if __name__ == "__main__":
-    zero_dollar_authorization(False)
+    authorization_with_customer_default_payment_instrument_shipping_address_creation()

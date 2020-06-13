@@ -15,36 +15,22 @@ def del_none(d):
             del_none(value)
     return d
 
-def zero_dollar_authorization(flag):
-    clientReferenceInformationCode = "1234567890"
+def payment_with_legacy_token():
+    clientReferenceInformationCode = "TC50171_3"
     clientReferenceInformation = Ptsv2paymentsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 
-    processingInformationCapture = False
-    if flag:
-        processingInformationCapture = True
-
-    processingInformation = Ptsv2paymentsProcessingInformation(
-        capture = processingInformationCapture
-    )
-
-    paymentInformationCardNumber = "5555555555554444"
-    paymentInformationCardExpirationMonth = "12"
-    paymentInformationCardExpirationYear = "2031"
-    paymentInformationCardSecurityCode = "123"
-    paymentInformationCard = Ptsv2paymentsPaymentInformationCard(
-        number = paymentInformationCardNumber,
-        expiration_month = paymentInformationCardExpirationMonth,
-        expiration_year = paymentInformationCardExpirationYear,
-        security_code = paymentInformationCardSecurityCode
+    paymentInformationLegacyTokenId = "7500BB199B4270EFE05340588D0AFCAD"
+    paymentInformationLegacyToken = Ptsv2paymentsPaymentInformationLegacyToken(
+        id = paymentInformationLegacyTokenId
     )
 
     paymentInformation = Ptsv2paymentsPaymentInformation(
-        card = paymentInformationCard.__dict__
+        legacy_token = paymentInformationLegacyToken.__dict__
     )
 
-    orderInformationAmountDetailsTotalAmount = "0"
+    orderInformationAmountDetailsTotalAmount = "22"
     orderInformationAmountDetailsCurrency = "USD"
     orderInformationAmountDetails = Ptsv2paymentsOrderInformationAmountDetails(
         total_amount = orderInformationAmountDetailsTotalAmount,
@@ -79,7 +65,6 @@ def zero_dollar_authorization(flag):
 
     requestObj = CreatePaymentRequest(
         client_reference_information = clientReferenceInformation.__dict__,
-        processing_information = processingInformation.__dict__,
         payment_information = paymentInformation.__dict__,
         order_information = orderInformation.__dict__
     )
@@ -103,4 +88,4 @@ def zero_dollar_authorization(flag):
         print("\nException when calling PaymentsApi->create_payment: %s\n" % e)
 
 if __name__ == "__main__":
-    zero_dollar_authorization(False)
+    payment_with_legacy_token()
