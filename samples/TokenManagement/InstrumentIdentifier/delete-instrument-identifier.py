@@ -6,7 +6,7 @@ from importlib.machinery import SourceFileLoader
 config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
 configuration = SourceFileLoader("module.name", config_file).load_module()
 
-tms_file_path = os.path.join(os.getcwd(), "Samples", "TokenManagement", "InstrumentIdentifier", "create-instrument-identifier-card.py")
+tms_file_path = os.path.join(os.getcwd(), "samples", "TokenManagement", "InstrumentIdentifier", "create-instrument-identifier-card.py")
 create_instrument_identifier = SourceFileLoader("module.name", tms_file_path).load_module()
 
 # To delete None values in Input Request Json body

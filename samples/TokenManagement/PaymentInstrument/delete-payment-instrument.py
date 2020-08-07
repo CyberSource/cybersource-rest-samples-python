@@ -7,7 +7,7 @@ from importlib.machinery import SourceFileLoader
 config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
 configuration = SourceFileLoader("module.name", config_file).load_module()
 
-tms_file_path = os.path.join(os.getcwd(), "Samples", "TokenManagement", "PaymentInstrument", "create-payment-instrument-card.py")
+tms_file_path = os.path.join(os.getcwd(), "samples", "TokenManagement", "PaymentInstrument", "create-payment-instrument-card.py")
 create_payment_instrument = SourceFileLoader("module.name", tms_file_path).load_module()
 
 # To delete None values in Input Request Json body
@@ -24,7 +24,7 @@ def delete_payment_instrument():
     api_response = create_payment_instrument.create_payment_instrument_card()
     paymentInstrumentTokenId = api_response.id
 
-    time.sleep(10)
+    time.sleep(15)
 
     try:
         config_obj = configuration.Configuration()
