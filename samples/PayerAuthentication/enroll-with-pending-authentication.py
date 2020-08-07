@@ -17,13 +17,13 @@ def del_none(d):
 
 def enroll_with_pending_authentication():
     clientReferenceInformationCode = "cybs_test"
-    clientReferenceInformation = Riskv1authenticationsClientReferenceInformation(
+    clientReferenceInformation = Riskv1authenticationsetupsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 
     orderInformationAmountDetailsCurrency = "USD"
     orderInformationAmountDetailsTotalAmount = "10.99"
-    orderInformationAmountDetails = Riskv1decisionsOrderInformationAmountDetails(
+    orderInformationAmountDetails = Riskv1authenticationsOrderInformationAmountDetails(
         currency = orderInformationAmountDetailsCurrency,
         total_amount = orderInformationAmountDetailsTotalAmount
     )
@@ -76,8 +76,10 @@ def enroll_with_pending_authentication():
         mobile_phone = buyerInformationMobilePhone
     )
 
+    consumerAuthenticationInformationReturnUrl = "http://localhost:8189/cart/enterprise/collect-term"
     consumerAuthenticationInformationTransactionMode = "MOTO"
-    consumerAuthenticationInformation = Riskv1authenticationsConsumerAuthenticationInformation(
+    consumerAuthenticationInformation = Riskv1decisionsConsumerAuthenticationInformation(
+        return_url = consumerAuthenticationInformationReturnUrl,
         transaction_mode = consumerAuthenticationInformationTransactionMode
     )
 

@@ -1,0 +1,53 @@
+from CyberSource import *
+import os
+import json
+from importlib.machinery import SourceFileLoader
+
+committed_tax_call_request_path = os.path.join(os.getcwd(), "samples", "ValueAddedService", "committed-tax-call-request.py")
+committed_tax_call_request = SourceFileLoader("module.name", committed_tax_call_request_path).load_module()
+
+config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
+configuration = SourceFileLoader("module.name", config_file).load_module()
+
+# To delete None values in Input Request Json body
+def del_none(d):
+    for key, value in list(d.items()):
+        if value is None:
+            del d[key]
+        elif isinstance(value, dict):
+            del_none(value)
+    return d
+
+def void_committed_tax_call():
+    api_payment_response = committed_tax_call_request.committed_tax_call_request()
+    id = api_payment_response.id
+
+    clientReferenceInformationCode = "TAX_TC001"
+    clientReferenceInformation = Vasv2taxidClientReferenceInformation(
+        code = clientReferenceInformationCode
+    )
+
+    requestObj = VoidTaxRequest(
+        client_reference_information = clientReferenceInformation.__dict__
+    )
+
+
+    requestObj = del_none(requestObj.__dict__)
+    requestObj = json.dumps(requestObj)
+
+
+    try:
+        config_obj = configuration.Configuration()
+        client_config = config_obj.get_configuration()
+        api_instance = TaxesApi(client_config)
+        return_data, status, body = api_instance.void_tax(requestObj, id)
+
+        print("\nAPI RESPONSE CODE : ", status)
+        print("\nAPI RESPONSE BODY : ", body)
+
+        return return_data
+    except Exception as e:
+        print("\nException when calling TaxesApi->void_tax: %s\n" % e)
+
+if __name__ == "__main__":
+    void_committed_tax_call()

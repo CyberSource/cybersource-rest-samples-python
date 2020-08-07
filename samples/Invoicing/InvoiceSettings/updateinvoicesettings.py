@@ -27,12 +27,16 @@ def updateinvoicesettings():
         background_color = invoiceSettingsInformationHeaderStyleBackgroundColor
     )
 
+    invoiceSettingsInformationDeliveryLanguage = "en-US"
+    invoiceSettingsInformationDefaultCurrencyCode = "USD"
     invoiceSettingsInformation = InvoicingV2InvoiceSettingsGet200ResponseInvoiceSettingsInformation(
         merchant_logo = invoiceSettingsInformationMerchantLogo,
         merchant_display_name = invoiceSettingsInformationMerchantDisplayName,
         custom_email_message = invoiceSettingsInformationCustomEmailMessage,
         enable_reminders = invoiceSettingsInformationEnableReminders,
-        header_style = invoiceSettingsInformationHeaderStyle.__dict__
+        header_style = invoiceSettingsInformationHeaderStyle.__dict__,
+        delivery_language = invoiceSettingsInformationDeliveryLanguage,
+        default_currency_code = invoiceSettingsInformationDefaultCurrencyCode
     )
 
     requestObj = InvoiceSettingsRequest(

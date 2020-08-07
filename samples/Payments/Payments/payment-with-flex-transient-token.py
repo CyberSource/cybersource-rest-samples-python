@@ -15,30 +15,64 @@ def del_none(d):
             del_none(value)
     return d
 
-def payment_with_flex_transient_token():
-    clientReferenceInformationCode = "TC50171_3"
+def payment_with_flex_transient_token(flag):
+
+    clientReferenceInformationCode = "GABRIEL TEST"
     clientReferenceInformation = Ptsv2paymentsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 
-    orderInformationAmountDetailsTotalAmount = "102.21"
+    orderInformationAmountDetailsTotalAmount = "20.50"
     orderInformationAmountDetailsCurrency = "USD"
     orderInformationAmountDetails = Ptsv2paymentsOrderInformationAmountDetails(
         total_amount = orderInformationAmountDetailsTotalAmount,
         currency = orderInformationAmountDetailsCurrency
     )
 
-    orderInformationBillToFirstName = "RTS"
-    orderInformationBillToLastName = "VDP"
-    orderInformationBillToAddress1 = "201 S. Division St."
-    orderInformationBillToLocality = "Ann Arbor"
-    orderInformationBillToAdministrativeArea = "MI"
-    orderInformationBillToPostalCode = "48104-2201"
+
+    processingInformationCapture = False
+    if flag:
+        processingInformationCapture = True
+
+    processingInformationActionList = []
+    processingInformationActionList.append("TOKEN_CREATE")
+
+    # Valid values: - customer - paymentInstrument - instrumentIdentifier - shippingAddress 
+    processingInformationActionTokenTypes = []
+    processingInformationActionTokenTypes.append("customer")
+    processingInformationActionTokenTypes.append("paymentInstrument")
+    processingInformationActionTokenTypes.append("instrumentIdentifier")
+    #processingInformationActionTokenTypes.append("shippingAddress")
+
+    processingInformationCommerceIndicator = "internet"
+    processingInformation = Ptsv2paymentsProcessingInformation(
+        action_list = processingInformationActionList,   
+        action_token_types = processingInformationActionTokenTypes,
+        capture = processingInformationCapture,
+        commerce_indicator = processingInformationCommerceIndicator
+    )
+
+    paymentInformationCardExpirationMonth = "10"
+    paymentInformationCardExpirationYear = "2032"  
+    paymentInformationCard = Ptsv2paymentsPaymentInformationCard(
+        expiration_month = paymentInformationCardExpirationMonth,
+        expiration_year = paymentInformationCardExpirationYear,
+
+    )
+
+    paymentInformation = Ptsv2paymentsPaymentInformation(
+        card = paymentInformationCard.__dict__
+    ) 
+
+    orderInformationBillToFirstName = "John"
+    orderInformationBillToLastName = "Doe"
+    orderInformationBillToAddress1 = "1 Market St"
+    orderInformationBillToLocality = "san francisco"
+    orderInformationBillToAdministrativeArea = "CA"
+    orderInformationBillToPostalCode = "94105"
     orderInformationBillToCountry = "US"
-    orderInformationBillToDistrict = "MI"
-    orderInformationBillToBuildingNumber = "123"
     orderInformationBillToEmail = "test@cybs.com"
-    orderInformationBillToPhoneNumber = "999999999"
+    orderInformationBillToPhoneNumber = "4158880000"
     orderInformationBillTo = Ptsv2paymentsOrderInformationBillTo(
         first_name = orderInformationBillToFirstName,
         last_name = orderInformationBillToLastName,
@@ -47,8 +81,6 @@ def payment_with_flex_transient_token():
         administrative_area = orderInformationBillToAdministrativeArea,
         postal_code = orderInformationBillToPostalCode,
         country = orderInformationBillToCountry,
-        district = orderInformationBillToDistrict,
-        building_number = orderInformationBillToBuildingNumber,
         email = orderInformationBillToEmail,
         phone_number = orderInformationBillToPhoneNumber
     )
@@ -58,17 +90,18 @@ def payment_with_flex_transient_token():
         bill_to = orderInformationBillTo.__dict__
     )
 
-    tokenInformationTransientTokenJwt = "eyJraWQiOiIwN0JwSE9abkhJM3c3UVAycmhNZkhuWE9XQlhwa1ZHTiIsImFsZyI6IlJTMjU2In0.eyJkYXRhIjp7ImV4cGlyYXRpb25ZZWFyIjoiMjAyMCIsIm51bWJlciI6IjQxMTExMVhYWFhYWDExMTEiLCJleHBpcmF0aW9uTW9udGgiOiIxMCIsInR5cGUiOiIwMDEifSwiaXNzIjoiRmxleC8wNyIsImV4cCI6MTU5MTc0NjAyNCwidHlwZSI6Im1mLTAuMTEuMCIsImlhdCI6MTU5MTc0NTEyNCwianRpIjoiMUMzWjdUTkpaVjI4OVM5MTdQM0JHSFM1T0ZQNFNBRERCUUtKMFFKMzMzOEhRR0MwWTg0QjVFRTAxREU4NEZDQiJ9.cfwzUMJf115K2T9-wE_A_k2jZptXlovls8-fKY0muO8YzGatE5fu9r6aC4q7n0YOvEU6G7XdH4ASG32mWnYu-kKlqN4IY_cquRJeUvV89ZPZ5WTttyrgVH17LSTE2EvwMawKNYnjh0lJwqYJ51cLnJiVlyqTdEAv3DJ3vInXP1YeQjLX5_vF-OWEuZfJxahHfUdsjeGhGaaOGVMUZJSkzpTu9zDLTvpb1px3WGGPu8FcHoxrcCGGpcKk456AZgYMBSHNjr-pPkRr3Dnd7XgNF6shfzIPbcXeWDYPTpS4PNY8ZsWKx8nFQIeROMWCSxIZOmu3Wt71KN9iK6DfOPro7w"
+    tokenInformationTransientTokenJwt = "eyJraWQiOiIwOEdubjhMNDBZaEI1Ymk2aFg2UzJYMkRQaFZXQ3dZYSIsImFsZyI6IlJTMjU2In0.eyJkYXRhIjp7Im51bWJlciI6IjQxMTExMVhYWFhYWDExMTEiLCJ0eXBlIjoiMDAxIn0sImlzcyI6IkZsZXgvMDgiLCJleHAiOjE1OTY3ODE2MTMsInR5cGUiOiJtZi0wLjExLjAiLCJpYXQiOjE1OTY3ODA3MTMsImp0aSI6IjFFMjVFSkg4UUY0WE4yTEE3NUNGQjI0MkswN0lBRkFaQlFSVDlGTkdQWkFOTU9EWEhQMk81RjJDRjQyRDFGRDQifQ.pHWKwcpt_es3Qn78ZaFGgcc2g5iyZXCMvPOjaVoU6z0tKgExYd2GbZaBsIB4aV80RE4B5WlTcYIleokSbRQGy-kVbD48optXY4tgh4-nYVleyqz-eZr9o3diOHZRUujHXMtjjqTW0h5mu1mMX0UzGnWuBLx3xRkZgsvv9lO7VMiMQosO2oiajDQS6Ts8UHa6727jfXUTKNcrGrPIsIuZdiRXRfWQxH3X0YJ48zn-_YV3hOBLeiRXWwfPxsYKy5IKpc4RgOnUGC0HplUC8cDkKmtUnryhVVhfPrPjRMHqvyOU5x2wuLEcmN6MLsfSDVfuK1NmSVyNHa7BNXv37OOOCQ"
     tokenInformation = Ptsv2paymentsTokenInformation(
         transient_token_jwt = tokenInformationTransientTokenJwt
     )
 
     requestObj = CreatePaymentRequest(
         client_reference_information = clientReferenceInformation.__dict__,
+        processing_information = processingInformation.__dict__,
+        payment_information = paymentInformation.__dict__,
         order_information = orderInformation.__dict__,
         token_information = tokenInformation.__dict__
     )
-
 
     requestObj = del_none(requestObj.__dict__)
     requestObj = json.dumps(requestObj)
@@ -82,10 +115,12 @@ def payment_with_flex_transient_token():
 
         print("\nAPI RESPONSE CODE : ", status)
         print("\nAPI RESPONSE BODY : ", body)
+        print("\nAPI RETURN DATA : ", return_data)
 
         return return_data
     except Exception as e:
         print("\nException when calling PaymentsApi->create_payment: %s\n" % e)
+		
 
 if __name__ == "__main__":
-    payment_with_flex_transient_token()
+    payment_with_flex_transient_token(False)

@@ -21,7 +21,7 @@ def electronic_check_debits_with_legacy_token():
         code = clientReferenceInformationCode
     )
 
-    paymentInformationLegacyTokenId = "7500BB199B4270EFE05340588D0AFCAD"
+    paymentInformationLegacyTokenId = "AB7C01E66529EA42E05341588E0A22AD"
     paymentInformationLegacyToken = Ptsv2paymentsPaymentInformationLegacyToken(
         id = paymentInformationLegacyTokenId
     )

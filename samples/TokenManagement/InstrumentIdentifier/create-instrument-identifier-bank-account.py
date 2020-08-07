@@ -19,12 +19,12 @@ def create_instrument_identifier_bank_account():
     profileid = "93B32398-AD51-4CC2-A682-EA3E93614EB1"
     bankAccountNumber = "4100"
     bankAccountRoutingNumber = "071923284"
-    bankAccount = Tmsv1instrumentidentifiersBankAccount(
+    bankAccount = Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierBankAccount(
         number = bankAccountNumber,
         routing_number = bankAccountRoutingNumber
     )
 
-    requestObj = CreateInstrumentIdentifierRequest(
+    requestObj = PostInstrumentIdentifierRequest(
         bank_account = bankAccount.__dict__
     )
 
@@ -37,14 +37,14 @@ def create_instrument_identifier_bank_account():
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = InstrumentIdentifierApi(client_config)
-        return_data, status, body = api_instance.create_instrument_identifier(profileid, requestObj)
+        return_data, status, body = api_instance.post_instrument_identifier(requestObj, profile_id=profileid)
 
         print("\nAPI RESPONSE CODE : ", status)
         print("\nAPI RESPONSE BODY : ", body)
 
         return return_data
     except Exception as e:
-        print("\nException when calling InstrumentIdentifierApi->create_instrument_identifier: %s\n" % e)
+        print("\nException when calling InstrumentIdentifierApi->post_instrument_identifier: %s\n" % e)
 
 if __name__ == "__main__":
     create_instrument_identifier_bank_account()

@@ -17,7 +17,7 @@ def del_none(d):
 
 def get_list_of_batch_files():
     startTime = "2020-02-22T01:47:57.000Z"
-    endTime = "2002-03-22T22:47:57.000Z"
+    endTime = "2020-02-22T22:47:57.000Z"
 
     try:
         config_obj = configuration.Configuration()

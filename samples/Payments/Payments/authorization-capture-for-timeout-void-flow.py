@@ -2,9 +2,12 @@ from CyberSource import *
 import os
 import json
 from importlib.machinery import SourceFileLoader
+import random
 
 config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
 configuration = SourceFileLoader("module.name", config_file).load_module()
+
+timeoutVoidTransactionId = str(random.randrange(1000, 1000000000))
 
 # To delete None values in Input Request Json body
 def del_none(d):
@@ -17,7 +20,7 @@ def del_none(d):
 
 def authorization_capture_for_timeout_void_flow():
     clientReferenceInformationCode = "TC50171_3"
-    clientReferenceInformationTransactionId = "6646561437134"
+    clientReferenceInformationTransactionId = timeoutVoidTransactionId
     clientReferenceInformation = Ptsv2paymentsClientReferenceInformation(
         code = clientReferenceInformationCode,
         transaction_id = clientReferenceInformationTransactionId

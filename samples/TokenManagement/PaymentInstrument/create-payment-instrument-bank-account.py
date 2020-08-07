@@ -19,7 +19,7 @@ def create_payment_instrument_bank_account():
     profileid = "93B32398-AD51-4CC2-A682-EA3E93614EB1"
 
     bankAccountType = "savings"
-    bankAccount = TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedBankAccount(
+    bankAccount = Tmsv2customersEmbeddedDefaultPaymentInstrumentBankAccount(
         type = bankAccountType
     )
 
@@ -28,11 +28,11 @@ def create_payment_instrument_bank_account():
     buyerInformationDateOfBirth = "2000-12-13"
 
     buyerInformationPersonalIdentification = []
-    buyerInformationPersonalIdentificationIssuedBy1 = TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedBuyerInformationIssuedBy(
+    buyerInformationPersonalIdentificationIssuedBy1 = Tmsv2customersEmbeddedDefaultPaymentInstrumentBuyerInformationIssuedBy(
         administrative_area = "CA"
     )
 
-    buyerInformationPersonalIdentification1 = TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedBuyerInformationPersonalIdentification(
+    buyerInformationPersonalIdentification1 = Tmsv2customersEmbeddedDefaultPaymentInstrumentBuyerInformationPersonalIdentification(
         id = "57684432111321",
         type = "driver license",
         issued_by = buyerInformationPersonalIdentificationIssuedBy1.__dict__
@@ -40,7 +40,7 @@ def create_payment_instrument_bank_account():
 
     buyerInformationPersonalIdentification.append(buyerInformationPersonalIdentification1.__dict__)
 
-    buyerInformation = TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedBuyerInformation(
+    buyerInformation = Tmsv2customersEmbeddedDefaultPaymentInstrumentBuyerInformation(
         company_tax_id = buyerInformationCompanyTaxID,
         currency = buyerInformationCurrency,
         date_of_birth = buyerInformationDateOfBirth,
@@ -48,22 +48,20 @@ def create_payment_instrument_bank_account():
     )
 
     billToFirstName = "John"
-    billToLastName = "Smith"
-    billToCompany = "Cybersource"
-    billToAddress1 = "8310 Capital of Texas Highwas North"
-    billToAddress2 = "Bluffstone Drive"
-    billToLocality = "Austin"
-    billToAdministrativeArea = "TX"
-    billToPostalCode = "78731"
+    billToLastName = "Doe"
+    billToCompany = "CyberSource"
+    billToAddress1 = "1 Market St"
+    billToLocality = "San Francisco"
+    billToAdministrativeArea = "CA"
+    billToPostalCode = "94105"
     billToCountry = "US"
-    billToEmail = "john.smith@test.com"
-    billToPhoneNumber = "+44 2890447951"
-    billTo = TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedBillTo(
+    billToEmail = "test@cybs.com"
+    billToPhoneNumber = "4158880000"
+    billTo = Tmsv2customersEmbeddedDefaultPaymentInstrumentBillTo(
         first_name = billToFirstName,
         last_name = billToLastName,
         company = billToCompany,
         address1 = billToAddress1,
-        address2 = billToAddress2,
         locality = billToLocality,
         administrative_area = billToAdministrativeArea,
         postal_code = billToPostalCode,
@@ -72,43 +70,27 @@ def create_payment_instrument_bank_account():
         phone_number = billToPhoneNumber
     )
 
-    processingInformationBillPaymentProgramEnabled = True
     processingInformationBankTransferOptionsSeCCode = "WEB"
-    processingInformationBankTransferOptions = TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedProcessingInformationBankTransferOptions(
+    processingInformationBankTransferOptions = Tmsv2customersEmbeddedDefaultPaymentInstrumentProcessingInformationBankTransferOptions(
         sec_code = processingInformationBankTransferOptionsSeCCode
     )
 
-    processingInformation = TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedProcessingInformation(
-        bill_payment_program_enabled = processingInformationBillPaymentProgramEnabled,
+    processingInformation = Tmsv2customersEmbeddedDefaultPaymentInstrumentProcessingInformation(
         bank_transfer_options = processingInformationBankTransferOptions.__dict__
     )
 
-    merchantInformationMerchantDescriptorAlternateName = "Branch Name"
-    merchantInformationMerchantDescriptor = TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedMerchantInformationMerchantDescriptor(
-        alternate_name = merchantInformationMerchantDescriptorAlternateName
+    print("PROCESSING INFORMATION : ", processingInformation)
+
+    instrumentIdentifierId = "A7A91A2CA872B272E05340588D0A0699"
+    instrumentIdentifier = Tmsv2customersEmbeddedDefaultPaymentInstrumentInstrumentIdentifier(
+        id = instrumentIdentifierId
     )
 
-    merchantInformation = TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedMerchantInformation(
-        merchant_descriptor = merchantInformationMerchantDescriptor.__dict__
-    )
-
-    instrumentIdentifierBankAccountNumber = "4100"
-    instrumentIdentifierBankAccountRoutingNumber = "071923284"
-    instrumentIdentifierBankAccount = Tmsv1instrumentidentifiersBankAccount(
-        number = instrumentIdentifierBankAccountNumber,
-        routing_number = instrumentIdentifierBankAccountRoutingNumber
-    )
-
-    instrumentIdentifier = Tmsv1paymentinstrumentsInstrumentIdentifier(
-        bank_account = instrumentIdentifierBankAccount.__dict__
-    )
-
-    requestObj = CreatePaymentInstrumentRequest(
+    requestObj = PostPaymentInstrumentRequest(
         bank_account = bankAccount.__dict__,
         buyer_information = buyerInformation.__dict__,
         bill_to = billTo.__dict__,
         processing_information = processingInformation.__dict__,
-        merchant_information = merchantInformation.__dict__,
         instrument_identifier = instrumentIdentifier.__dict__
     )
 
@@ -121,14 +103,14 @@ def create_payment_instrument_bank_account():
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = PaymentInstrumentApi(client_config)
-        return_data, status, body = api_instance.create_payment_instrument(profileid, requestObj)
+        return_data, status, body = api_instance.post_payment_instrument(requestObj, profile_id=profileid)
 
         print("\nAPI RESPONSE CODE : ", status)
         print("\nAPI RESPONSE BODY : ", body)
 
         return return_data
     except Exception as e:
-        print("\nException when calling PaymentInstrumentApi->create_payment_instrument: %s\n" % e)
+        print("\nException when calling PaymentInstrumentApi->post_payment_instrument: %s\n" % e)
 
 if __name__ == "__main__":
     create_payment_instrument_bank_account()

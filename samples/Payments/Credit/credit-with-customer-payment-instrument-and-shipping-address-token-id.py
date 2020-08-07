@@ -21,17 +21,17 @@ def credit_with_customer_payment_instrument_and_shipping_address_token_id():
         code = clientReferenceInformationCode
     )
 
-    paymentInformationCustomerId = "7500BB199B4270EFE05340588D0AFCAD"
+    paymentInformationCustomerId = "AB695DA801DD1BB6E05341588E0A3BDC"
     paymentInformationCustomer = Ptsv2paymentsPaymentInformationCustomer(
         id = paymentInformationCustomerId
     )
 
-    paymentInformationPaymentInstrumentId = "7500BB199B4270EFE05340588D0AFCPI"
+    paymentInformationPaymentInstrumentId = "AB6A54B982A6FCB6E05341588E0A3935"
     paymentInformationPaymentInstrument = Ptsv2paymentsPaymentInformationPaymentInstrument(
         id = paymentInformationPaymentInstrumentId
     )
 
-    paymentInformationShippingAddressId = "7500BB199B4270EFE05340588D0AFCSA"
+    paymentInformationShippingAddressId = "AB6A54B97C00FCB6E05341588E0A3935"
     paymentInformationShippingAddress = Ptsv2paymentsPaymentInformationShippingAddress(
         id = paymentInformationShippingAddressId
     )

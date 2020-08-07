@@ -16,7 +16,7 @@ def del_none(d):
     return d
 
 def delete_subscription_of_report_name_by_organization():
-    reportName = "Cybersource-rest-py"
+    reportName = "testrest_v2"
     
     try:
         config_obj = configuration.Configuration()

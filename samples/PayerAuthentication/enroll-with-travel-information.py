@@ -17,13 +17,13 @@ def del_none(d):
 
 def enroll_with_travel_information():
     clientReferenceInformationCode = "cybs_test"
-    clientReferenceInformation = Riskv1authenticationsClientReferenceInformation(
+    clientReferenceInformation = Riskv1authenticationsetupsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 
     orderInformationAmountDetailsCurrency = "USD"
     orderInformationAmountDetailsTotalAmount = "10.99"
-    orderInformationAmountDetails = Riskv1decisionsOrderInformationAmountDetails(
+    orderInformationAmountDetails = Riskv1authenticationsOrderInformationAmountDetails(
         currency = orderInformationAmountDetailsCurrency,
         total_amount = orderInformationAmountDetailsTotalAmount
     )
@@ -77,13 +77,13 @@ def enroll_with_travel_information():
     )
 
     consumerAuthenticationInformationTransactionMode = "MOTO"
-    consumerAuthenticationInformation = Riskv1authenticationsConsumerAuthenticationInformation(
+    consumerAuthenticationInformation = Riskv1decisionsConsumerAuthenticationInformation(
         transaction_mode = consumerAuthenticationInformationTransactionMode
     )
 
 
     travelInformationLegs = []
-    travelInformationLegs1 = Riskv1authenticationsTravelInformationLegs(
+    travelInformationLegs1 = Riskv1decisionsTravelInformationLegs(
         destination = "DEF",
         carrier_code = "UA",
         departure_date = "2019-01-01"
@@ -91,7 +91,7 @@ def enroll_with_travel_information():
 
     travelInformationLegs.append(travelInformationLegs1.__dict__)
 
-    travelInformationLegs2 = Riskv1authenticationsTravelInformationLegs(
+    travelInformationLegs2 = Riskv1decisionsTravelInformationLegs(
         destination = "RES",
         carrier_code = "AS",
         departure_date = "2019-02-21"
@@ -102,14 +102,14 @@ def enroll_with_travel_information():
     travelInformationNumberOfPassengers = 2
 
     travelInformationPassengers = []
-    travelInformationPassengers1 = Riskv1authenticationsTravelInformationPassengers(
+    travelInformationPassengers1 = Riskv1decisionsTravelInformationPassengers(
         first_name = "Raj",
         last_name = "Charles"
     )
 
     travelInformationPassengers.append(travelInformationPassengers1.__dict__)
 
-    travelInformationPassengers2 = Riskv1authenticationsTravelInformationPassengers(
+    travelInformationPassengers2 = Riskv1decisionsTravelInformationPassengers(
         first_name = "Potter",
         last_name = "Suhember"
     )

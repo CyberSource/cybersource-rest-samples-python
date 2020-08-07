@@ -30,7 +30,7 @@ def credit_with_instrument_identifier_token_id():
         type = paymentInformationCardType
     )
 
-    paymentInformationInstrumentIdentifierId = "7500BB199B4270EFE05340588D0AFCII"
+    paymentInformationInstrumentIdentifierId = "7010000000016241111"
     paymentInformationInstrumentIdentifier = Ptsv2paymentsPaymentInformationInstrumentIdentifier(
         id = paymentInformationInstrumentIdentifierId
     )

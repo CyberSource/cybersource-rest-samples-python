@@ -19,6 +19,8 @@ def level_ii_data(flag):
     clientReferenceInformationCode = "TC50171_12"
     clientReferenceInformation = Ptsv2paymentsClientReferenceInformation(
         code = clientReferenceInformationCode
+    )
+
     processingInformationCapture = False
     if flag:
         processingInformationCapture = True
@@ -108,4 +110,4 @@ def level_ii_data(flag):
         print("\nException when calling PaymentsApi->create_payment: %s\n" % e)
 
 if __name__ == "__main__":
-    level_ii_data()
+    level_ii_data(False)

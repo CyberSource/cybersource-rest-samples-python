@@ -15,7 +15,7 @@ def del_none(d):
             del_none(value)
     return d
 
-def dm_with_decision_profile_reject_response():
+def dm_with_decisionprofilereject_response():
     clientReferenceInformationCode = "54323007"
     clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
         code = clientReferenceInformationCode
@@ -76,7 +76,7 @@ def dm_with_decision_profile_reject_response():
         profile = riskInformationProfile.__dict__
     )
 
-    requestObj = CreateDecisionManagerCaseRequest(
+    requestObj = CreateBundledDecisionManagerCaseRequest(
         client_reference_information = clientReferenceInformation.__dict__,
         payment_information = paymentInformation.__dict__,
         order_information = orderInformation.__dict__,
@@ -92,14 +92,14 @@ def dm_with_decision_profile_reject_response():
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = DecisionManagerApi(client_config)
-        return_data, status, body = api_instance.create_decision_manager_case(requestObj)
+        return_data, status, body = api_instance.create_bundled_decision_manager_case(requestObj)
 
         print("\nAPI RESPONSE CODE : ", status)
         print("\nAPI RESPONSE BODY : ", body)
 
         return return_data
     except Exception as e:
-        print("\nException when calling DecisionManagerApi->create_decision_manager_case: %s\n" % e)
+        print("\nException when calling DecisionManagerApi->create_bundled_decision_manager_case: %s\n" % e)
 
 if __name__ == "__main__":
-    dm_with_decision_profile_reject_response()
+    dm_with_decisionprofilereject_response()

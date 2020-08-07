@@ -18,14 +18,14 @@ def del_none(d):
 def create_payment_instrument_pinless_debit():
     profileid = "93B32398-AD51-4CC2-A682-EA3E93614EB1"
 
-    cardExpirationMonth = "09"
-    cardExpirationYear = "2017"
+    cardExpirationMonth = "12"
+    cardExpirationYear = "2031"
     cardType = "visa"
     cardIssueNumber = "01"
     cardStartMonth = "01"
-    cardStartYear = "2016"
+    cardStartYear = "2020"
     cardUseAs = "pinless debit"
-    card = TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedCard(
+    card = Tmsv2customersEmbeddedDefaultPaymentInstrumentCard(
         expiration_month = cardExpirationMonth,
         expiration_year = cardExpirationYear,
         type = cardType,
@@ -35,30 +35,22 @@ def create_payment_instrument_pinless_debit():
         use_as = cardUseAs
     )
 
-    buyerInformationCompanyTaxID = "12345"
-    buyerInformationCurrency = "USD"
-    buyerInformation = TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedBuyerInformation(
-        company_tax_id = buyerInformationCompanyTaxID,
-        currency = buyerInformationCurrency
-    )
 
     billToFirstName = "John"
-    billToLastName = "Smith"
-    billToCompany = "Cybersource"
-    billToAddress1 = "8310 Capital of Texas Highwas North"
-    billToAddress2 = "Bluffstone Drive"
-    billToLocality = "Austin"
-    billToAdministrativeArea = "TX"
-    billToPostalCode = "78731"
+    billToLastName = "Doe"
+    billToCompany = "CyberSource"
+    billToAddress1 = "1 Market St"
+    billToLocality = "San Francisco"
+    billToAdministrativeArea = "CA"
+    billToPostalCode = "94105"
     billToCountry = "US"
-    billToEmail = "john.smith@test.com"
-    billToPhoneNumber = "+44 2890447951"
-    billTo = TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedBillTo(
+    billToEmail = "test@cybs.com"
+    billToPhoneNumber = "4158880000"
+    billTo = Tmsv2customersEmbeddedDefaultPaymentInstrumentBillTo(
         first_name = billToFirstName,
         last_name = billToLastName,
         company = billToCompany,
         address1 = billToAddress1,
-        address2 = billToAddress2,
         locality = billToLocality,
         administrative_area = billToAdministrativeArea,
         postal_code = billToPostalCode,
@@ -67,25 +59,14 @@ def create_payment_instrument_pinless_debit():
         phone_number = billToPhoneNumber
     )
 
-    processingInformationBillPaymentProgramEnabled = True
-    processingInformation = TmsV1InstrumentIdentifiersPaymentInstrumentsGet200ResponseEmbeddedProcessingInformation(
-        bill_payment_program_enabled = processingInformationBillPaymentProgramEnabled
+    instrumentIdentifierId = "7010000000016241111"
+    instrumentIdentifier = Tmsv2customersEmbeddedDefaultPaymentInstrumentInstrumentIdentifier(
+        id = instrumentIdentifierId
     )
 
-    instrumentIdentifierCardNumber = "411111111111111"
-    instrumentIdentifierCard = TmsV1InstrumentIdentifiersPost200ResponseCard(
-        number = instrumentIdentifierCardNumber
-    )
-
-    instrumentIdentifier = Tmsv1paymentinstrumentsInstrumentIdentifier(
-        card = instrumentIdentifierCard.__dict__
-    )
-
-    requestObj = CreatePaymentInstrumentRequest(
+    requestObj = PostPaymentInstrumentRequest(
         card = card.__dict__,
-        buyer_information = buyerInformation.__dict__,
         bill_to = billTo.__dict__,
-        processing_information = processingInformation.__dict__,
         instrument_identifier = instrumentIdentifier.__dict__
     )
 
@@ -98,14 +79,14 @@ def create_payment_instrument_pinless_debit():
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = PaymentInstrumentApi(client_config)
-        return_data, status, body = api_instance.create_payment_instrument(profileid, requestObj)
+        return_data, status, body = api_instance.post_payment_instrument(requestObj, profile_id=profileid)
 
         print("\nAPI RESPONSE CODE : ", status)
         print("\nAPI RESPONSE BODY : ", body)
 
         return return_data
     except Exception as e:
-        print("\nException when calling PaymentInstrumentApi->create_payment_instrument: %s\n" % e)
+        print("\nException when calling PaymentInstrumentApi->post_payment_instrument: %s\n" % e)
 
 if __name__ == "__main__":
     create_payment_instrument_pinless_debit()

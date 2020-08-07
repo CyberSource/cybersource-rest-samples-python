@@ -17,13 +17,13 @@ def del_none(d):
 
 def authentication_with_new_account():
     clientReferenceInformationCode = "New Account"
-    clientReferenceInformation = Riskv1authenticationsClientReferenceInformation(
+    clientReferenceInformation = Riskv1authenticationsetupsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 
     orderInformationAmountDetailsCurrency = "USD"
     orderInformationAmountDetailsTotalAmount = "10.99"
-    orderInformationAmountDetails = Riskv1decisionsOrderInformationAmountDetails(
+    orderInformationAmountDetails = Riskv1authenticationsOrderInformationAmountDetails(
         currency = orderInformationAmountDetailsCurrency,
         total_amount = orderInformationAmountDetailsTotalAmount
     )
@@ -72,7 +72,7 @@ def authentication_with_new_account():
     )
 
     consumerAuthenticationInformationTransactionMode = "MOTO"
-    consumerAuthenticationInformation = Riskv1authenticationsConsumerAuthenticationInformation(
+    consumerAuthenticationInformation = Riskv1decisionsConsumerAuthenticationInformation(
         transaction_mode = consumerAuthenticationInformationTransactionMode
     )
 

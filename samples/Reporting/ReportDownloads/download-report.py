@@ -20,7 +20,7 @@ def del_none(d):
 
 def download_report():
     organizationId = "testrest"
-    reportDate = "2020-03-03"
+    reportDate = "2020-03-05"
     reportName = "testrest_subcription_v2989"
 
     try:

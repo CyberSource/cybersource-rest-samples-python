@@ -19,6 +19,7 @@ def get_list_of_files():
     startDate = "2020-03-20"
     endDate = "2020-03-30"
     organizationId = "testrest"
+    name = None
 
     try:
         config_obj = configuration.Configuration()

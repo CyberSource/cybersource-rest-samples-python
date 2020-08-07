@@ -17,13 +17,13 @@ def del_none(d):
 
 def pending_authentication_with_unknown_path():
     clientReferenceInformationCode = "UNKNOWN"
-    clientReferenceInformation = Riskv1authenticationsClientReferenceInformation(
+    clientReferenceInformation = Riskv1authenticationsetupsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 
     orderInformationAmountDetailsCurrency = "USD"
     orderInformationAmountDetailsTotalAmount = "10.99"
-    orderInformationAmountDetails = Riskv1decisionsOrderInformationAmountDetails(
+    orderInformationAmountDetails = Riskv1authenticationsOrderInformationAmountDetails(
         currency = orderInformationAmountDetailsCurrency,
         total_amount = orderInformationAmountDetailsTotalAmount
     )

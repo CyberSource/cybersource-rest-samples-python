@@ -17,7 +17,7 @@ def del_none(d):
 
 def payout_token():
     clientReferenceInformationCode = "111111113"
-    clientReferenceInformation = PtsV2IncrementalAuthorizationPatch201ResponseClientReferenceInformation(
+    clientReferenceInformation = Ptsv2payoutsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 

@@ -20,8 +20,10 @@ def del_none(d):
 
 def timeout_void():
     id = authorization.authorization_capture_for_timeout_void_flow().id
+    timeoutVoidTransactionId = authorization.timeoutVoidTransactionId
+
     clientReferenceInformationCode = "TC50171_3"
-    clientReferenceInformationTransactionId = "6646561437134"
+    clientReferenceInformationTransactionId = timeoutVoidTransactionId
     clientReferenceInformation = Ptsv2paymentsClientReferenceInformation(
         code = clientReferenceInformationCode,
         transaction_id = clientReferenceInformationTransactionId

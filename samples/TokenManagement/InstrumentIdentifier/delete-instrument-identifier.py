@@ -20,15 +20,14 @@ def del_none(d):
 
 def delete_instrument_identifier():
     profileid = "93B32398-AD51-4CC2-A682-EA3E93614EB1"
-
     api_response = create_instrument_identifier.create_instrument_identifier_card()
-    tokenId = api_response.id
+    instrumentIdentifierTokenId = api_response.id
 
     try:
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = InstrumentIdentifierApi(client_config)
-        return_data, status, body = api_instance.delete_instrument_identifier(profileid, tokenId)
+        return_data, status, body = api_instance.delete_instrument_identifier(instrumentIdentifierTokenId, profile_id=profileid)
 
         print("\nAPI RESPONSE CODE : ", status)
         print("\nAPI RESPONSE BODY : ", body)

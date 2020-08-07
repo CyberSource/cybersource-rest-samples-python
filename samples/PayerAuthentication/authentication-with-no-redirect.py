@@ -17,13 +17,13 @@ def del_none(d):
 
 def authentication_with_no_redirect():
     clientReferenceInformationCode = "cybs_test"
-    clientReferenceInformation = Riskv1authenticationsClientReferenceInformation(
+    clientReferenceInformation = Riskv1authenticationsetupsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 
     orderInformationAmountDetailsCurrency = "USD"
     orderInformationAmountDetailsTotalAmount = "10.99"
-    orderInformationAmountDetails = Riskv1decisionsOrderInformationAmountDetails(
+    orderInformationAmountDetails = Riskv1authenticationsOrderInformationAmountDetails(
         currency = orderInformationAmountDetailsCurrency,
         total_amount = orderInformationAmountDetailsTotalAmount
     )

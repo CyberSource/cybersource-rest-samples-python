@@ -21,9 +21,7 @@ def del_none(d):
 
 def retrieve_payment_instrument():
     profileid = "93B32398-AD51-4CC2-A682-EA3E93614EB1"
-
-    api_response = create_payment_instrument.create_payment_instrument_card()
-    tokenId = api_response.id
+    paymentInstrumentTokenId = "888454C31FB6150CE05340588D0AA9BE"
 
     time.sleep(10)
 
@@ -31,7 +29,7 @@ def retrieve_payment_instrument():
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = PaymentInstrumentApi(client_config)
-        return_data, status, body = api_instance.get_payment_instrument(profileid, tokenId)
+        return_data, status, body = api_instance.get_payment_instrument(paymentInstrumentTokenId, profile_id=profileid)
 
         print("\nAPI RESPONSE CODE : ", status)
         print("\nAPI RESPONSE BODY : ", body)

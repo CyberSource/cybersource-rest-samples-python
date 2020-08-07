@@ -16,21 +16,24 @@ def del_none(d):
     return d
 
 def generate_key():
-    encryptionType = "None"
+    encryptionType = "RsaOaep"
+    targetOrigin = "https://www.test.com"
     requestObj = GeneratePublicKeyRequest(
-        encryption_type = encryptionType
+        encryption_type = encryptionType,
+        target_origin = targetOrigin
     )
 
 
     requestObj = del_none(requestObj.__dict__)
     requestObj = json.dumps(requestObj)
 
+    format = "JWT"
 
     try:
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = KeyGenerationApi(client_config)
-        return_data, status, body = api_instance.generate_public_key(requestObj)
+        return_data, status, body = api_instance.generate_public_key(format, requestObj)
 
         print("\nAPI RESPONSE CODE : ", status)
         print("\nAPI RESPONSE BODY : ", body)

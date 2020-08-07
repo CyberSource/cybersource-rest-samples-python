@@ -1,7 +1,6 @@
 from CyberSource import *
 import os
 import json
-import DateTime
 from importlib.machinery import SourceFileLoader
 
 config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
@@ -26,8 +25,8 @@ def create_adhoc_report():
     reportMimeType = "application/xml"
     reportName = "testrest_v2"
     timezone = "GMT"
-    reportStartTime = "2020-03-01T12:30:00.000+05:30"
-    reportEndTime = "2020-03-02T12:30:00.000+05:30"
+    reportStartTime = "2020-03-01T17:30:00.000+05:30"
+    reportEndTime = "2020-03-02T17:30:00.000+05:30"
     reportPreferencesSignedAmounts = True
     reportPreferencesFieldNameConvention = "SOAPI"
     reportPreferences = Reportingv3reportsReportPreferences(

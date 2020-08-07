@@ -20,8 +20,10 @@ def del_none(d):
 
 def timeout_reversal():
     id = authorization.authorization_for_timeout_reversal_flow().id
+    timeoutReversalTransactionId = authorization.timeoutReversalTransactionId
+
     clientReferenceInformationCode = "TC50171_3"
-    clientReferenceInformationTransactionId = "941984523486786"
+    clientReferenceInformationTransactionId = timeoutReversalTransactionId
     clientReferenceInformation = Ptsv2paymentsClientReferenceInformation(
         code = clientReferenceInformationCode,
         transaction_id = clientReferenceInformationTransactionId

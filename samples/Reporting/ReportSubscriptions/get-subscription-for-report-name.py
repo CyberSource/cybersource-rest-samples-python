@@ -16,7 +16,7 @@ def del_none(d):
     return d
 
 def get_subscription_for_report_name():
-    reportName = "1111muy"
+    reportName = "testv2_subscription"
 
     try:
         config_obj = configuration.Configuration()

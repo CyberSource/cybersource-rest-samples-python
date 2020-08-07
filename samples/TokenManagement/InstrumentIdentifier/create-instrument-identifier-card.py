@@ -18,12 +18,12 @@ def del_none(d):
 def create_instrument_identifier_card():
     profileid = "93B32398-AD51-4CC2-A682-EA3E93614EB1"
 
-    cardNumber = "411111111111111"
-    card = Tmsv1instrumentidentifiersCard(
+    cardNumber = "4111111111111111"
+    card = Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierCard(
         number = cardNumber
     )
 
-    requestObj = CreateInstrumentIdentifierRequest(
+    requestObj = PostInstrumentIdentifierRequest(
         card = card.__dict__
     )
 
@@ -36,14 +36,14 @@ def create_instrument_identifier_card():
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = InstrumentIdentifierApi(client_config)
-        return_data, status, body = api_instance.create_instrument_identifier(profileid, requestObj)
+        return_data, status, body = api_instance.post_instrument_identifier(requestObj, profile_id=profileid)
 
         print("\nAPI RESPONSE CODE : ", status)
         print("\nAPI RESPONSE BODY : ", body)
 
         return return_data
     except Exception as e:
-        print("\nException when calling InstrumentIdentifierApi->create_instrument_identifier: %s\n" % e)
+        print("\nException when calling InstrumentIdentifierApi->post_instrument_identifier: %s\n" % e)
 
 if __name__ == "__main__":
     create_instrument_identifier_card()
