@@ -24,7 +24,7 @@ def setup_completion_with_card_number():
     paymentInformationCardType = "001"
     paymentInformationCardExpirationMonth = "12"
     paymentInformationCardExpirationYear = "2025"
-    paymentInformationCardNumber = "4111111111111111"
+    paymentInformationCardNumber = "4000000000000101"
     paymentInformationCard = Riskv1authenticationsetupsPaymentInformationCard(
         type = paymentInformationCardType,
         expiration_month = paymentInformationCardExpirationMonth,

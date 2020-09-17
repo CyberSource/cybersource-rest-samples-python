@@ -17,7 +17,7 @@ def del_none(d):
 
 def download_file_with_file_identifier():
     organizationId = "testrest"
-    fileId = "VFJSXzEzODMtYTIwZjUyNDgtNWNlYy0yN2QzLWUwNTMtYTI1ODhlMGFkZjMxLnhtbC0yMDIwLTAzLTMw"
+    fileId = "Q2hhcmdlYmFja0FuZFJldHJpZXZhbFJlcG9ydC1hYWVkMWEwMS03OGNhLTU1YzgtZTA1My1hMjU4OGUwYWNhZWEuY3N2LTIwMjAtMDctMzA="
 
     try:
         config_obj = configuration.Configuration()

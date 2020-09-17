@@ -79,8 +79,6 @@ def create_customer_payment_instrument_bank_account():
         bank_transfer_options = processingInformationBankTransferOptions.__dict__
     )
 
-    print("PROCESSING INFORMATION : ", processingInformation)
-
     instrumentIdentifierId = "A7A91A2CA872B272E05340588D0A0699"
     instrumentIdentifier = Tmsv2customersEmbeddedDefaultPaymentInstrumentInstrumentIdentifier(
         id = instrumentIdentifierId

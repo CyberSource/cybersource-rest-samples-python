@@ -76,10 +76,8 @@ def enroll_with_pending_authentication():
         mobile_phone = buyerInformationMobilePhone
     )
 
-    consumerAuthenticationInformationReturnUrl = "http://localhost:8189/cart/enterprise/collect-term"
     consumerAuthenticationInformationTransactionMode = "MOTO"
     consumerAuthenticationInformation = Riskv1decisionsConsumerAuthenticationInformation(
-        return_url = consumerAuthenticationInformationReturnUrl,
         transaction_mode = consumerAuthenticationInformationTransactionMode
     )
 
