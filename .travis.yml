@@ -2,6 +2,7 @@ language: python
 sudo: false
 
 python:
+  - "2.7"
   - "3.4"
   - "3.5"
   - "3.6"
@@ -17,11 +18,15 @@ matrix:
     - python: 3.7
       dist: xenial
       sudo: true
+    - python: 3.8
+      dist: xenial
+      sudo: true
   allow_failures:
     - python: "pypy"
     - python: "pypy3"
       # pypy will just crash due to an incompatibility with lxml.
       # Newer versions of pypy seem to crash also, so we probably have to fix with a newer version of lxml
+    - python: "2.7"
     - python: "3.4"
     - python: "3.5"
   

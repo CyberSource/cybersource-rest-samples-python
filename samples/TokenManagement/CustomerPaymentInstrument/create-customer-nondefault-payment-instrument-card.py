@@ -15,8 +15,9 @@ def del_none(d):
             del_none(value)
     return d
 
-def create_customer_payment_instrument_card():
+def create_customer_nondefault_payment_instrument_card():
     customerTokenId = "AB695DA801DD1BB6E05341588E0A3BDC"
+    _default = False
 
     cardExpirationMonth = "12"
     cardExpirationYear = "2031"
@@ -56,6 +57,7 @@ def create_customer_payment_instrument_card():
     )
 
     requestObj = PostCustomerPaymentInstrumentRequest(
+        default = _default,
         card = card.__dict__,
         bill_to = billTo.__dict__,
         instrument_identifier = instrumentIdentifier.__dict__
@@ -80,4 +82,4 @@ def create_customer_payment_instrument_card():
         print("\nException when calling CustomerPaymentInstrumentApi->post_customer_payment_instrument: %s\n" % e)
 
 if __name__ == "__main__":
-    create_customer_payment_instrument_card()
+    create_customer_nondefault_payment_instrument_card()

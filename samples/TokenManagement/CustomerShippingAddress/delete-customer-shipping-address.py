@@ -3,7 +3,7 @@ import os
 import json
 from importlib.machinery import SourceFileLoader
 
-create_customer_shipping_address_path = os.path.join(os.getcwd(), "samples", "TokenManagement", "CustomerShippingAddress", "create-shipping-address.py")
+create_customer_shipping_address_path = os.path.join(os.getcwd(), "samples", "TokenManagement", "CustomerShippingAddress", "create-customer-nondefault-shipping-address.py")
 create_customer_shipping_address = SourceFileLoader("module.name", create_customer_shipping_address_path).load_module()
 
 config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
@@ -20,7 +20,7 @@ def del_none(d):
 
 def delete_customer_shipping_address():
     customerTokenId = "AB695DA801DD1BB6E05341588E0A3BDC"
-    api_response = create_customer_shipping_address.create_shipping_address()
+    api_response = create_customer_shipping_address.create_customer_nondefault_shipping_address()
     shippingAddressTokenId = api_response.id
 
     try:

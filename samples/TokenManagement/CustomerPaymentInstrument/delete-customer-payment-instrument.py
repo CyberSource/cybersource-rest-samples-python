@@ -3,7 +3,7 @@ import os
 import json
 from importlib.machinery import SourceFileLoader
 
-create_customer_payment_instrument_path = os.path.join(os.getcwd(), "samples", "TokenManagement", "CustomerPaymentInstrument", "create-customer-payment-instrument-card.py")
+create_customer_payment_instrument_path = os.path.join(os.getcwd(), "samples", "TokenManagement", "CustomerPaymentInstrument", "create-customer-nondefault-payment-instrument-card.py")
 create_customer_payment_instrument = SourceFileLoader("module.name", create_customer_payment_instrument_path).load_module()
 
 config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
@@ -20,7 +20,7 @@ def del_none(d):
 
 def delete_customer_payment_instrument():
     customerTokenId = "AB695DA801DD1BB6E05341588E0A3BDC"
-    api_response = create_customer_payment_instrument.create_customer_payment_instrument_card()
+    api_response = create_customer_payment_instrument.create_customer_nondefault_payment_instrument_card()
     paymentInstrumentTokenId = api_response.id
 
     try:

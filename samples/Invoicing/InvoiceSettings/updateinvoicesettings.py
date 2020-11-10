@@ -29,14 +29,16 @@ def updateinvoicesettings():
 
     invoiceSettingsInformationDeliveryLanguage = "en-US"
     invoiceSettingsInformationDefaultCurrencyCode = "USD"
-    invoiceSettingsInformation = InvoicingV2InvoiceSettingsGet200ResponseInvoiceSettingsInformation(
+    invoiceSettingsInformationPayerAuthenticationInInvoicing = "enable"
+    invoiceSettingsInformation = Invoicingv2invoiceSettingsInvoiceSettingsInformation(
         merchant_logo = invoiceSettingsInformationMerchantLogo,
         merchant_display_name = invoiceSettingsInformationMerchantDisplayName,
         custom_email_message = invoiceSettingsInformationCustomEmailMessage,
         enable_reminders = invoiceSettingsInformationEnableReminders,
         header_style = invoiceSettingsInformationHeaderStyle.__dict__,
         delivery_language = invoiceSettingsInformationDeliveryLanguage,
-        default_currency_code = invoiceSettingsInformationDefaultCurrencyCode
+        default_currency_code = invoiceSettingsInformationDefaultCurrencyCode,
+        payer_authentication_in_invoicing = invoiceSettingsInformationPayerAuthenticationInInvoicing
     )
 
     requestObj = InvoiceSettingsRequest(

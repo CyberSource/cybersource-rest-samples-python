@@ -15,8 +15,9 @@ def del_none(d):
             del_none(value)
     return d
 
-def create_shipping_address():
+def create_customer_nondefault_shipping_address():
     customerTokenId = "AB695DA801DD1BB6E05341588E0A3BDC"
+    _default = False
 
     shipToFirstName = "John"
     shipToLastName = "Doe"
@@ -42,6 +43,7 @@ def create_shipping_address():
     )
 
     requestObj = PostCustomerShippingAddressRequest(
+        default = _default,
         ship_to = shipTo.__dict__
     )
 
@@ -64,4 +66,4 @@ def create_shipping_address():
         print("\nException when calling CustomerShippingAddressApi->post_customer_shipping_address: %s\n" % e)
 
 if __name__ == "__main__":
-    create_shipping_address()
+    create_customer_nondefault_shipping_address()
