@@ -16,10 +16,11 @@ do
     printf '\n\n%s **** RUNNING - %s ****\n' "$SAMPLECOUNT" "$p" >> output.log
     python "$p" >> output.log
     printf '\n\n**** END RUNNING - %s ****\n' "$p" >> output.log
-    FILECOUNT=$((FILECOUNT+1))
+	SAMPLECOUNT=$((SAMPLECOUNT+1))
   fi
+  
+  FILECOUNT=$((FILECOUNT+1))
 
-  SAMPLECOUNT=$((SAMPLECOUNT+1))
 done < list.txt
 printf '\n\n**** %s Sample Codes ran successfully ****\n' "$SAMPLECOUNT"
 printf '\n\n**** %s Sample Codes ran successfully ****\n' "$FILECOUNT" >> output.log

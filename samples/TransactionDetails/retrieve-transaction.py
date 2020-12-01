@@ -23,7 +23,7 @@ def retrieve_transaction():
     api_payment_response = process_payment.simple_authorizationinternet(False)
     id = api_payment_response.id
 
-    time.sleep(10)
+    time.sleep(15)
 
     try:
         config_obj = configuration.Configuration()
