@@ -18,9 +18,17 @@ def del_none(d):
 def verbose_request_with_all_fields():
     clientReferenceInformationCode = "addressEg"
     clientReferenceInformationComments = "dav-All fields"
-    clientReferenceInformation = Riskv1addressverificationsClientReferenceInformation(
+    clientReferenceInformationPartnerDeveloperId = "7891234"
+    clientReferenceInformationPartnerSolutionId = "89012345"
+    clientReferenceInformationPartner = Riskv1decisionsClientReferenceInformationPartner(
+        developer_id = clientReferenceInformationPartnerDeveloperId,
+        solution_id = clientReferenceInformationPartnerSolutionId
+    )
+
+    clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
         code = clientReferenceInformationCode,
-        comments = clientReferenceInformationComments
+        comments = clientReferenceInformationComments,
+        partner = clientReferenceInformationPartner.__dict__
     )
 
     orderInformationBillToAddress1 = "12301 research st"

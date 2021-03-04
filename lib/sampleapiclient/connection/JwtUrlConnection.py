@@ -148,7 +148,7 @@ class JwtUrlConnection(Headers, Connection):
         # or JWT Signature based on the request type
         authorization = Authorization()
         temp = authorization.get_token(self.merchantconfig, self.date_time, logger)
-        temp_token = "Bearer " + temp.decode("utf-8")
+        temp_token = "Bearer " + temp
         authorization_headers = {GlobalLabelParameters.AUTHORIZATION_BEARER: str(temp_token)}
 
         return authorization_headers

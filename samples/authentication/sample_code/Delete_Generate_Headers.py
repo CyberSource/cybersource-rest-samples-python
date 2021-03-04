@@ -58,7 +58,7 @@ class DeleteGenerateHeaders:
                 print("Host                  :" + self.merchant_config.request_host)
             else:
                 temp_sig = auth.get_token(self.merchant_config, self.date, logger)
-                print("Authorization Bearer            :" + str(temp_sig.decode("utf-8")))
+                print("Authorization Bearer            :" + str(temp_sig.encode("utf-8").decode("utf-8")))
             if self.merchant_config.enable_log is True:
                 logger.info("END> ======================================= ")
                 logger.info("\n")

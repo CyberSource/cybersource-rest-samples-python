@@ -17,7 +17,7 @@ def del_none(d):
 
 def compliance_status_completed():
     clientReferenceInformationCode = "verification example"
-    clientReferenceInformation = Riskv1addressverificationsClientReferenceInformation(
+    clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 

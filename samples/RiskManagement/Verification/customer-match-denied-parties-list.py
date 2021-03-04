@@ -18,9 +18,17 @@ def del_none(d):
 def customer_match_denied_parties_list():
     clientReferenceInformationCode = "verification example"
     clientReferenceInformationComments = "Export-basic"
-    clientReferenceInformation = Riskv1addressverificationsClientReferenceInformation(
+    clientReferenceInformationPartnerDeveloperId = "7891234"
+    clientReferenceInformationPartnerSolutionId = "89012345"
+    clientReferenceInformationPartner = Riskv1decisionsClientReferenceInformationPartner(
+        developer_id = clientReferenceInformationPartnerDeveloperId,
+        solution_id = clientReferenceInformationPartnerSolutionId
+    )
+
+    clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
         code = clientReferenceInformationCode,
-        comments = clientReferenceInformationComments
+        comments = clientReferenceInformationComments,
+        partner = clientReferenceInformationPartner.__dict__
     )
 
     orderInformationBillToAddress1 = "901 Metro Centre Blvd"

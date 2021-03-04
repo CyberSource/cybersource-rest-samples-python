@@ -18,7 +18,7 @@ def del_none(d):
 def shipping_details_not_us_or_canada():
     clientReferenceInformationCode = "addressEg"
     clientReferenceInformationComments = "dav-All fields"
-    clientReferenceInformation = Riskv1addressverificationsClientReferenceInformation(
+    clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
         code = clientReferenceInformationCode,
         comments = clientReferenceInformationComments
     )

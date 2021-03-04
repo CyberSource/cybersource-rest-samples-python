@@ -5,6 +5,7 @@ import ssl
 import urllib3
 import re
 import hmac
+import warnings
 
 from datetime import date, datetime
 from time import mktime
@@ -18,7 +19,8 @@ class StandAloneHttpSignature:
 
         return format_date_time(stamp)
         
-    def __init__(self):        
+    def __init__(self):
+        warnings.filterwarnings("ignore", category=DeprecationWarning) 
         self.request_host = "apitest.cybersource.com"
         self.merchant_id = "testrest"
         self.merchant_key_id = "08c94330-f618-42a3-b09d-e1e43be5efda"
@@ -80,7 +82,7 @@ class StandAloneHttpSignature:
             'datetime': datetime,
             'object': object,
         }
-            
+
     def sanitize_for_serialization(self, obj):
         """
         Builds a JSON POST object.
@@ -151,101 +153,101 @@ class StandAloneHttpSignature:
             else:
                 new_params.append((k, v))
         return new_params
-        
+
     def get_digest(self):
         hashobj = hashlib.sha256()
         hashobj.update(self.payload.encode('utf-8'))
         hash_data = hashobj.digest()
         digest = base64.b64encode(hash_data)
-        
+
         return digest
-        
-    def get_signature(self, method, resource, time):        
+
+    def get_signature(self, method, resource, time):
         # Getting HTTP Signature
         header_list = ([])
 
         # Key id is the key obtained from EBC
         header_list.append("keyid=\"" + str(self.merchant_key_id) + "\"")
         header_list.append(", algorithm=\"HmacSHA256\"")
-        
+
         if method.upper() == 'POST':
             postheaders = "host date (request-target) digest v-c-merchant-id"
             header_list.append(", headers=\"" + postheaders + "\"")
         else:
             getheaders = "host date (request-target) v-c-merchant-id"
             header_list.append(", headers=\"" + getheaders + "\"")
-        
+
         signature_list = ([])
-        
+
         # This method adds the host header
         signature_list.append("host: " + self.request_host + "\n")
 
         # This method adds the date header
         signature_list.append("date: " + time + "\n")
-        
+
         # This method adds the request target
         signature_list.append("(request-target): ")
-        
+
         request_target = method + " " + resource
         signature_list.append(request_target + "\n")
-        
+
         # This method returns digest value which is SHA-256 hash of the payload which is BASE-64 Encoded
         if method.upper() == 'POST':
             digest = self.get_digest()
 
             # This method adds the digest header only for post
             signature_list.append("digest: SHA-256=" + digest.decode("utf-8") + "\n")
-        
+
         # This method adds the v-c-merchant-id header
         signature_list.append("v-c-merchant-id: " + self.merchant_id)
-        
+
         sig_value = "".join(signature_list)
-        
+
         sig_value_string = str(sig_value)
         sig_value_utf = bytes(sig_value_string, encoding='utf-8')
-        
+
         secret = base64.b64decode(self.merchant_secret_key)
 
         hash_value = hmac.new(secret, sig_value_utf, hashlib.sha256)
-        
+
         signature = base64.b64encode(hash_value.digest()).decode("utf-8")
-        
+
         header_list.append(", signature=\"" + signature + "\"")
         token = ''.join(header_list)
-        
+
         return token
 
     def process_post(self):
         resource = '/pts/v2/payments/'
         method = 'post'
-        
+
         time = self.get_time()
-        
+
         token = self.get_signature(method, resource, time)
-        
+
         header_params = {}
         header_params['Accept'] = 'application/hal+json;charset=utf-8'
-        header_params['Content-Type'] = 'application/json;charset=utf-8'        
+        header_params['Content-Type'] = 'application/json;charset=utf-8'
         header_params['Accept-Encoding'] = '*'
         header_params['v-c-merchant-id'] = self.merchant_id
         header_params["Date"] = time
         header_params["Host"] = self.request_host
         header_params["User-Agent"] = "Mozilla/5.0"
-        
+
         # Only required for POST request
         digest = self.get_digest()
-        header_params["Digest"] = "SHA-256=" + digest.decode("utf-8")        
-        
+        header_params["Digest"] = "SHA-256=" + digest.decode("utf-8")
+
         header_params["Signature"] = token
-        
+
         header_params = self.sanitize_for_serialization(header_params)
         header_params = dict(self.parameters_to_tuples(header_params, None))
-        
+
         # Only required for POST request
         body = self.sanitize_for_serialization(self.payload)
-        
+
         url = "https://" + self.request_host + resource
-        
+
         print("\n -- RequestURL -- ")
         print("\tURL : " + url)
         print("\n -- HTTP Headers -- ")
@@ -255,10 +257,10 @@ class StandAloneHttpSignature:
         print("\tHost : " + header_params["Host"])
         print("\tDigest : " + header_params["Digest"])
         print("\tSignature : " + header_params["Signature"])
-        
+
         # HTTP Client POST Call
         timeout = None
-        
+
         try :
             r = self.pool_manager.request(method, url, body=body, preload_content=False, timeout=timeout, headers=header_params)
         except urllib3.exceptions.SSLError as e:
@@ -266,39 +268,39 @@ class StandAloneHttpSignature:
             return -1
 
         print("\n -- Response Message -- " )
-        print("\tResponse Code :" + str(r.status))        
-        print("\tv-c-correlation-id :" + r.getheaders().get('v-c-correlation-id'))        
+        print("\tResponse Code :" + str(r.status))
+        print("\tv-c-correlation-id :" + r.getheaders().get('v-c-correlation-id'))
         print("\tResponse Data :\n" + r.data.decode('utf-8') + "\n")
-        
+
         if not 200 <= r.status <= 299:
             return -1
-        
+
         return 0
-    
+
     def process_get(self):
-        resource = '/reporting/v3/reports?startTime=2019-05-01T00:00:00.0Z&endTime=2019-05-30T23:59:59.0Z&timeQueryType=executedTime&reportMimeType=application/xml'
+        resource = '/reporting/v3/reports?startTime=2021-01-01T00:00:00.0Z&endTime=2021-01-02T23:59:59.0Z&timeQueryType=executedTime&reportMimeType=application/xml'
         method = 'get'
-        
+
         time = self.get_time()
-        
+
         token = self.get_signature(method, resource, time)
-        
+
         header_params = {}
         header_params['Accept'] = 'application/hal+json;charset=utf-8'
-        header_params['Content-Type'] = 'application/json;charset=utf-8'        
+        header_params['Content-Type'] = 'application/json;charset=utf-8'
         header_params['Accept-Encoding'] = '*'
         header_params['v-c-merchant-id'] = self.merchant_id
         header_params["Date"] = time
         header_params["Host"] = self.request_host
         header_params["User-Agent"] = "Mozilla/5.0"
-        
+
         header_params["Signature"] = token
-        
+
         header_params = self.sanitize_for_serialization(header_params)
         header_params = dict(self.parameters_to_tuples(header_params, None))
-        
+
         url = "https://" + self.request_host + resource
-        
+
         print("\n -- RequestURL -- ")
         print("\tURL : " + url)
         print("\n -- HTTP Headers -- ")
@@ -307,40 +309,40 @@ class StandAloneHttpSignature:
         print("\tDate : " + header_params["Date"])
         print("\tHost : " + header_params["Host"])
         print("\tSignature : " + header_params["Signature"])
-        
+
         # HTTP Client GET Call
         timeout = None
-        
+
         try :
             r = self.pool_manager.request(method, url, preload_content=False, timeout=timeout, headers=header_params)
         except urllib3.exceptions.SSLError as e:
             msg = "{0}\n{1}".format(type(e).__name__, str(e))
             return -1
-        
+
         print("\n -- Response Message -- " )
-        print("\tResponse Code :" + str(r.status))        
-        print("\tv-c-correlation-id :" + r.getheaders().get('v-c-correlation-id'))        
+        print("\tResponse Code :" + str(r.status))
+        print("\tv-c-correlation-id :" + r.getheaders().get('v-c-correlation-id'))
         print("\tResponse Data :\n" + r.data.decode('utf-8') + "\n")
-        
+
         if not 200 <= r.status <= 299:
             return -1
-        
-        return 0       
+
+        return 0
 
     def process_standalone_http_signature(self):
         # HTTP POST REQUEST
         print("\n\nSample 1: POST call - CyberSource Payments API - HTTP POST Payment request")
         status_code = self.process_post()
-        
+
         if status_code == 0:
             print("STATUS : SUCCESS (HTTP Status = " + str(status_code) + ")")
         else:
             print("STATUS : ERROR (HTTP Status = " + str(status_code) + ")")
-            
+
         # HTTP GET REQUEST
         print("\n\nSample 2: GET call - CyberSource Reporting API - HTTP GET Reporting request")
         status_code = self.process_get()
-        
+
         if status_code == 0:
             print("STATUS : SUCCESS (HTTP Status = " + str(status_code) + ")")
         else:

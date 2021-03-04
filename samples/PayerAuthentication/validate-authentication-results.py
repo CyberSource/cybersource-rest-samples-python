@@ -17,8 +17,16 @@ def del_none(d):
 
 def validate_authentication_results():
     clientReferenceInformationCode = "pavalidatecheck"
-    clientReferenceInformation = Riskv1authenticationsetupsClientReferenceInformation(
-        code = clientReferenceInformationCode
+    clientReferenceInformationPartnerDeveloperId = "7891234"
+    clientReferenceInformationPartnerSolutionId = "89012345"
+    clientReferenceInformationPartner = Riskv1decisionsClientReferenceInformationPartner(
+        developer_id = clientReferenceInformationPartnerDeveloperId,
+        solution_id = clientReferenceInformationPartnerSolutionId
+    )
+
+    clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
+        code = clientReferenceInformationCode,
+        partner = clientReferenceInformationPartner.__dict__
     )
 
     orderInformationAmountDetailsCurrency = "USD"

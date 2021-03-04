@@ -42,7 +42,7 @@ def enroll_instrument_identifier_for_network_tokenization():
         country = billToCountry
     )
 
-    requestObj = PostInstrumentIdentifierRequest(
+    requestObj = PostInstrumentIdentifierEnrollmentRequest(
         type = type,
         card = card.__dict__,
         bill_to = billTo.__dict__

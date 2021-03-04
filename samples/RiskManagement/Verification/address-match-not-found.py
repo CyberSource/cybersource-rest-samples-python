@@ -18,7 +18,7 @@ def del_none(d):
 def address_match_not_found():
     clientReferenceInformationCode = "addressEg"
     clientReferenceInformationComments = "dav-error response check"
-    clientReferenceInformation = Riskv1addressverificationsClientReferenceInformation(
+    clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
         code = clientReferenceInformationCode,
         comments = clientReferenceInformationComments
     )

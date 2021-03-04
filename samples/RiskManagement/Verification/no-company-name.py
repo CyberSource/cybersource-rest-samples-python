@@ -17,7 +17,7 @@ def del_none(d):
 
 def no_company_name():
     clientReferenceInformationCode = "verification example"
-    clientReferenceInformation = Riskv1addressverificationsClientReferenceInformation(
+    clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 

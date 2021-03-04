@@ -17,8 +17,16 @@ def del_none(d):
 
 def authentication_with_no_redirect():
     clientReferenceInformationCode = "cybs_test"
-    clientReferenceInformation = Riskv1authenticationsetupsClientReferenceInformation(
-        code = clientReferenceInformationCode
+    clientReferenceInformationPartnerDeveloperId = "7891234"
+    clientReferenceInformationPartnerSolutionId = "89012345"
+    clientReferenceInformationPartner = Riskv1decisionsClientReferenceInformationPartner(
+        developer_id = clientReferenceInformationPartnerDeveloperId,
+        solution_id = clientReferenceInformationPartnerSolutionId
+    )
+
+    clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
+        code = clientReferenceInformationCode,
+        partner = clientReferenceInformationPartner.__dict__
     )
 
     orderInformationAmountDetailsCurrency = "USD"

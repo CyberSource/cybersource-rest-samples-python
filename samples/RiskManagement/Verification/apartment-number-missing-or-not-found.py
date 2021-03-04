@@ -18,7 +18,7 @@ def del_none(d):
 def apartment_number_missing_or_not_found():
     clientReferenceInformationCode = "addressEg"
     clientReferenceInformationComments = "dav-error response check"
-    clientReferenceInformation = Riskv1addressverificationsClientReferenceInformation(
+    clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
         code = clientReferenceInformationCode,
         comments = clientReferenceInformationComments
     )
