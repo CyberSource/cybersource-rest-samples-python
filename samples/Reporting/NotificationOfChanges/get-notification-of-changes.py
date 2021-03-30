@@ -16,8 +16,8 @@ def del_none(d):
     return d
 
 def get_notification_of_changes():
-    startTime = "2020-03-01T12:00:00Z"
-    endTime = "2020-03-10T12:00:00Z"
+    startTime = "2020-10-01T12:00:00Z"
+    endTime = "2020-10-10T12:00:00Z"
 
     try:
         config_obj = configuration.Configuration()

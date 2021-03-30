@@ -16,8 +16,8 @@ def del_none(d):
     return d
 
 def get_netfunding_information_for_account_or_merchant():
-    startTime = "2019-08-01T00:00:00Z"
-    endTime = "2019-09-01T23:59:59Z"
+    startTime = "2021-01-01T00:00:00Z"
+    endTime = "2021-01-02T23:59:59Z"
     organizationId = "testrest"
 
     try:

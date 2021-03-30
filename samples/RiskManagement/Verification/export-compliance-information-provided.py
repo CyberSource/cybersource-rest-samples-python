@@ -18,7 +18,7 @@ def del_none(d):
 def export_compliance_information_provided():
     clientReferenceInformationCode = "verification example"
     clientReferenceInformationComments = "Export -fields"
-    clientReferenceInformation = Riskv1addressverificationsClientReferenceInformation(
+    clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
         code = clientReferenceInformationCode,
         comments = clientReferenceInformationComments
     )

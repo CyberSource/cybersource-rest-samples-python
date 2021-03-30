@@ -7,6 +7,7 @@ import re
 import hmac
 import os
 import jwt
+import warnings
 
 from datetime import date, datetime
 from time import mktime
@@ -20,13 +21,14 @@ class StandAloneJWT:
         stamp = mktime(now.timetuple())
 
         return format_date_time(stamp)
-        
-    def __init__(self):        
+
+    def __init__(self):
+        warnings.filterwarnings("ignore", category=DeprecationWarning)
         self.request_host = "apitest.cybersource.com"
         self.merchant_id = "testrest"
         self.merchant_key_id = "08c94330-f618-42a3-b09d-e1e43be5efda"
         self.merchant_secret_key = "yBJxy6LjM2TmcPGu+GaJrHtkke25fPpUX+UY6/L/1tE="
-        
+
         # REQUEST PAYLOAD
         self.payload = ("{\n" +
                 "  \"clientReferenceInformation\": {\n" +
@@ -71,7 +73,7 @@ class StandAloneJWT:
                 cert_file=None,
                 key_file=None
             )
-            
+
         self.PRIMITIVE_TYPES = (float, bool, bytes, text_type) + integer_types
         self.NATIVE_TYPES_MAPPING = {
             'int': int,
@@ -83,7 +85,7 @@ class StandAloneJWT:
             'datetime': datetime,
             'object': object,
         }
-            
+
     def sanitize_for_serialization(self, obj):
         """
         Builds a JSON POST object.
@@ -154,172 +156,171 @@ class StandAloneJWT:
             else:
                 new_params.append((k, v))
         return new_params
-        
+
     def get_digest(self):
         hashobj = hashlib.sha256()
         hashobj.update(self.payload.encode('utf-8'))
         hash_data = hashobj.digest()
         digest = base64.b64encode(hash_data)
-        
+
         return digest
-        
+
     def fetch_certificate_info(self):
         filecache = {}
         filename = 'testrest'
-        
+
         p12 = crypto.load_pkcs12(open(os.path.join(os.getcwd(), "samples/authentication/Resources", filename) + ".p12", 'rb').read(), self.merchant_id)
-        
+
         cert_str = crypto.dump_certificate(crypto.FILETYPE_PEM, p12.get_certificate())
         der_cert_string = base64.b64encode(ssl.PEM_cert_to_DER_cert(cert_str.decode("utf-8")))
         private_key = crypto.dump_privatekey(crypto.FILETYPE_PEM, p12.get_privatekey()).decode("utf-8")
 
         filecache.setdefault(str(filename), []).append(der_cert_string)
         filecache.setdefault(str(filename), []).append(private_key)
-            
+
         return filecache[filename]
-        
-    def get_token(self, method, time):   
+
+    def get_token(self, method, time):
         if method.upper() == 'POST':
             digest = self.get_digest()
             jwt_body = { "digest": digest.decode("utf-8"), "digestAlgorithm": "SHA-256", "iat": time }
         elif method.upper() == 'GET':
             jwt_body = { "iat": time }
-        
+
         # Reading the .p12 file
         cache_memory = self.fetch_certificate_info()
         der_cert_string = cache_memory[0]
         private_key = cache_memory[1]
-        
+
         # Setting the headers - merchant_id and the public key
         headers_jwt = { "v-c-merchant-id": str(self.merchant_id) }
-        
+
         public_key_list = ([])
         public_key_list.append(der_cert_string.decode("utf-8"))
         public_key_headers = { "x5c": public_key_list }
-        
+
         headers_jwt.update(public_key_headers)
-        
+
         # generating the token of jwt
         encoded_jwt = jwt.encode(jwt_body, private_key, algorithm='RS256', headers=headers_jwt)
 
-        return encoded_jwt.decode("utf-8")
+        return encoded_jwt.encode("utf-8").decode("utf-8")
 
     def process_post(self):
         resource = '/pts/v2/payments/'
         method = 'post'
-        
+
         time = self.get_time()
 
         header_params = {}
         header_params['Accept'] = 'application/hal+json;charset=utf-8'
         header_params['Content-Type'] = 'application/json;charset=utf-8'
 
-        url = "https://" + self.request_host + resource        
-        
+        url = "https://" + self.request_host + resource
+
         print("\n -- RequestURL -- ")
         print("\tURL : " + url)
         print("\n -- HTTP Headers -- ")
         print("\tContent-Type : " + header_params['Accept'])
         print("\tv-c-merchant-id : " + self.merchant_id)
         print("\tHost : " + self.request_host)
-        
+
         token = self.get_token(method, time)
-        
+
         print("\n -- TOKEN --\n" + token);
-        
+
         token = "Bearer " + token
-        
+
         header_params['Authorization'] = str(token)
-                
+
         header_params = self.sanitize_for_serialization(header_params)
         header_params = dict(self.parameters_to_tuples(header_params, None))
-        
+
         # Only required for POST request
         body = self.sanitize_for_serialization(self.payload)
-        
+
         # HTTP Client POST Call
         timeout = None
-        
+
         try :
             r = self.pool_manager.request(method, url, body=body, preload_content=False, timeout=timeout, headers=header_params)
         except urllib3.exceptions.SSLError as e:
             msg = "{0}\n{1}".format(type(e).__name__, str(e))
             return -1
-        
+
         print("\n -- Response Message -- " )
-        print("\tResponse Code :" + str(r.status))        
-        print("\tv-c-correlation-id :" + r.getheaders().get('v-c-correlation-id'))        
+        print("\tResponse Code :" + str(r.status))
+        print("\tv-c-correlation-id :" + r.getheaders().get('v-c-correlation-id'))
         print("\tResponse Data :\n" + r.data.decode('utf-8') + "\n")
-        
+
         if not 200 <= r.status <= 299:
             return -1
-        
+
         return 0
-    
+
     def process_get(self):
-        # resource = '/reporting/v3/reports?startTime=2019-05-01T00:00:00.0Z&endTime=2019-05-30T23:59:59.0Z&timeQueryType=executedTime&reportMimeType=application/xml'
-        resource = '/ums/v1/users?organizationId=testrest'
+        resource = '/reporting/v3/reports?startTime=2021-02-01T00:00:00.0Z&endTime=2021-02-02T23:59:59.0Z&timeQueryType=executedTime&reportMimeType=application/xml'
         method = 'get'
-        
-        time = self.get_time()        
-        
+
+        time = self.get_time()
+
         header_params = {}
         header_params['Accept'] = 'application/hal+json;charset=utf-8'
         header_params['Content-Type'] = 'application/json;charset=utf-8'
 
         url = "https://" + self.request_host + resource
-        
+
         print("\n -- RequestURL -- ")
         print("\tURL : " + url)
         print("\n -- HTTP Headers -- ")
         print("\tContent-Type : " + header_params['Content-Type'])
         print("\tv-c-merchant-id : " + self.merchant_id)
         print("\tHost : " + self.request_host)
-        
+
         token = self.get_token(method, time)
-        
-        print("\n -- TOKEN --\n" + token);
-        
+
+        print("\n -- TOKEN --\n" + token)
+
         token = "Bearer " + token
-        
-        header_params['Authorization'] = str(token)    
-                
+
+        header_params['Authorization'] = str(token)
+
         header_params = self.sanitize_for_serialization(header_params)
         header_params = dict(self.parameters_to_tuples(header_params, None))
-        
+
         # HTTP Client GET Call
         timeout = None
-        
+
         try :
             r = self.pool_manager.request(method, url, preload_content=False, timeout=timeout, headers=header_params)
         except urllib3.exceptions.SSLError as e:
             msg = "{0}\n{1}".format(type(e).__name__, str(e))
             return -1
-        
+
         print("\n -- Response Message -- " )
-        print("\tResponse Code :" + str(r.status))        
-        print("\tv-c-correlation-id :" + r.getheaders().get('v-c-correlation-id'))        
+        print("\tResponse Code :" + str(r.status))
+        print("\tv-c-correlation-id :" + r.getheaders().get('v-c-correlation-id'))
         print("\tResponse Data :\n" + r.data.decode('utf-8') + "\n")
-        
+
         if not 200 <= r.status <= 299:
             return -1
-        
-        return 0        
+
+        return 0
 
     def process_standalone_jwt(self):
         # HTTP POST REQUEST
         print("\n\nSample 1: POST call - CyberSource Payments API - HTTP POST Payment request")
         status_code = self.process_post()
-        
+
         if status_code == 0:
             print("STATUS : SUCCESS (HTTP Status = " + str(status_code) + ")")
         else:
             print("STATUS : ERROR (HTTP Status = " + str(status_code) + ")")
-            
+
         # HTTP GET REQUEST
         print("\n\nSample 2: GET call - CyberSource Reporting API - HTTP GET Reporting request")
         status_code = self.process_get()
-        
+
         if status_code == 0:
             print("STATUS : SUCCESS (HTTP Status = " + str(status_code) + ")")
         else:

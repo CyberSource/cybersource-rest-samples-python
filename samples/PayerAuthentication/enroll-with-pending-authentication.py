@@ -17,7 +17,7 @@ def del_none(d):
 
 def enroll_with_pending_authentication():
     clientReferenceInformationCode = "cybs_test"
-    clientReferenceInformation = Riskv1authenticationsetupsClientReferenceInformation(
+    clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 

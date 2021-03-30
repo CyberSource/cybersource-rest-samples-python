@@ -18,7 +18,7 @@ def del_none(d):
 def canadian_billing_details():
     clientReferenceInformationCode = "addressEg"
     clientReferenceInformationComments = "dav-All fields"
-    clientReferenceInformation = Riskv1addressverificationsClientReferenceInformation(
+    clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
         code = clientReferenceInformationCode,
         comments = clientReferenceInformationComments
     )

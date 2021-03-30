@@ -49,8 +49,16 @@ def add_data_to_list(type):
     )
 
     clientReferenceInformationCode = "54323007"
+    clientReferenceInformationPartnerDeveloperId = "7891234"
+    clientReferenceInformationPartnerSolutionId = "89012345"
+    clientReferenceInformationPartner = Riskv1decisionsClientReferenceInformationPartner(
+        developer_id = clientReferenceInformationPartnerDeveloperId,
+        solution_id = clientReferenceInformationPartnerSolutionId
+    )
+
     clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
-        code = clientReferenceInformationCode
+        code = clientReferenceInformationCode,
+        partner = clientReferenceInformationPartner.__dict__
     )
 
     riskInformationMarkingDetailsAction = "add"

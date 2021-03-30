@@ -50,7 +50,7 @@ class GetObjectMethod:
         print(" URL                : " + mconfig.url)
         print(" Response Code      : " + str(mconfig.response_code))
         print(" V-C-Corealation ID : " + mconfig.v_c_correlation_id)
-        print(" Response Message   : " + mconfig.response_message.decode("utf-8"))
+        print(" Response Message   : " + mconfig.response_message)
 
 if __name__ == "__main__":
     sample_obj = GetObjectMethod()

@@ -17,7 +17,7 @@ def del_none(d):
 
 def enroll_with_transient_token():
     clientReferenceInformationCode = "UNKNOWN"
-    clientReferenceInformation = Riskv1authenticationsetupsClientReferenceInformation(
+    clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 

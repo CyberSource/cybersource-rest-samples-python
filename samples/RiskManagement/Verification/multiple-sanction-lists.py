@@ -18,7 +18,7 @@ def del_none(d):
 def multiple_sanction_lists():
     clientReferenceInformationCode = "verification example"
     clientReferenceInformationComments = "All fields"
-    clientReferenceInformation = Riskv1addressverificationsClientReferenceInformation(
+    clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
         code = clientReferenceInformationCode,
         comments = clientReferenceInformationComments
     )

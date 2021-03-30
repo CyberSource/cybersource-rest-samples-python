@@ -34,8 +34,22 @@ def mark_as_suspect(id):
         marking_details = riskInformationMarkingDetails.__dict__
     )
 
+    clientReferenceInformationCode = "12345"
+    clientReferenceInformationPartnerDeveloperId = "1234"
+    clientReferenceInformationPartnerSolutionId = "3321"
+    clientReferenceInformationPartner = Riskv1decisionsClientReferenceInformationPartner(
+        developer_id = clientReferenceInformationPartnerDeveloperId,
+        solution_id = clientReferenceInformationPartnerSolutionId
+    )
+
+    clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
+        code = clientReferenceInformationCode,
+        partner = clientReferenceInformationPartner.__dict__
+    )
+
     requestObj = FraudMarkingActionRequest(
-        risk_information = riskInformation.__dict__
+        risk_information = riskInformation.__dict__,
+        client_reference_information = clientReferenceInformation.__dict__
     )
 
 

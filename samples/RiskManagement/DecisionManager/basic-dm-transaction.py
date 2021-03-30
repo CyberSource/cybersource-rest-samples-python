@@ -17,8 +17,18 @@ def del_none(d):
 
 def basic_dm_transaction():
     clientReferenceInformationCode = "54323007"
+    clientReferenceInformationComments = "decision manager case"
+    clientReferenceInformationPartnerDeveloperId = "7891234"
+    clientReferenceInformationPartnerSolutionId = "89012345"
+    clientReferenceInformationPartner = Riskv1decisionsClientReferenceInformationPartner(
+        developer_id = clientReferenceInformationPartnerDeveloperId,
+        solution_id = clientReferenceInformationPartnerSolutionId
+    )
+
     clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
-        code = clientReferenceInformationCode
+        code = clientReferenceInformationCode,
+        comments = clientReferenceInformationComments,
+        partner = clientReferenceInformationPartner.__dict__
     )
 
     paymentInformationCardNumber = "4444444444444448"

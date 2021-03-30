@@ -62,14 +62,14 @@ class PutGenerateHeaders:
                 print(" MerchantID          : " + self.merchant_config.merchant_id)
                 print(" Date                : " + self.merchant_config.get_time())
                 print("digest               :" + GlobalLabelParameters.DIGEST_PREFIX + digest.string_digest_generation(
-                    self.merchant_config.request_json_path_data).decode("utf-8"))
+                    self.merchant_config.request_json_path_data).encode("utf-8").decode("utf-8"))
                 
                 temp_sig = auth.get_token(self.merchant_config, self.date, logger)
                 print("Signature Header      :" + str(temp_sig))
                 print("Host                  :" + self.merchant_config.request_host)
             else:
                 temp_sig = auth.get_token(self.merchant_config, self.date, logger)
-                print("Authorization Bearer            :" + str(temp_sig.decode("utf-8")))
+                print("Authorization Bearer            :" + str(temp_sig.encode("utf-8").decode("utf-8")))
             if self.merchant_config.enable_log is True:
                 logger.info("END> ======================================= ")
                 logger.info("\n")

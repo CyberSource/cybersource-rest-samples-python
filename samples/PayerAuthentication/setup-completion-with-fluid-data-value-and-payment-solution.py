@@ -17,7 +17,7 @@ def del_none(d):
 
 def setup_completion_with_fluid_data_value_and_payment_solution():
     clientReferenceInformationCode = "cybs_test"
-    clientReferenceInformation = Riskv1authenticationsetupsClientReferenceInformation(
+    clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 
