@@ -10,6 +10,9 @@ class Configuration:
         self.keys_directory = "samples/authentication/Resources/"
         self.merchant_keyid = "08c94330-f618-42a3-b09d-e1e43be5efda"
         self.merchant_secretkey = "yBJxy6LjM2TmcPGu+GaJrHtkke25fPpUX+UY6/L/1tE="
+        # META KEY PARAMETERS
+        self.use_metakey = False
+        self.portfolio_id = ''
         self.enable_log = True
         self.timeout = 1000
         self.log_file_name = "cybs"
@@ -31,6 +34,8 @@ class Configuration:
         configuration_dictionary["keys_directory"] = self.keys_directory
         configuration_dictionary["merchant_keyid"] = self.merchant_keyid
         configuration_dictionary["merchant_secretkey"] = self.merchant_secretkey
+        configuration_dictionary["use_metakey"] = self.use_metakey
+        configuration_dictionary["portfolio_id"] = self.portfolio_id
         configuration_dictionary["enable_log"] = self.enable_log
         configuration_dictionary["timeout"] = self.timeout
         configuration_dictionary["log_file_name"] = self.log_file_name

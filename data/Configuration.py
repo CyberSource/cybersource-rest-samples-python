@@ -3,24 +3,27 @@ import os
 
 class Configuration:
     def __init__(self):
-        self.authentication_type ="http_signature"
-        self.merchantid = "testrest"
+        self.authentication_type ="jwt"
+        self.merchantid = "developercp"
         self.alternative_merchantid = "testrest_cpctv"
         self.run_environment = "CyberSource.Environment.SANDBOX"
         self.request_json_path = ""
         # JWT PARAMETERS
         self.key_alias = "testrest"
-        self.key_pass = "testrest"
-        self.key_file_name = "testrest"
+        self.key_pass = "developercp"
+        self.key_file_name = "developercp"
         self.alternative_key_alias = "testrest_cpctv"
         self.alternative_key_pass = "testrest_cpctv"
         self.alternative_key_file_name = "testrest_cpctv"
         self.keys_directory = os.path.join(os.getcwd(), "resources")
         # HTTP PARAMETERS
-        self.merchant_keyid = "08c94330-f618-42a3-b09d-e1e43be5efda"
-        self.merchant_secretkey = "yBJxy6LjM2TmcPGu+GaJrHtkke25fPpUX+UY6/L/1tE="
+        self.merchant_keyid = "7a7f20a6-1f7f-4780-9a79-3ff8acf7cc83"
+        self.merchant_secretkey = "X+ynT3aTCD643tZgnEnnLD+sd5pplDGMw5vG5klPvVY="
         self.alternative_merchant_keyid = "e547c3d3-16e4-444c-9313-2a08784b906a"
         self.alternative_merchant_secretkey = "JXm4dqKYIxWofM1TIbtYY9HuYo7Cg1HPHxn29f6waRo="
+        # META KEY PARAMETERS
+        self.use_metakey = False
+        self.portfolio_id = ''
         # CONNECTION TIMEOUT PARAMETER
         self.timeout = 1000
         # LOG PARAMETERS
@@ -45,6 +48,8 @@ class Configuration:
         configuration_dictionary["keys_directory"] = self.keys_directory
         configuration_dictionary["merchant_keyid"] = self.merchant_keyid
         configuration_dictionary["merchant_secretkey"] = self.merchant_secretkey
+        configuration_dictionary["use_metakey"] = self.use_metakey
+        configuration_dictionary["portfolio_id"] = self.portfolio_id
         configuration_dictionary["enable_log"] = self.enable_log
         configuration_dictionary["timeout"] = self.timeout
         configuration_dictionary["log_file_name"] = self.log_file_name
@@ -66,6 +71,8 @@ class Configuration:
         configuration_dictionary["keys_directory"] = self.keys_directory
         configuration_dictionary["merchant_keyid"] = self.alternative_merchant_keyid
         configuration_dictionary["merchant_secretkey"] = self.alternative_merchant_secretkey
+        configuration_dictionary["use_metakey"] = self.use_metakey
+        configuration_dictionary["portfolio_id"] = self.portfolio_id
         configuration_dictionary["enable_log"] = self.enable_log
         configuration_dictionary["timeout"] = self.timeout
         configuration_dictionary["log_file_name"] = self.log_file_name
