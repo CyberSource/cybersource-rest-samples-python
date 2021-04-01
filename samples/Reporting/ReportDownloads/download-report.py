@@ -20,8 +20,8 @@ def del_none(d):
 
 def download_report():
     organizationId = "testrest"
-    reportDate = "2020-03-05"
-    reportName = "testrest_subcription_v2989"
+    reportDate = "2021-02-01"
+    reportName = "magic"
 
     try:
         config_obj = configuration.Configuration()
