@@ -4,12 +4,12 @@ import json
 # Assigning the configuration properties in the configuration dictionary
 def get_configuration():
     authentication_type ="http_signature"
-    merchantid = "merchannt998"
+    merchantid = ""
     run_environment = "CyberSource.Environment.SANDBOX"
-    merchant_keyid = "7a7f20a6-1f7f-4780-9a79-3ff8acf7cc83"
-    merchant_secretkey = "X+ynT3aTCD643tZgnEnnLD+sd5pplDGMw5vG5klPvVY="
+    merchant_keyid = ""
+    merchant_secretkey = ""
     use_metakey = True
-    portfolio_id = 'developercp'
+    portfolio_id = ""
 
     configuration_dictionary = {}
     configuration_dictionary["authentication_type"] = authentication_type
