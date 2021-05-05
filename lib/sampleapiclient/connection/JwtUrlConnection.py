@@ -5,6 +5,9 @@ from lib.sampleapiclient.connection.Connection import *
 import lib.sampleapiclient.masking.Masking
 import authenticationsdk.util.ExceptionAuth
 import authenticationsdk.util.Utility
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
 # Here all the data ( header + claimSet + Signature ) are set inside the HTTP connection and the call is
