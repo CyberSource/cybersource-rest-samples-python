@@ -2,7 +2,7 @@ class Configuration:
     def __init__(self):
         self.authentication_type = "HTTP_SIGNATURE"
         self.merchantid = "testrest"
-        self.run_environment = "CyberSource.Environment.SANDBOX"
+        self.run_environment = "apitest.cybersource.com"
         self.request_json_path = "samples/authentication/Resources/request.json"
         self.key_alias = "testrest"
         self.key_pass = "testrest"

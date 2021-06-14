@@ -1,7 +1,7 @@
 {
   "authentication_type":"jwt",
   "merchantid": "testrest",
-  "run_environment": "CyberSource.Environment.SANDBOX",
+  "run_environment": "apitest.cybersource.com",
   "key_alias": "testrest",
   "key_password": "testrest",
   "key_file_name": "testrest",
