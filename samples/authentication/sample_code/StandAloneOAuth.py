@@ -1,31 +1,100 @@
 from CyberSource import *
 import json
+import os
 
 # Assigning the configuration properties in the configuration dictionary
 def get_configuration():
-    authentication_type ="http_signature"
-    merchantid = ""
-    run_environment = "apitest.cybersource.com"
-    merchant_keyid = ""
-    merchant_secretkey = ""
-    use_metakey = True
-    portfolio_id = ""
+    authentication_type ="mutual_auth"
+    run_environment = "api-matest.cybersource.com"    
+    enable_client_cert = True
+    client_cert_dir = os.path.join(os.getcwd(), "resources")
+    ssl_client_cert = ''
+    private_key = ''
+    # ssl_key_password = ''     #Optional Field
+    client_id = ''
+    client_secret = ''
 
     configuration_dictionary = {}
     configuration_dictionary["authentication_type"] = authentication_type
-    configuration_dictionary["merchantid"] = merchantid
+    configuration_dictionary["enable_client_cert"] = enable_client_cert
     configuration_dictionary["run_environment"] = run_environment
-    configuration_dictionary["merchant_keyid"] = merchant_keyid
-    configuration_dictionary["merchant_secretkey"] = merchant_secretkey
-    configuration_dictionary["use_metakey"] = use_metakey
-    configuration_dictionary["portfolio_id"] = portfolio_id
+    configuration_dictionary["client_cert_dir"] = client_cert_dir
+    configuration_dictionary["ssl_client_cert"] = ssl_client_cert
+    configuration_dictionary["private_key"] = private_key
+    # configuration_dictionary["ssl_key_password"] = ssl_key_password     #Optional Field
+    configuration_dictionary["client_id"] = client_id
+    configuration_dictionary["client_secret"] = client_secret
     return configuration_dictionary
 
-def standalone_metakey():
-    simple_payments_using_metakey()
+def standalone_oauth():
+    result = None
+    create_using_auth_code = True
+    if create_using_auth_code:
+        code = ''
+        grant_type = "authorization_code"
+        result = post_access_token_from_auth_code(code, grant_type)
+    else:
+        grant_type = "refresh_token"
+        refresh_token = ""
+        result = post_access_token_from_refresh_token(refresh_token, grant_type)
+
+    if result is not None: 
+        refresh_token = result.refresh_token
+        access_token = result.access_token
+
+        #Call Payments SampleCode using OAuth, Set Authentication to OAuth in Sample Code Configuration
+        simple_authorizationinternet(access_token, refresh_token)    
+
+def post_access_token_from_auth_code(code, grant_type):
+    config = get_configuration()    
+    requestObj = CreateAccessTokenRequest(
+        client_id = config['client_id'],
+        client_secret = config['client_secret'],
+        grant_type = grant_type,
+        code = code,
+    )
+
+    requestObj = requestObj.__dict__
+    requestObj = json.dumps(requestObj)
+
+    try:
+        api_instance = OAuthApi(config)
+        return_data, status, body = api_instance.create_access_token(requestObj)
+
+        print("\nAPI RESPONSE CODE : ", status)
+        print("\nAPI RESPONSE BODY : ", body)
+
+        return return_data
+    except Exception as e:
+        print("\nException when calling PaymentsApi->create_payment: %s\n" % e)
+
+def post_access_token_from_refresh_token(refresh_token, grant_type):
+    config = get_configuration()        
+    requestObj = CreateAccessTokenRequest(
+        client_id = config['client_id'],
+        client_secret = config['client_secret'],
+        grant_type = grant_type,
+        refresh_token = refresh_token
+    )
+
+    requestObj = requestObj.__dict__
+    requestObj = json.dumps(requestObj)
+
+    try:
+        api_instance = OAuthApi(config)
+        return_data, status, body = api_instance.create_access_token(requestObj)
+
+        print("\nAPI RESPONSE CODE : ", status)
+        print("\nAPI RESPONSE BODY : ", body)
+
+        return return_data
+    except Exception as e:
+        print("\nException when calling PaymentsApi->create_payment: %s\n" % e)
 
 
-def simple_payments_using_metakey():
+
+
+def simple_authorizationinternet(access_token, refresh_token):
     clientReferenceInformationCode = "TC50171_3"
     clientReferenceInformation = Ptsv2paymentsClientReferenceInformation(
         code = clientReferenceInformationCode
@@ -96,6 +165,9 @@ def simple_payments_using_metakey():
 
     try:
         client_config = get_configuration()
+        client_config["access_token"] = access_token
+        client_config["refresh_token"] = refresh_token
+        client_config["authentication_type"] = 'oauth'
         api_instance = PaymentsApi(client_config)
         return_data, status, body = api_instance.create_payment(requestObj)
 
@@ -107,4 +179,4 @@ def simple_payments_using_metakey():
         print("\nException when calling PaymentsApi->create_payment: %s\n" % e)
 
 if __name__ == "__main__":
-    standalone_metakey()
+    standalone_oauth()
