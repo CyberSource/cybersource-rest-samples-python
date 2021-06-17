@@ -28,7 +28,7 @@ def get_configuration():
 
 def standalone_oauth():
     result = None
-    create_using_auth_code = True
+    create_using_auth_code = False
     if create_using_auth_code:
         code = ''
         grant_type = "authorization_code"
