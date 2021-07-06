@@ -6,7 +6,7 @@ class Configuration:
         self.authentication_type ="http_signature"
         self.merchantid = "testrest"
         self.alternative_merchantid = "testrest_cpctv"
-        self.run_environment = "CyberSource.Environment.SANDBOX"
+        self.run_environment = "apitest.cybersource.com"
         self.request_json_path = ""
         # JWT PARAMETERS
         self.key_alias = "testrest"
