@@ -129,29 +129,10 @@ class Test(unittest.TestCase):
             except:
                 continue
 
-            assertions = d['Assertions']
-
-            if('httpStatus' in assertions):
-                responseCode = assertions['httpStatus']
-                expectedValues = assertions['expectedValues']
-                requiredFields = assertions['requiredFields']
-
-                for expectedValue in expectedValues:
-                    expectedValue['field'] = self.modify_name(expectedValue['field'])
-                    value = expectedValue['value']
-
-                for index,requiredField in enumerate(requiredFields):
-                    requiredFields[index] = self.modify_name(requiredField)
-
-                #Checking for all expected values
-                for expectedVal in expectedValues:
-                    with self.subTest(expectedVal = expectedVal):
-                        self.assertEqual(self.recurse(return_data_dict, expectedVal['field']), expectedVal['value'], "\n~~~Test Case " + str(i) + "(" + packages[-1] + "): " + expectedVal['field'])
-
-                #Checking for required fields
-                for req in requiredFields:
-                    with self.subTest(req = req):
-                        self.assertIsNotNone(self.recurse(return_data_dict,req),"\n~~~Test Case " + str(i) + "(" + packages[-1] + "): " + req + " is null")
+            #Checking for required fields
+            for req in response_field_list:
+                with self.subTest(req = req):
+                     self.assertIsNotNone(self.recurse(return_data_dict,req),"\n~~~Test Case " + str(i) + "(" + packages[-1] + "): " + req + " is null")
 
 if __name__ == '__main__':
     unittest.main()
