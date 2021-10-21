@@ -2,7 +2,6 @@ import unittest
 from lib.sampleapiclient.controller.ApiController import *
 from authenticationsdk.core.MerchantConfiguration import *
 import authenticationsdk.util.PropertiesUtil
-import authenticationsdk.logger.Log
 import cybersource_authentication_sdk_python.data.RequestData
 import logging
 from authenticationsdk.core.MockData import *
@@ -27,8 +26,6 @@ class TestBasicFunction(unittest.TestCase):
         self.merchant_config.authentication_type = "http_signature"
         self.merchant_config.set_merchantconfig(MockData.HTTP_VALUES)
         self.get_id = "5246387105766473203529"
-        self.logger = authenticationsdk.logger.Log.setup_logger(self.merchant_config)
-        self.merchant_config.log = self.logger
         self.merchant_config.request_target = "/pts/v2/payments/" + self.get_id
         self.merchant_config.url = self.url + self.merchant_config.request_host + self.merchant_config.request_target
 
@@ -40,8 +37,6 @@ class TestBasicFunction(unittest.TestCase):
         self.merchant_config.request_type_method = "POST"
         self.merchant_config.authentication_type = "http_signature"
         self.merchant_config.set_merchantconfig(MockData.HTTP_VALUES)
-        self.logger = authenticationsdk.logger.Log.setup_logger(self.merchant_config)
-        self.merchant_config.log = self.logger
         self.request_json_path = "../../cybersource_authentication_sdk_python/Resources/request.json"
         self.merchant_config.request_json_path_data = cybersource_authentication_sdk_python.data.RequestData.sample_payment_data()
 
@@ -57,8 +52,6 @@ class TestBasicFunction(unittest.TestCase):
         self.merchant_config.request_type_method = "PUT"
         self.merchant_config.authentication_type = "http_signature"
         self.merchant_config.set_merchantconfig(MockData.HTTP_VALUES)
-        self.logger = authenticationsdk.logger.Log.setup_logger(self.merchant_config)
-        self.merchant_config.log = self.logger
         self.request_json_path = "../../cybersource_authentication_sdk_python/Resources/trr_report.json"
         self.merchant_config.request_json_path_data = cybersource_authentication_sdk_python.data.RequestData.json_file_data(
             self.request_json_path, self.merchant_config)
@@ -74,8 +67,6 @@ class TestBasicFunction(unittest.TestCase):
         self.merchant_config.request_type_method = "DELETE"
         self.merchant_config.authentication_type = "http_signature"
         self.merchant_config.set_merchantconfig(MockData.HTTP_VALUES)
-        self.logger = authenticationsdk.logger.Log.setup_logger(self.merchant_config)
-        self.merchant_config.log = self.logger
 
         self.merchant_config.request_target = "/reporting/v2/reportSubscriptions/TRRReport?organizationId=testrest/5246387105766473203529"
         self.merchant_config.url = self.url + self.merchant_config.request_host + self.merchant_config.request_target
@@ -88,8 +79,6 @@ class TestBasicFunction(unittest.TestCase):
         self.merchant_config.request_type_method = "GET"
         self.merchant_config.authentication_type = "jwt"
         self.get_id = "5246387105766473203529"
-        self.logger = authenticationsdk.logger.Log.setup_logger(self.merchant_config)
-        self.merchant_config.log = self.logger
 
         self.merchant_config.request_target = "/pts/v2/payments/" + self.get_id
         self.merchant_config.url = self.url + self.merchant_config.request_host + self.merchant_config.request_target
@@ -103,8 +92,6 @@ class TestBasicFunction(unittest.TestCase):
         self.merchant_config.request_type_method = "POST"
         self.merchant_config.authentication_type = "jwt"
 
-        self.logger = authenticationsdk.logger.Log.setup_logger(self.merchant_config)
-        self.merchant_config.log = self.logger
         self.request_json_path = "../../cybersource_authentication_sdk_python/Resources/request.json"
         self.merchant_config.request_json_path_data = cybersource_authentication_sdk_python.data.RequestData.sample_payment_data()
 
@@ -121,8 +108,6 @@ class TestBasicFunction(unittest.TestCase):
         self.merchant_config.request_type_method = "PUT"
         self.merchant_config.authentication_type = "jwt"
 
-        self.logger = authenticationsdk.logger.Log.setup_logger(self.merchant_config)
-        self.merchant_config.log = self.logger
         self.request_json_path = "../../cybersource_authentication_sdk_python/Resources/trr_report.json"
         self.merchant_config.request_json_path_data = cybersource_authentication_sdk_python.data.RequestData.json_file_data(
             self.request_json_path, self.merchant_config)
@@ -139,8 +124,6 @@ class TestBasicFunction(unittest.TestCase):
         self.merchant_config.request_type_method = "DELETE"
         self.merchant_config.authentication_type = "jwt"
 
-        self.logger = authenticationsdk.logger.Log.setup_logger(self.merchant_config)
-        self.merchant_config.log = self.logger
 
         self.merchant_config.request_target = "/reporting/v2/reportSubscriptions/TRRReport?organizationId=testrest/5246387105766473203529"
         self.merchant_config.url = self.url + self.merchant_config.request_host + self.merchant_config.request_target

@@ -1,5 +1,5 @@
 import os
-
+from CyberSource.logging.log_configuration import LogConfiguration
 
 class Configuration:
     def __init__(self):
@@ -31,6 +31,10 @@ class Configuration:
         self.log_file_name = "cybs"
         self.log_maximum_size = 10487560
         self.log_directory = os.path.join(os.getcwd(), "Logs")
+        self.log_level = "Debug"
+        self.enable_masking = False
+        self.log_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        self.log_date_format = "%Y-%m-%d %H:%M:%S"
         # PROXY PARAMETERS
         #self.proxy_address = "userproxy.com"
         #self.proxy_port = ""
@@ -50,11 +54,17 @@ class Configuration:
         configuration_dictionary["merchant_secretkey"] = self.merchant_secretkey
         configuration_dictionary["use_metakey"] = self.use_metakey
         configuration_dictionary["portfolio_id"] = self.portfolio_id
-        configuration_dictionary["enable_log"] = self.enable_log
         configuration_dictionary["timeout"] = self.timeout
-        configuration_dictionary["log_file_name"] = self.log_file_name
-        configuration_dictionary["log_maximum_size"] = self.log_maximum_size
-        configuration_dictionary["log_directory"] = self.log_directory
+        log_config = LogConfiguration()
+        log_config.set_enable_log(self.enable_log)
+        log_config.set_log_directory(self.log_directory)
+        log_config.set_log_file_name(self.log_file_name)
+        log_config.set_log_maximum_size(self.log_maximum_size)
+        log_config.set_log_level(self.log_level)
+        log_config.set_enable_masking(self.enable_masking)
+        log_config.set_log_format(self.log_format)
+        log_config.set_log_date_format(self.log_date_format)
+        configuration_dictionary["log_config"] = log_config
         #configuration_dictionary["proxy_address"] = self.proxy_address
         #configuration_dictionary["proxy_port"] = self.proxy_port
         return configuration_dictionary
@@ -73,11 +83,17 @@ class Configuration:
         configuration_dictionary["merchant_secretkey"] = self.alternative_merchant_secretkey
         configuration_dictionary["use_metakey"] = self.use_metakey
         configuration_dictionary["portfolio_id"] = self.portfolio_id
-        configuration_dictionary["enable_log"] = self.enable_log
         configuration_dictionary["timeout"] = self.timeout
-        configuration_dictionary["log_file_name"] = self.log_file_name
-        configuration_dictionary["log_maximum_size"] = self.log_maximum_size
-        configuration_dictionary["log_directory"] = self.log_directory
+        log_config = LogConfiguration()
+        log_config.set_enable_log(self.enable_log)
+        log_config.set_log_directory(self.log_directory)
+        log_config.set_log_file_name(self.log_file_name)
+        log_config.set_log_maximum_size(self.log_maximum_size)
+        log_config.set_log_level(self.log_level)
+        log_config.set_enable_masking(self.enable_masking)
+        log_config.set_log_format(self.log_format)
+        log_config.set_log_date_format(self.log_date_format)
+        configuration_dictionary["log_config"] = log_config
         #configuration_dictionary["proxy_address"] = self.proxy_address
         #configuration_dictionary["proxy_port"] = self.proxy_port
         return configuration_dictionary

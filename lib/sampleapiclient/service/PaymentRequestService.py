@@ -14,24 +14,24 @@ class PaymentRequestService:
     # requestType    : Method which is under process or execution (Get or Post).
     # getID          : The Get unique ID.
 
-    def payment_request_service(self, mconfig,logger):
+    def payment_request_service(self, mconfig):
 
-        self.process_payment_request(mconfig, logger)
+        self.process_payment_request(mconfig)
 
     # merchantConfig : This object contains all the details present in the cybs.properties.
     # requestType    : Method which is under process or execution (Get or Post).
     # getID          : The Get unique ID.
 
     # noinspection PyMethodMayBeStatic
-    def process_payment_request(self, mconfig, logger):
+    def process_payment_request(self, mconfig):
 
         authentication_type = mconfig.authentication_type
         # This method establishes Connection based on the Authorization Type
         if authentication_type.upper() == GlobalLabelParameters.HTTP.upper():
             httpconnection = HttpConnection()
-            httpconnection.http_connection(mconfig, logger)
+            httpconnection.http_connection(mconfig)
         elif authentication_type.upper() == GlobalLabelParameters.JWT.upper():
             jwt_url_obj = JwtUrlConnection()
-            jwt_url_obj.jwt_url_connection(mconfig, logger)
+            jwt_url_obj.jwt_url_connection(mconfig)
         else:
             raise ApiException(1, GlobalLabelParameters.AUTH_ERROR)

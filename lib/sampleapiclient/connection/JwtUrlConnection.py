@@ -6,6 +6,7 @@ import lib.sampleapiclient.masking.Masking
 import authenticationsdk.util.ExceptionAuth
 import authenticationsdk.util.Utility
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
+import CyberSource.logging.log_factory as LogFactory
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
@@ -20,49 +21,51 @@ class JwtUrlConnection(Headers, Connection):
         self.jwt_method = None
         self.jwt_get_id = None
         self.date_time = None
+        self.logger = None
 
-    def jwt_url_connection(self, mconfig, logger):
+    def jwt_url_connection(self, mconfig, logger = None):
         self.merchantconfig = mconfig
         self.jwt_method = mconfig.request_type_method
         self.date_time = mconfig.get_time()
-        self.jwt_connection(logger)
+        self.jwt_connection()
+        self.logger = LogFactory.setup_logger(self.__class__.__name__, mconfig.log_config)
 
     # Establishing connection based on whether the method is Get or Post
-    def jwt_connection(self, logger):
+    def jwt_connection(self):
         try:
             response_message = ""
             mask_values = ""
 
             if self.jwt_method.upper() == GlobalLabelParameters.GET:
-                response_message = self.get(logger)
+                response_message = self.get()
             elif self.jwt_method.upper() == GlobalLabelParameters.POST:
-                response_message = self.post(logger)
+                response_message = self.post()
             elif self.jwt_method.upper() == GlobalLabelParameters.PUT:
-                response_message = self.put(logger)
+                response_message = self.put()
             elif self.jwt_method.upper() == GlobalLabelParameters.DELETE:
-                response_message = self.delete(logger)
+                response_message = self.delete()
             message = response_message.content.decode("utf-8")
             if self.jwt_method.upper() == GlobalLabelParameters.GET or self.jwt_method.upper() == GlobalLabelParameters.POST or self.jwt_method.upper() == GlobalLabelParameters.PUT:
                 mask_values = lib.sampleapiclient.masking.Masking.masking(response_message.content.decode('utf-8'))
                 message = mask_values
-            if self.merchantconfig.enable_log is True:
-                logger.info(GlobalLabelParameters.URL + ":   " + self.merchantconfig.url)
+            if self.merchantconfig.log_config.enable_log is True:
+                self.logger.info(GlobalLabelParameters.URL + ":   " + self.merchantconfig.url)
                 if not (response_message.headers.get('v-c-correlation-id') is None):
-                    logger.info(
+                    self.logger.info(
                         GlobalLabelParameters.V_C_CORRELATION_ID + ":   " + response_message.headers['v-c-correlation-id'])
-                logger.info("Response code:    " + str(response_message.status_code))
-                logger.info("Response-Message:   " + message)
-                logger.info("Status Information :   " + authenticationsdk.util.Utility.get_response_code_message(
+                self.logger.info("Response code:    " + str(response_message.status_code))
+                self.logger.info("Response-Message:   " + message)
+                self.logger.info("Status Information :   " + authenticationsdk.util.Utility.get_response_code_message(
                     response_message.status_code))
 
             if self.jwt_method.upper() == GlobalLabelParameters.POST or self.jwt_method.upper() == GlobalLabelParameters.PUT:
-                if self.merchantconfig.enable_log is True:
+                if self.merchantconfig.log_config.enable_log is True:
                     payload = self.merchantconfig.request_json_path_data
                     masked_payload = lib.sampleapiclient.masking.Masking.masking(payload)
-                    logger.info("Request Body:    " + masked_payload)
-            if self.merchantconfig.enable_log is True:
-                logger.info("END> ======================================= ")
-                logger.info("\n")
+                    self.logger.info("Request Body:    " + masked_payload)
+            if self.merchantconfig.log_config.enable_log is True:
+                self.logger.info("END> ======================================= ")
+                self.logger.info("\n")
 
             # Setting the response values to the Merchant Configuration object
             self.merchantconfig.v_c_correlation_id=""
@@ -72,16 +75,16 @@ class JwtUrlConnection(Headers, Connection):
                 self.merchantconfig.v_c_correlation_id = response_message.headers[
                     'v-c-correlation-id']
         except Exception as e:
-            authenticationsdk.util.ExceptionAuth.log_exception(logger, repr(e), self.merchantconfig)
+            authenticationsdk.util.ExceptionAuth.log_exception(self.logger, repr(e), self.merchantconfig)
 
     # JWT-Get Connection
-    def get(self, logger):
+    def get(self):
 
         # Add Request Header :: "Content-Type"
         header = self.set_json_application()
         # Add Request Header :: "authorization-bearer"
         date_time = self.date_time
-        authorization_headers_1 = self.set_signature(date_time, logger)
+        authorization_headers_1 = self.set_signature(date_time)
         header.update(authorization_headers_1)
         # Add the Accept-Encoding Header
         additional_header = {'Accept-Encoding': '*'}
@@ -94,13 +97,13 @@ class JwtUrlConnection(Headers, Connection):
         return r
 
     # JWT-Post-Connection
-    def post(self, logger):
+    def post(self):
 
         # Add Request Header :: "Content-Type"
         header = self.set_json_application()
         # Add Request Header :: "authorization-bearer"
         date_time = self.date_time
-        authorization_headers_1 = self.set_signature(date_time, logger)
+        authorization_headers_1 = self.set_signature(date_time)
         header.update(authorization_headers_1)
         # Add proxy headers
         proxies = self.set_proxy_connection()
@@ -109,13 +112,13 @@ class JwtUrlConnection(Headers, Connection):
 
         return r
 
-    def put(self, logger):
+    def put(self):
 
         # Add Request Header :: "Content-Type"
         header = self.set_json_application()
         # Add Request Header :: "authorization-bearer"
         date_time = self.date_time
-        authorization_headers_1 = self.set_signature(date_time, logger)
+        authorization_headers_1 = self.set_signature(date_time)
         header.update(authorization_headers_1)
         # Add proxy headers
         proxies = self.set_proxy_connection()
@@ -124,13 +127,13 @@ class JwtUrlConnection(Headers, Connection):
 
         return r
 
-    def delete(self, logger):
+    def delete(self):
 
         # Add Request Header :: "Content-Type"
         header = self.set_json_application()
         # Add Request Header :: "authorization-bearer"
         date_time = self.date_time
-        authorization_headers_1 = self.set_signature(date_time, logger)
+        authorization_headers_1 = self.set_signature(date_time)
         header.update(authorization_headers_1)
         # Add the Accept-Encoding Header
         additional_header = {'Accept-Encoding': '*'}
@@ -146,11 +149,11 @@ class JwtUrlConnection(Headers, Connection):
         headers = {GlobalLabelParameters.CONTENT_TYPE: GlobalLabelParameters.APPLICATION_JSON}
         return headers
 
-    def set_signature(self, date_time, logger):
+    def set_signature(self, date_time):
         # This method calls the Authorization class which inturn decides whether to call HTTP_Signature
         # or JWT Signature based on the request type
         authorization = Authorization()
-        temp = authorization.get_token(self.merchantconfig, self.date_time, logger)
+        temp = authorization.get_token(self.merchantconfig, self.date_time)
         temp_token = "Bearer " + temp
         authorization_headers = {GlobalLabelParameters.AUTHORIZATION_BEARER: str(temp_token)}
 

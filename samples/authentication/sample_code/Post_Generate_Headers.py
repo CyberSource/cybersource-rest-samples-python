@@ -1,7 +1,7 @@
 from authenticationsdk.core.Authorization import *
 from authenticationsdk.payloaddigest.PayLoadDigest import *
 from authenticationsdk.core.MerchantConfiguration import *
-import authenticationsdk.logger.Log
+import CyberSource.logging.log_factory as LogFactory
 from authenticationsdk.util.PropertiesUtil import *
 import authenticationsdk.util.ExceptionAuth
 from importlib.machinery import SourceFileLoader
@@ -50,7 +50,7 @@ class PostGenerateHeaders:
 
     # This method prints values obtained in our code by connecting to AUTH sdk
     def post_method_headers(self):
-        logger = self.merchant_config.log
+        logger = LogFactory.setup_logger(self.__class__.__name__, self.merchant_config.log_config)
         try:
             auth = Authorization()
             digest = DigestAndPayload()
@@ -66,13 +66,13 @@ class PostGenerateHeaders:
                 print("digest               :" + GlobalLabelParameters.DIGEST_PREFIX + digest.string_digest_generation(
                     self.merchant_config.request_json_path_data).encode("utf-8").decode("utf-8"))
                 
-                temp_sig = auth.get_token(self.merchant_config, self.date, logger)
+                temp_sig = auth.get_token(self.merchant_config, self.date)
                 print("Signature Header      :" + str(temp_sig))
                 print("Host                  :" + self.merchant_config.request_host)
             else:
-                temp_sig = auth.get_token(self.merchant_config, self.date, logger)
+                temp_sig = auth.get_token(self.merchant_config, self.date)
                 print("Authorization Bearer            :" + str(temp_sig.encode("utf-8").decode("utf-8")))
-            if self.merchant_config.enable_log is True:
+            if self.merchant_config.log_config.enable_log is True:
                 logger.info("END> ======================================= ")
                 logger.info("\n")
         except ApiException as e:
