@@ -20,7 +20,7 @@ class DeleteMethod:
             mconfig = MerchantConfiguration()
             mconfig.set_merchantconfig(details_dict1)
             
-            mconfig.validate_merchant_details(details_dict1, mconfig)
+            mconfig.validate_merchant_details(details_dict1)
             
             mconfig.request_type_method = self.request_type
             mconfig.request_target = self.request_target

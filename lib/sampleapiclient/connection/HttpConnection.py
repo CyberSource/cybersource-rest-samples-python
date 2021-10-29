@@ -7,6 +7,7 @@ import lib.sampleapiclient.masking.Masking
 import authenticationsdk.util.ExceptionAuth
 import authenticationsdk.util.Utility
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
+import CyberSource.logging.log_factory as LogFactory
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
@@ -24,9 +25,10 @@ class HttpConnection(Headers, Connection):
         self.merchant_key_id = None
         self.merchant_id = None
         self.merchant_secret_key = None
+        self.logger = None
 
-    def http_connection(self, mconfig, logger):
-
+    def http_connection(self, mconfig, logger = None):
+        self.logger = LogFactory.setup_logger(self.__class__.__name__, mconfig.log_config)
         try:
 
             self.http_merchant_config = mconfig
@@ -35,12 +37,12 @@ class HttpConnection(Headers, Connection):
             self.merchant_key_id = mconfig.merchant_keyid
             self.merchant_secret_key = mconfig.merchant_secretkey
 
-            self.http_connection_request(logger)
+            self.http_connection_request()
         except Exception as e:
-            authenticationsdk.util.ExceptionAuth.log_exception(logger, repr(e), mconfig)
+            authenticationsdk.util.ExceptionAuth.log_exception(self.logger, repr(e), mconfig)
 
     # Establish the connection with server and receives the response message and code
-    def http_connection_request(self, logger):
+    def http_connection_request(self):
         try:
 
             # Add Request Header :: "v-c-merchant-id" set value to Cybersource Merchant ID or v-c-merchant-id
@@ -75,7 +77,7 @@ class HttpConnection(Headers, Connection):
             proxies = self.set_proxy_connection()
 
             # Add Request Header :: "Signature"
-            signature_header = self.set_signature(date_time, logger)
+            signature_header = self.set_signature(date_time)
 
             header.update(signature_header)
 
@@ -102,31 +104,31 @@ class HttpConnection(Headers, Connection):
                 message = mask_values
 
             # Logging the URL,v_c_correlation_id,status code,content
-            if self.http_merchant_config.enable_log is True:
-                logger.info(GlobalLabelParameters.URL + ":   " + self.http_merchant_config.url)
+            if self.http_merchant_config.log_config.enable_log is True:
+                self.logger.info(GlobalLabelParameters.URL + ":   " + self.http_merchant_config.url)
                 if not (r.headers.get('v-c-correlation-id') is None):
-                    logger.info(GlobalLabelParameters.V_C_CORRELATION_ID + ":   " + r.headers['v-c-correlation-id'])
-                logger.info("Response code:    " + str(r.status_code))
+                    self.logger.info(GlobalLabelParameters.V_C_CORRELATION_ID + ":   " + r.headers['v-c-correlation-id'])
+                self.logger.info("Response code:    " + str(r.status_code))
 
-                logger.info("Response-Message:   " + message)
-                logger.info("Status Information :   " + authenticationsdk.util.Utility.get_response_code_message(
+                self.logger.info("Response-Message:   " + message)
+                self.logger.info("Status Information :   " + authenticationsdk.util.Utility.get_response_code_message(
                     r.status_code))
 
             if self.request_type.upper() == GlobalLabelParameters.POST or self.request_type.upper() == GlobalLabelParameters.PUT:
-                if self.http_merchant_config.enable_log is True:
+                if self.http_merchant_config.log_config.enable_log is True:
                     payload = self.http_merchant_config.request_json_path_data
 
                     masked_payload = lib.sampleapiclient.masking.Masking.masking(payload)
 
-                    logger.info("Request Body:    " + masked_payload)
-            if self.http_merchant_config.enable_log is True:
-                logger.info("END> ======================================= ")
-                logger.info("\n")
+                    self.logger.info("Request Body:    " + masked_payload)
+            if self.http_merchant_config.log_config.enable_log is True:
+                self.logger.info("END> ======================================= ")
+                self.logger.info("\n")
         except TypeError as e:
-            authenticationsdk.util.ExceptionAuth.log_exception(logger, repr(e), self.http_merchant_config)
+            authenticationsdk.util.ExceptionAuth.log_exception(self.logger, repr(e), self.http_merchant_config)
         except Exception as e:
 
-            authenticationsdk.util.ExceptionAuth.log_exception(logger, repr(e), self.http_merchant_config)
+            authenticationsdk.util.ExceptionAuth.log_exception(self.logger, repr(e), self.http_merchant_config)
 
     def set_header_data(self):
 
@@ -144,13 +146,13 @@ class HttpConnection(Headers, Connection):
 
         return set_digest_header
 
-    def set_signature(self, date_time, logger):
+    def set_signature(self, date_time):
         # This method calls the Authorization class which inturn decides whether to call HTTP_Signature
         # or JWT Signature based on the request type
         authorization = Authorization()
 
         signature_header_value = authorization.get_token(self.http_merchant_config,
-                                                         date_time, logger)
+                                                         date_time)
 
         set_signature_header = {GlobalLabelParameters.SIGNATURE: str(signature_header_value)}
 

@@ -12,11 +12,12 @@ from authenticationsdk.payloaddigest.PayLoadDigest import *
 import authenticationsdk.util.ExceptionAuth
 from authenticationsdk.core.ExceptionHandling import *
 from authenticationsdk.util.GlobalLabelParameters import *
+import CyberSource.logging.log_factory as LogFactory
 import json
 
 
 def json_file_data(path, mconfig):
-    logger = mconfig.log
+    logger = LogFactory.setup_logger("RequestData", mconfig.log_config)
     try:
         if path == "" or path is None:
             raise ApiException(0, GlobalLabelParameters.REQUEST_JSON_EMPTY)

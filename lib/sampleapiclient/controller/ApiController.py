@@ -1,6 +1,5 @@
 from lib.sampleapiclient.service.PaymentRequestService import *
 from authenticationsdk.core.Authorization import *
-import authenticationsdk.logger.Log
 import authenticationsdk.util.ExceptionAuth
 
 
@@ -14,60 +13,59 @@ class ApiController:
     # requestType    : Method which is under process or execution (Get or Post).
     # getID          : The Get unique ID.
 
+    def __init__(self):
+        self.logger = LogFactory.setup_logger(self.__class__.__name__)
+
     # noinspection PyMethodMayBeStatic
     def payment_get(self, mconfig):
-        logger = mconfig.log
         try:
             authorization = Authorization()
             authorization.validate_request_type_method(mconfig)
             # Calls PaymentRequestService class of service of sampleapiclient
             payment_req_obj = PaymentRequestService()
-            payment_req_obj.payment_request_service(mconfig, logger)
+            payment_req_obj.payment_request_service(mconfig)
         except ApiException as e:
-            authenticationsdk.util.ExceptionAuth.log_exception(logger, e, mconfig)
+            authenticationsdk.util.ExceptionAuth.log_exception(self.logger, e, mconfig.log_config)
         except Exception as e:
-            authenticationsdk.util.ExceptionAuth.log_exception(logger, repr(e), mconfig)
+            authenticationsdk.util.ExceptionAuth.log_exception(self.logger, repr(e), mconfig.log_config)
 
     # noinspection PyMethodMayBeStatic
     def payment_post(self, mconfig):
-        logger = mconfig.log
         try:
             authorization = Authorization()
             authorization.validate_request_type_method(mconfig)
             # Calls PaymentRequestService class of service of sampleapiclient
             payment_req_obj = PaymentRequestService()
-            payment_req_obj.payment_request_service(mconfig, logger)
+            payment_req_obj.payment_request_service(mconfig)
         except ApiException as e:
-            authenticationsdk.util.ExceptionAuth.log_exception(logger, e, mconfig)
+            authenticationsdk.util.ExceptionAuth.log_exception(self.logger, e, mconfig.log_config)
 
         except Exception as e:
-            authenticationsdk.util.ExceptionAuth.log_exception(logger, repr(e), mconfig)
+            authenticationsdk.util.ExceptionAuth.log_exception(self.logger, repr(e), mconfig.log_config)
 
     # noinspection PyMethodMayBeStatic
     def payment_put(self, mconfig):
-        logger = mconfig.log
         try:
             authorization = Authorization()
             authorization.validate_request_type_method(mconfig)
             # Calls PaymentRequestService class of service of sampleapiclient
             payment_req_obj = PaymentRequestService()
-            payment_req_obj.payment_request_service(mconfig, logger)
+            payment_req_obj.payment_request_service(mconfig)
         except ApiException as e:
-            authenticationsdk.util.ExceptionAuth.log_exception(logger, e, mconfig)
+            authenticationsdk.util.ExceptionAuth.log_exception(self.logger, e, mconfig.log_config)
 
         except Exception as e:
-            authenticationsdk.util.ExceptionAuth.log_exception(logger, repr(e), mconfig)
+            authenticationsdk.util.ExceptionAuth.log_exception(self.logger, repr(e), mconfig.log_config)
 
     def payment_delete(self, mconfig):
-        logger = mconfig.log
         try:
             authorization = Authorization()
             authorization.validate_request_type_method(mconfig)
             # Calls PaymentRequestService class of service of sampleapiclient
             payment_req_obj = PaymentRequestService()
-            payment_req_obj.payment_request_service(mconfig, logger)
+            payment_req_obj.payment_request_service(mconfig)
         except ApiException as e:
-            authenticationsdk.util.ExceptionAuth.log_exception(logger, e, mconfig)
+            authenticationsdk.util.ExceptionAuth.log_exception(self.logger, e, mconfig.log_config)
 
         except Exception as e:
-            authenticationsdk.util.ExceptionAuth.log_exception(logger, repr(e), mconfig)
+            authenticationsdk.util.ExceptionAuth.log_exception(self.logger, repr(e), mconfig.log_config)
