@@ -16,8 +16,8 @@ def del_none(d):
     return d
 
 def get_purchase_and_refund_details():
-    startTime = "2020-01-01T12:00:00Z"
-    endTime = "2020-01-30T12:00:00Z"
+    startTime = "2021-10-01T12:00:00Z"
+    endTime = "2021-10-30T12:00:00Z"
     organizationId = "testrest"
     paymentSubtype = "VI"
     viewBy = "requestDate"

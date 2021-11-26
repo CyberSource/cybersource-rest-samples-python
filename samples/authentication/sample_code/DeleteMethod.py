@@ -2,6 +2,7 @@ from lib.sampleapiclient.controller.ApiController import *
 from Post_Generate_Headers import *
 from authenticationsdk.util.PropertiesUtil import *
 from authenticationsdk.core.ExceptionHandling import *
+from munch import DefaultMunch
 
 class DeleteMethod:
     def __init__(self):
@@ -16,12 +17,12 @@ class DeleteMethod:
             util_obj = PropertiesUtil()
             util_obj.cybs_path = os.path.join(os.getcwd(), "samples/authentication/Resources", "cybs.json")
             details_dict1 = util_obj.properties_util()
-            
+            details_dict1 = DefaultMunch.fromDict(details_dict1)
+
             mconfig = MerchantConfiguration()
             mconfig.set_merchantconfig(details_dict1)
-            
-            mconfig.validate_merchant_details(details_dict1)
-            
+            mconfig.validate_merchant_details(details_dict1, mconfig)
+
             mconfig.request_type_method = self.request_type
             mconfig.request_target = self.request_target
             mconfig.url = self.url + mconfig.request_host + mconfig.request_target
