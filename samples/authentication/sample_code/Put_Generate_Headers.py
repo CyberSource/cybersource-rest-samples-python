@@ -25,14 +25,14 @@ class PutGenerateHeaders:
             util_obj = PropertiesUtil()
             util_obj.cybs_path = os.path.join(os.getcwd(), "samples/authentication/Resources", "cybs.json")
             details_dict1 = util_obj.properties_util()
-            
+
             mconfig = MerchantConfiguration()
             mconfig.set_merchantconfig(details_dict1)
-            
+
             mconfig.validate_merchant_details(details_dict1, mconfig)
-			
+
             mconfig.request_json_path_data = request_data.json_file_data(self.request_json_path, mconfig)
-				
+
             self.merchant_config = mconfig
             self.merchant_config.request_host = mconfig.request_host
             self.merchant_config.request_type_method = self.request_type
@@ -63,7 +63,7 @@ class PutGenerateHeaders:
                 print(" Date                : " + self.merchant_config.get_time())
                 print("digest               :" + GlobalLabelParameters.DIGEST_PREFIX + digest.string_digest_generation(
                     self.merchant_config.request_json_path_data).encode("utf-8").decode("utf-8"))
-                
+
                 temp_sig = auth.get_token(self.merchant_config, self.date)
                 print("Signature Header      :" + str(temp_sig))
                 print("Host                  :" + self.merchant_config.request_host)

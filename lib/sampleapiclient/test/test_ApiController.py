@@ -2,6 +2,7 @@ import unittest
 from lib.sampleapiclient.controller.ApiController import *
 from authenticationsdk.core.MerchantConfiguration import *
 import authenticationsdk.util.PropertiesUtil
+import CyberSource.logging.log_factory as LogFactory
 import cybersource_authentication_sdk_python.data.RequestData
 import logging
 from authenticationsdk.core.MockData import *

@@ -1,5 +1,6 @@
 from lib.sampleapiclient.service.PaymentRequestService import *
 from authenticationsdk.core.Authorization import *
+import CyberSource.logging.log_factory as LogFactory
 import authenticationsdk.util.ExceptionAuth
 
 
@@ -18,6 +19,7 @@ class ApiController:
 
     # noinspection PyMethodMayBeStatic
     def payment_get(self, mconfig):
+        self.logger = LogFactory.setup_logger(self.__class__.__name__, mconfig.log_config)
         try:
             authorization = Authorization()
             authorization.validate_request_type_method(mconfig)
@@ -31,6 +33,7 @@ class ApiController:
 
     # noinspection PyMethodMayBeStatic
     def payment_post(self, mconfig):
+        self.logger = LogFactory.setup_logger(self.__class__.__name__, mconfig.log_config)
         try:
             authorization = Authorization()
             authorization.validate_request_type_method(mconfig)
@@ -45,6 +48,7 @@ class ApiController:
 
     # noinspection PyMethodMayBeStatic
     def payment_put(self, mconfig):
+        self.logger = LogFactory.setup_logger(self.__class__.__name__, mconfig.log_config)
         try:
             authorization = Authorization()
             authorization.validate_request_type_method(mconfig)
@@ -58,6 +62,7 @@ class ApiController:
             authenticationsdk.util.ExceptionAuth.log_exception(self.logger, repr(e), mconfig.log_config)
 
     def payment_delete(self, mconfig):
+        self.logger = LogFactory.setup_logger(self.__class__.__name__, mconfig.log_config)
         try:
             authorization = Authorization()
             authorization.validate_request_type_method(mconfig)

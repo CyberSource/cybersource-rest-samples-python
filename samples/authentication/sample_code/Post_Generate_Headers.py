@@ -25,14 +25,14 @@ class PostGenerateHeaders:
             util_obj = PropertiesUtil()
             util_obj.cybs_path = os.path.join(os.getcwd(), "samples/authentication/Resources", "cybs.json")
             details_dict1 = util_obj.properties_util()
-            
+
             mconfig = MerchantConfiguration()
             mconfig.set_merchantconfig(details_dict1)
-            
+
             mconfig.validate_merchant_details(details_dict1, mconfig)
-			
+
             mconfig.request_json_path_data = request_data.json_file_data(self.request_json_path, mconfig)
-				
+
             self.merchant_config = mconfig
             self.merchant_config.request_host = mconfig.request_host
             self.merchant_config.request_type_method = self.request_type
@@ -55,10 +55,10 @@ class PostGenerateHeaders:
             auth = Authorization()
             digest = DigestAndPayload()
             authentication_type = self.merchant_config.authentication_type
-            
+
             print("Request Type    :" + self.request_type)
             print(GlobalLabelParameters.CONTENT_TYPE + "       :" + GlobalLabelParameters.APPLICATION_JSON)
-            
+
             if authentication_type.upper() == GlobalLabelParameters.HTTP.upper():
                 print(" " + GlobalLabelParameters.USER_AGENT + "          : " + GlobalLabelParameters.USER_AGENT_VALUE)
                 print(" MerchantID          : " + self.merchant_config.merchant_id)
@@ -79,7 +79,6 @@ class PostGenerateHeaders:
             authenticationsdk.util.ExceptionAuth.log_exception(logger, e, self.merchant_config)
         except Exception as e:
             authenticationsdk.util.ExceptionAuth.log_exception(logger, repr(e), self.merchant_config)
-
 
 if __name__ == "__main__":
     post_generate_obj = PostGenerateHeaders()

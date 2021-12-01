@@ -16,8 +16,8 @@ def del_none(d):
     return d
 
 def retrieve_available_reports():
-    startTime = "2020-04-01T00:00:00Z"
-    endTime = "2020-04-03T23:59:59Z"
+    startTime = "2021-04-01T00:00:00Z"
+    endTime = "2021-04-03T23:59:59Z"
     timeQueryType = "executedTime"
     reportMimeType = "application/xml"
 
