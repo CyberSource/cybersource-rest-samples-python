@@ -31,7 +31,7 @@ def electronic_check_standalone_credits():
     )
 
     paymentInformationBankRoutingNumber = "071923284"
-    paymentInformationBank = Ptsv2paymentsPaymentInformationBank(
+    paymentInformationBank = Ptsv2paymentsidrefundsPaymentInformationBank(
         account = paymentInformationBankAccount.__dict__,
         routing_number = paymentInformationBankRoutingNumber
     )
