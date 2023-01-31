@@ -37,7 +37,7 @@ def electronic_check_standalone_credits():
     )
 
     paymentInformationPaymentTypeName = "CHECK"
-    paymentInformationPaymentType = Ptsv2paymentsPaymentInformationPaymentType(
+    paymentInformationPaymentType = Ptsv2paymentsidrefundsPaymentInformationPaymentType(
         name = paymentInformationPaymentTypeName
     )
 
