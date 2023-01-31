@@ -19,8 +19,8 @@ def del_none(d):
     return d
 
 def get_invoice_details():
-    id = create_invoice.create_draft_invoice().id
     try:
+        id = create_invoice.create_draft_invoice().id
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = InvoicesApi(client_config)
