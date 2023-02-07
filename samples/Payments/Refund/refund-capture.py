@@ -23,7 +23,7 @@ def refund_capture():
     id = api_capture_response.id
 
     clientReferenceInformationCode = "TC50171_3"
-    clientReferenceInformation = Ptsv2paymentsClientReferenceInformation(
+    clientReferenceInformation = Ptsv2paymentsidrefundsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 

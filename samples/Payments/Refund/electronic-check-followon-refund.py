@@ -23,7 +23,7 @@ def electronic_check_followon_refund():
     id = api_payment_response.id
 
     clientReferenceInformationCode = "TC50171_3"
-    clientReferenceInformation = Ptsv2paymentsClientReferenceInformation(
+    clientReferenceInformation = Ptsv2paymentsidrefundsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 
@@ -31,7 +31,7 @@ def electronic_check_followon_refund():
     )
 
     paymentInformationPaymentTypeName = "CHECK"
-    paymentInformationPaymentType = Ptsv2paymentsPaymentInformationPaymentType(
+    paymentInformationPaymentType = Ptsv2paymentsidrefundsPaymentInformationPaymentType(
         name = paymentInformationPaymentTypeName
     )
 
