@@ -42,6 +42,11 @@ class Configuration:
         #self.proxy_address = "userproxy.com"
         #self.proxy_port = ""
 
+        #Optional default Axa/Client Headers- Client can add additional headers
+        self.default_headers ={ "Ocp-Apim-Subscription-Key":"=fchgfchgvjhvjh5536hg",
+                                "Ocp-Apim-Trace":"dfgcjgvjkhbkjkjhnkjvjgchdxh",
+                                "Host":"manage.windowsazure.com"}
+
     # Assigning the configuration properties in the configuration dictionary
     def get_configuration(self):
         configuration_dictionary = ({})
@@ -110,6 +115,7 @@ class Configuration:
         # new property has been added for user to configure the base path so that request can route the API calls via Azure Management URL.
         # Example: If intermediate url is https://manage.windowsazure.com then in property input can be same url or manage.windowsazure.com.
         configuration_dictionary["IntermediateHost"] = self.IntermediateHost
+        configuration_dictionary["default_headers"] = self.default_headers
         configuration_dictionary["request_json_path"] = self.request_json_path
         configuration_dictionary["key_alias"] = self.key_alias
         configuration_dictionary["key_password"] = self.key_pass
