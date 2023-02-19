@@ -1,6 +1,6 @@
 # Python Sample Code for the CyberSource SDK
 
-[![Travis CI Status](https://travis-ci.org/CyberSource/cybersource-rest-samples-python.svg?branch=master)](https://travis-ci.org/CyberSource/cybersource-rest-samples-python)
+[![Build Status](https://app.travis-ci.com/CyberSource/cybersource-rest-samples-python.svg?branch=master)](https://app.travis-ci.com/CyberSource/cybersource-rest-samples-python)
 
 This repository contains working code samples which demonstrate python integration with the CyberSource REST APIs through the [CyberSource Python SDK](https://github.com/CyberSource/cybersource-rest-client-python).
 
