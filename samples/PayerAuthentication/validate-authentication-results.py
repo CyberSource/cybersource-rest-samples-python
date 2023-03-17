@@ -98,7 +98,7 @@ def validate_authentication_results():
         write_log_audit(status)
         return return_data
     except Exception as e:
-        write_log_audit(e.status)
+        write_log_audit(e.status if hasattr(e, 'status') else 999)
         print("\nException when calling PayerAuthenticationApi->validate_authentication_results: %s\n" % e)
 
 def write_log_audit(status):

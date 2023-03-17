@@ -20,8 +20,7 @@ def del_none(d):
     return d
 
 def process_authorization_reversal():
-    api_payment_response = process_payment.simple_authorizationinternet(False)
-    id = api_payment_response.id
+    
 
     clientReferenceInformationCode = "TC50171_3"
     clientReferenceInformation = Ptsv2paymentsidreversalsClientReferenceInformation(
@@ -50,6 +49,8 @@ def process_authorization_reversal():
 
 
     try:
+        api_payment_response = process_payment.simple_authorizationinternet(False)
+        id = api_payment_response.id
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = ReversalApi(client_config)
@@ -61,7 +62,7 @@ def process_authorization_reversal():
         write_log_audit(status)
         return return_data
     except Exception as e:
-        write_log_audit(e.status)
+        write_log_audit(e.status if hasattr(e, 'status') else 999)
         print("\nException when calling ReversalApi->auth_reversal: %s\n" % e)
 
 def write_log_audit(status):

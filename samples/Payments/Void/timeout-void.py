@@ -20,7 +20,7 @@ def del_none(d):
     return d
 
 def timeout_void():
-    id = authorization.authorization_capture_for_timeout_void_flow().id
+    # id = authorization.authorization_capture_for_timeout_void_flow().id
     timeoutVoidTransactionId = authorization.timeoutVoidTransactionId
 
     clientReferenceInformationCode = "TC50171_3"
@@ -51,7 +51,7 @@ def timeout_void():
         write_log_audit(status)
         return return_data
     except Exception as e:
-        write_log_audit(e.status)
+        write_log_audit(e.status if hasattr(e, 'status') else 999)
         print("\nException when calling VoidApi->mit_void: %s\n" % e)
 
 def write_log_audit(status):

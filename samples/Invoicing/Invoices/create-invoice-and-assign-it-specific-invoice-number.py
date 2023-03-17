@@ -111,7 +111,7 @@ def create_invoice_and_assign_it_specific_invoice_number():
         write_log_audit(status)
         return return_data
     except Exception as e:
-        write_log_audit(e.status)
+        write_log_audit(e.status if hasattr(e, 'status') else 999)
         print("\nException when calling InvoicesApi->create_invoice: %s\n" % e)
 
 def write_log_audit(status):

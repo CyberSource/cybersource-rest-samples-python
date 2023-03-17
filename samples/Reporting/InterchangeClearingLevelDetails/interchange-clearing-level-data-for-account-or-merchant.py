@@ -34,7 +34,7 @@ def interchange_clearing_level_data_for_account_or_merchant():
         write_log_audit(status)
         return return_data
     except Exception as e:
-        write_log_audit(e.status)
+        write_log_audit(e.status if hasattr(e, 'status') else 999)
         print("\nException when calling InterchangeClearingLevelDetailsApi->get_interchange_clearing_level_details: %s\n" % e)
 
 def write_log_audit(status):

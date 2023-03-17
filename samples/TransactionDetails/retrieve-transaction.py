@@ -21,12 +21,13 @@ def del_none(d):
     return d
 
 def retrieve_transaction():
-    api_payment_response = process_payment.simple_authorizationinternet(False)
-    id = api_payment_response.id
-
-    time.sleep(15)
+    
 
     try:
+        api_payment_response = process_payment.simple_authorizationinternet(False)
+        id = api_payment_response.id
+
+        time.sleep(15)
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = TransactionDetailsApi(client_config)
@@ -38,7 +39,7 @@ def retrieve_transaction():
         write_log_audit(status)
         return return_data
     except Exception as e:
-        write_log_audit(e.status)
+        write_log_audit(e.status if hasattr(e, 'status') else 999)
         print("\nException when calling TransactionDetailsApi->get_transaction: %s\n" % e)
 
 def write_log_audit(status):

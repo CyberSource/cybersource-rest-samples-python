@@ -20,8 +20,7 @@ def del_none(d):
     return d
 
 def refund_capture():
-    api_capture_response = capture_payment.capture_payment()
-    id = api_capture_response.id
+    
 
     clientReferenceInformationCode = "TC50171_3"
     clientReferenceInformation = Ptsv2paymentsidrefundsClientReferenceInformation(
@@ -50,6 +49,8 @@ def refund_capture():
 
 
     try:
+        api_capture_response = capture_payment.capture_payment()
+        id = api_capture_response.id
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = RefundApi(client_config)
@@ -61,7 +62,7 @@ def refund_capture():
         write_log_audit(status)
         return return_data
     except Exception as e:
-        write_log_audit(e.status)
+        write_log_audit(e.status if hasattr(e, 'status') else 999)
         print("\nException when calling RefundApi->refund_capture: %s\n" % e)
 
 def write_log_audit(status):

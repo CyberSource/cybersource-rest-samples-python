@@ -65,7 +65,7 @@ def address_match_not_found():
         write_log_audit(status)
         return return_data
     except Exception as e:
-        write_log_audit(e.status)
+        write_log_audit(e.status if hasattr(e, 'status') else 999)
         print("\nException when calling VerificationApi->verify_customer_address: %s\n" % e)
 
 def write_log_audit(status):

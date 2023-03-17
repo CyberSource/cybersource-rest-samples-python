@@ -20,8 +20,7 @@ def del_none(d):
     return d
 
 def restaurant_capture_with_gratuity():
-    api_payment_response = authorization.restaurant_authorization()
-    id = api_payment_response.id
+    
 
     clientReferenceInformationCode = "1234567890"
     clientReferenceInformationPartnerThirdPartyCertificationNumber = "123456789012"
@@ -64,6 +63,8 @@ def restaurant_capture_with_gratuity():
 
 
     try:
+        api_payment_response = authorization.restaurant_authorization()
+        id = api_payment_response.id
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = CaptureApi(client_config)
@@ -75,7 +76,7 @@ def restaurant_capture_with_gratuity():
         write_log_audit(status)
         return return_data
     except Exception as e:
-        write_log_audit(e.status)
+        write_log_audit(e.status if hasattr(e, 'status') else 999)
         print("\nException when calling CaptureApi->capture_payment: %s\n" % e)
 
 def write_log_audit(status):

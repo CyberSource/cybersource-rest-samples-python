@@ -103,7 +103,7 @@ def authentication_with_no_redirect():
         write_log_audit(status)
         return return_data
     except Exception as e:
-        write_log_audit(e.status)
+        write_log_audit(e.status if hasattr(e, 'status') else 999)
         print("\nException when calling PayerAuthenticationApi->check_payer_auth_enrollment: %s\n" % e)
 
 def write_log_audit(status):

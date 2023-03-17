@@ -65,7 +65,7 @@ def authorization_with_customer_token_id():
         write_log_audit(status)
         return return_data
     except Exception as e:
-        write_log_audit(e.status)
+        write_log_audit(e.status if hasattr(e, 'status') else 999)
         print("\nException when calling PaymentsApi->create_payment: %s\n" % e)
 
 def write_log_audit(status):

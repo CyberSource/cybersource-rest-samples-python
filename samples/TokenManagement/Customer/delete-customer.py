@@ -19,11 +19,11 @@ def del_none(d):
             del_none(value)
     return d
 
-def delete_customer():
-    api_response = create_customer.create_customer()
-    customerTokenId = api_response.id
+def delete_customer(): 
 
     try:
+        api_response = create_customer.create_customer()
+        customerTokenId = api_response.id
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = CustomerApi(client_config)
@@ -35,7 +35,7 @@ def delete_customer():
         write_log_audit(status)
         return return_data
     except Exception as e:
-        write_log_audit(e.status)
+        write_log_audit(e.status if hasattr(e, 'status') else 999)
         print("\nException when calling CustomerApi->delete_customer: %s\n" % e)
 
 def write_log_audit(status):

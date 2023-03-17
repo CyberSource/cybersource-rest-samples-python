@@ -20,7 +20,6 @@ def del_none(d):
     return d
 
 def incremental_authorization():
-    id = authorization.authorization_for_incremental_authorization_flow().id
     clientReferenceInformationCode = "TC50171_3"
     clientReferenceInformation = Ptsv2paymentsidClientReferenceInformation(
         code = clientReferenceInformationCode
@@ -74,6 +73,7 @@ def incremental_authorization():
 
 
     try:
+        id = authorization.authorization_for_incremental_authorization_flow().id
         config_obj = configuration.Configuration()
         client_config = config_obj.get_alternative_configuration()
         api_instance = PaymentsApi(client_config)
@@ -85,7 +85,7 @@ def incremental_authorization():
         write_log_audit(status)
         return return_data
     except Exception as e:
-        write_log_audit(e.status)
+        write_log_audit(e.status if hasattr(e, 'status') else 999)
         print("\nException when calling PaymentsApi->increment_auth: %s\n" % e)
 
 def write_log_audit(status):

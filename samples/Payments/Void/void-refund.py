@@ -20,8 +20,7 @@ def del_none(d):
     return d
 
 def void_refund():
-    api_refund_response = refund_payment.refund_payment()
-    id = api_refund_response.id
+    
 
     clientReferenceInformationCode = "test_void"
     clientReferenceInformation = Ptsv2paymentsidreversalsClientReferenceInformation(
@@ -38,6 +37,8 @@ def void_refund():
 
 
     try:
+        api_refund_response = refund_payment.refund_payment()
+        id = api_refund_response.id
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = VoidApi(client_config)
@@ -49,7 +50,7 @@ def void_refund():
         write_log_audit(status)
         return return_data
     except Exception as e:
-        write_log_audit(e.status)
+        write_log_audit(e.status if hasattr(e, 'status') else 999)
         print("\nException when calling VoidApi->void_refund: %s\n" % e)
 
 def write_log_audit(status):

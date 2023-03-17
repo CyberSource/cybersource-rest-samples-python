@@ -33,7 +33,7 @@ def download_file_with_file_identifier():
         print("Response downloaded at the location : " + api_instance.api_client.download_file_path)
         write_log_audit(status)
     except Exception as e:
-        write_log_audit(e.status)
+        write_log_audit(e.status if hasattr(e, 'status') else 999)
         print("\nException when calling SecureFileShareApi->get_file: %s\n" % e)
 
 def write_log_audit(status):

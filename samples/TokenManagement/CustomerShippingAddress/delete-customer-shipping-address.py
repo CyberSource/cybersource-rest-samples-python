@@ -21,10 +21,10 @@ def del_none(d):
 
 def delete_customer_shipping_address():
     customerTokenId = "AB695DA801DD1BB6E05341588E0A3BDC"
-    api_response = create_customer_shipping_address.create_customer_nondefault_shipping_address()
-    shippingAddressTokenId = api_response.id
-
+   
     try:
+        api_response = create_customer_shipping_address.create_customer_nondefault_shipping_address()
+        shippingAddressTokenId = api_response.id
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = CustomerShippingAddressApi(client_config)
@@ -36,7 +36,7 @@ def delete_customer_shipping_address():
         write_log_audit(status)
         return return_data
     except Exception as e:
-        write_log_audit(e.status)
+        write_log_audit(e.status if hasattr(e, 'status') else 999)
         print("\nException when calling CustomerShippingAddressApi->delete_customer_shipping_address: %s\n" % e)
 
 def write_log_audit(status):
