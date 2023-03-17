@@ -1,4 +1,5 @@
 from CyberSource import *
+from pathlib import Path
 import os
 import json
 from importlib.machinery import SourceFileLoader
@@ -45,9 +46,14 @@ def void_committed_tax_call():
         print("\nAPI RESPONSE CODE : ", status)
         print("\nAPI RESPONSE BODY : ", body)
 
+        write_log_audit(status)
         return return_data
     except Exception as e:
+        write_log_audit(e.status)
         print("\nException when calling TaxesApi->void_tax: %s\n" % e)
+
+def write_log_audit(status):
+    print(f"[Sample Code Testing] [{Path(__file__).stem}] {status}")
 
 if __name__ == "__main__":
     void_committed_tax_call()

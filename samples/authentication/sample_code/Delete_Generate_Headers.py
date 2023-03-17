@@ -1,8 +1,10 @@
+from asyncore import write
 from authenticationsdk.core.Authorization import *
 from authenticationsdk.core.MerchantConfiguration import *
 import CyberSource.logging.log_factory as LogFactory
 from authenticationsdk.util.PropertiesUtil import *
 import authenticationsdk.util.ExceptionAuth
+from pathlib import Path
 
 
 class DeleteGenerateHeaders:
@@ -19,10 +21,10 @@ class DeleteGenerateHeaders:
             util_obj = PropertiesUtil()
             util_obj.cybs_path = os.path.join(os.getcwd(), "samples/authentication/Resources", "cybs.json")
             details_dict1 = util_obj.properties_util()
-            
+
             mconfig = MerchantConfiguration()
             mconfig.set_merchantconfig(details_dict1)
-            
+
             mconfig.validate_merchant_details(details_dict1, mconfig)
 
             self.merchant_config = mconfig
@@ -31,12 +33,16 @@ class DeleteGenerateHeaders:
             mconfig.request_target = self.request_target
             self.date = mconfig.get_time()
             self.delete_method_headers()
+            write_log_audit(200)
         except ApiException as e:
             print(e)
+            write_log_audit(400)
         except KeyError as e:
             print(GlobalLabelParameters.NOT_ENTERED + str(e))
+            write_log_audit(400)
         except IOError as e:
             print(GlobalLabelParameters.FILE_NOT_FOUND + str(e.filename))
+            write_log_audit(400)
 
     # This method prints values obtained in our code by connecting to AUTH sdk
     def delete_method_headers(self):
@@ -44,10 +50,10 @@ class DeleteGenerateHeaders:
         try:
             auth = Authorization()
             authentication_type = self.merchant_config.authentication_type
-            
+
             print("Request Type    :" + self.request_type)
             print(GlobalLabelParameters.CONTENT_TYPE + "       :" + GlobalLabelParameters.APPLICATION_JSON)
-            
+
             if authentication_type.upper() == GlobalLabelParameters.HTTP.upper():
                 print(" " + GlobalLabelParameters.USER_AGENT + "          : " + GlobalLabelParameters.USER_AGENT_VALUE)
                 print(" MerchantID          : " + self.merchant_config.merchant_id)
@@ -67,6 +73,8 @@ class DeleteGenerateHeaders:
         except Exception as e:
             authenticationsdk.util.ExceptionAuth.log_exception(logger, repr(e), self.merchant_config)
 
+def write_log_audit(status):
+    print(f"[Sample Code Testing] [{Path(__file__).stem}] {status}")
 
 if __name__ == "__main__":
     post_generate_obj = DeleteGenerateHeaders()

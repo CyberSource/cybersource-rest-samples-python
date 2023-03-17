@@ -2,6 +2,7 @@ import json
 import hashlib
 import base64
 import ssl
+from samples.authentication.sample_code.DeleteMethod import write_log_audit
 import urllib3
 import re
 import hmac
@@ -11,6 +12,7 @@ from datetime import date, datetime
 from time import mktime
 from wsgiref.handlers import format_date_time
 from six import PY3, integer_types, iteritems, text_type
+from pathlib import Path
 
 class StandAloneHttpSignature:
     def get_time(self):
@@ -18,14 +20,17 @@ class StandAloneHttpSignature:
         stamp = mktime(now.timetuple())
 
         return format_date_time(stamp)
-        
+
+    def write_log_audit(self, status):
+        print(f"[Sample Code Testing] [{Path(__file__).stem}] {status}")
+
     def __init__(self):
         warnings.filterwarnings("ignore", category=DeprecationWarning) 
         self.request_host = "apitest.cybersource.com"
         self.merchant_id = "testrest"
         self.merchant_key_id = "08c94330-f618-42a3-b09d-e1e43be5efda"
         self.merchant_secret_key = "yBJxy6LjM2TmcPGu+GaJrHtkke25fPpUX+UY6/L/1tE="
-        
+
         # REQUEST PAYLOAD
         self.payload = ("{\n" +
                 "  \"clientReferenceInformation\": {\n" +
@@ -70,7 +75,7 @@ class StandAloneHttpSignature:
                 cert_file=None,
                 key_file=None
             )
-            
+
         self.PRIMITIVE_TYPES = (float, bool, bytes, text_type) + integer_types
         self.NATIVE_TYPES_MAPPING = {
             'int': int,
@@ -333,6 +338,7 @@ class StandAloneHttpSignature:
         # HTTP POST REQUEST
         print("\n\nSample 1: POST call - CyberSource Payments API - HTTP POST Payment request")
         status_code = self.process_post()
+        status_code_post = status_code
 
         if status_code == 0:
             print("STATUS : SUCCESS (HTTP Status = " + str(status_code) + ")")
@@ -342,11 +348,17 @@ class StandAloneHttpSignature:
         # HTTP GET REQUEST
         print("\n\nSample 2: GET call - CyberSource Reporting API - HTTP GET Reporting request")
         status_code = self.process_get()
+        status_code_get = status_code
 
         if status_code == 0:
             print("STATUS : SUCCESS (HTTP Status = " + str(status_code) + ")")
         else:
             print("STATUS : ERROR (HTTP Status = " + str(status_code) + ")")
+
+        if status_code_post == 0 and status_code_get == 0:
+            self.write_log_audit(200)
+        else:
+            self.write_log_audit(400)
 
 if __name__ == "__main__":
     standalone_http_signature_obj = StandAloneHttpSignature()

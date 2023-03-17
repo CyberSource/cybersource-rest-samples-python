@@ -1,4 +1,5 @@
 from CyberSource import *
+from pathlib import Path
 import os
 import json
 from importlib.machinery import SourceFileLoader
@@ -57,9 +58,14 @@ def flex_tokenize_card():
         is_token_verified = token_verifier.verify_token(api_response.der.public_key, json.loads(body))
         print("Flex Token Verification : ", is_token_verified)
 
+        write_log_audit(status)
         return return_data
     except Exception as e:
+        write_log_audit(e.status)
         print("\nException when calling TokenizationApi->tokenize: %s\n" % e)
+
+def write_log_audit(status):
+    print(f"[Sample Code Testing] [{Path(__file__).stem}] {status}")
 
 if __name__ == "__main__":
     flex_tokenize_card()

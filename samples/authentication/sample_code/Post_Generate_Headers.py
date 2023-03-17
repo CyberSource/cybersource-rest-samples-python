@@ -5,6 +5,7 @@ import CyberSource.logging.log_factory as LogFactory
 from authenticationsdk.util.PropertiesUtil import *
 import authenticationsdk.util.ExceptionAuth
 from importlib.machinery import SourceFileLoader
+from pathlib import Path
 
 request_file = os.path.join(os.getcwd(), "samples/authentication/data", "RequestData.py")
 request_data = SourceFileLoader("module.name", request_file).load_module()
@@ -39,14 +40,19 @@ class PostGenerateHeaders:
             mconfig.request_target = self.request_target
             self.date = mconfig.get_time()
             self.post_method_headers()
+            write_log_audit(200)
         except ApiException as e:
             print(e)
+            write_log_audit(400)
         except KeyError as e:
             print(GlobalLabelParameters.NOT_ENTERED + str(e))
+            write_log_audit(400)
         except IOError as e:
             print(GlobalLabelParameters.FILE_NOT_FOUND + str(e.filename))
+            write_log_audit(400)
         except Exception as e:
             print(repr(e))
+            write_log_audit(400)
 
     # This method prints values obtained in our code by connecting to AUTH sdk
     def post_method_headers(self):
@@ -65,7 +71,7 @@ class PostGenerateHeaders:
                 print(" Date                : " + self.merchant_config.get_time())
                 print("digest               :" + GlobalLabelParameters.DIGEST_PREFIX + digest.string_digest_generation(
                     self.merchant_config.request_json_path_data).encode("utf-8").decode("utf-8"))
-                
+    
                 temp_sig = auth.get_token(self.merchant_config, self.date)
                 print("Signature Header      :" + str(temp_sig))
                 print("Host                  :" + self.merchant_config.request_host)
@@ -79,6 +85,9 @@ class PostGenerateHeaders:
             authenticationsdk.util.ExceptionAuth.log_exception(logger, e, self.merchant_config)
         except Exception as e:
             authenticationsdk.util.ExceptionAuth.log_exception(logger, repr(e), self.merchant_config)
+
+def write_log_audit(status):
+    print(f"[Sample Code Testing] [{Path(__file__).stem}] {status}")
 
 if __name__ == "__main__":
     post_generate_obj = PostGenerateHeaders()
