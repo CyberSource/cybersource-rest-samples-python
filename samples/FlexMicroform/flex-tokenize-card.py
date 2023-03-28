@@ -20,31 +20,31 @@ def del_none(d):
     return d
 
 def flex_tokenize_card():
-    api_response = generate_key.generate_key()
-    keyId = api_response.key_id
-
-    cardInfoCardNumber = "4111111111111111"
-    cardInfoCardExpirationMonth = "12"
-    cardInfoCardExpirationYear = "2031"
-    cardInfoCardType = "001"
-    cardInfo = Flexv1tokensCardInfo(
-        card_number = cardInfoCardNumber,
-        card_expiration_month = cardInfoCardExpirationMonth,
-        card_expiration_year = cardInfoCardExpirationYear,
-        card_type = cardInfoCardType
-    )
-
-    requestObj = TokenizeRequest(
-        key_id = keyId,
-        card_info = cardInfo.__dict__
-    )
-
-
-    requestObj = del_none(requestObj.__dict__)
-    requestObj = json.dumps(requestObj)
-
 
     try:
+        api_response = generate_key.generate_key()
+        keyId = api_response.key_id
+
+        cardInfoCardNumber = "4111111111111111"
+        cardInfoCardExpirationMonth = "12"
+        cardInfoCardExpirationYear = "2031"
+        cardInfoCardType = "001"
+        cardInfo = Flexv1tokensCardInfo(
+            card_number = cardInfoCardNumber,
+            card_expiration_month = cardInfoCardExpirationMonth,
+            card_expiration_year = cardInfoCardExpirationYear,
+            card_type = cardInfoCardType
+        )
+
+        requestObj = TokenizeRequest(
+            key_id = keyId,
+            card_info = cardInfo.__dict__
+        )
+
+
+        requestObj = del_none(requestObj.__dict__)
+        requestObj = json.dumps(requestObj)
+        
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = TokenizationApi(client_config)
