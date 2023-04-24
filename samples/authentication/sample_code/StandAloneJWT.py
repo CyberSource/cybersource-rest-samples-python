@@ -14,6 +14,7 @@ from time import mktime
 from wsgiref.handlers import format_date_time
 from six import PY3, integer_types, iteritems, text_type
 from OpenSSL import crypto
+from pathlib import Path
 
 class StandAloneJWT:
     def get_time(self):
@@ -21,6 +22,9 @@ class StandAloneJWT:
         stamp = mktime(now.timetuple())
 
         return format_date_time(stamp)
+
+    def write_log_audit(self, status):
+        print(f"[Sample Code Testing] [{Path(__file__).stem}] {status}")
 
     def __init__(self):
         warnings.filterwarnings("ignore", category=DeprecationWarning)
@@ -311,6 +315,7 @@ class StandAloneJWT:
         # HTTP POST REQUEST
         print("\n\nSample 1: POST call - CyberSource Payments API - HTTP POST Payment request")
         status_code = self.process_post()
+        status_code_post = status_code
 
         if status_code == 0:
             print("STATUS : SUCCESS (HTTP Status = " + str(status_code) + ")")
@@ -320,11 +325,17 @@ class StandAloneJWT:
         # HTTP GET REQUEST
         print("\n\nSample 2: GET call - CyberSource Reporting API - HTTP GET Reporting request")
         status_code = self.process_get()
+        status_code_get = status_code
 
         if status_code == 0:
             print("STATUS : SUCCESS (HTTP Status = " + str(status_code) + ")")
         else:
             print("STATUS : ERROR (HTTP Status = " + str(status_code) + ")")
+
+        if status_code_post == 0 and status_code_get == 0:
+            self.write_log_audit(200)
+        else:
+            self.write_log_audit(400)
 
 if __name__ == "__main__":
     standalone_jwt_obj = StandAloneJWT()

@@ -1,4 +1,5 @@
 from CyberSource import *
+from pathlib import Path
 import os
 import json
 from importlib.machinery import SourceFileLoader
@@ -113,9 +114,14 @@ def payment_with_flex_tokencreate_permanent_tms_token():
         print("\nAPI RESPONSE CODE : ", status)
         print("\nAPI RESPONSE BODY : ", body)
 
+        write_log_audit(status)
         return return_data
     except Exception as e:
+        write_log_audit(e.status if hasattr(e, 'status') else 999)
         print("\nException when calling PaymentsApi->create_payment: %s\n" % e)
+
+def write_log_audit(status):
+    print(f"[Sample Code Testing] [{Path(__file__).stem}] {status}")
 
 if __name__ == "__main__":
     payment_with_flex_tokencreate_permanent_tms_token()

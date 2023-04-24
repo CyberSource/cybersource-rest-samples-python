@@ -1,4 +1,5 @@
 from CyberSource import *
+from pathlib import Path
 import os
 import json
 from importlib.machinery import SourceFileLoader
@@ -21,10 +22,11 @@ def del_none(d):
 def retrieve_instrument_identifier():
     profileid = "93B32398-AD51-4CC2-A682-EA3E93614EB1"
 
-    api_response = create_instrument_identifier.create_instrument_identifier_card()
-    instrumentIdentifierTokenId = api_response.id
+    
 
     try:
+        api_response = create_instrument_identifier.create_instrument_identifier_card()
+        instrumentIdentifierTokenId = api_response.id
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = InstrumentIdentifierApi(client_config)
@@ -33,9 +35,14 @@ def retrieve_instrument_identifier():
         print("\nAPI RESPONSE CODE : ", status)
         print("\nAPI RESPONSE BODY : ", body)
 
+        write_log_audit(status)
         return return_data
     except Exception as e:
+        write_log_audit(e.status if hasattr(e, 'status') else 999)
         print("\nException when calling InstrumentIdentifierApi->get_instrument_identifier: %s\n" % e)
+
+def write_log_audit(status):
+    print(f"[Sample Code Testing] [{Path(__file__).stem}] {status}")
 
 if __name__ == "__main__":
     retrieve_instrument_identifier()

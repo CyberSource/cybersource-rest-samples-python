@@ -1,4 +1,5 @@
 from CyberSource import *
+from pathlib import Path
 import os
 import json
 from importlib.machinery import SourceFileLoader
@@ -19,8 +20,7 @@ def del_none(d):
     return d
 
 def void_committed_tax_call():
-    api_payment_response = committed_tax_call_request.committed_tax_call_request()
-    id = api_payment_response.id
+    
 
     clientReferenceInformationCode = "TAX_TC001"
     clientReferenceInformation = Vasv2taxidClientReferenceInformation(
@@ -37,6 +37,8 @@ def void_committed_tax_call():
 
 
     try:
+        api_payment_response = committed_tax_call_request.committed_tax_call_request()
+        id = api_payment_response.id
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = TaxesApi(client_config)
@@ -45,9 +47,14 @@ def void_committed_tax_call():
         print("\nAPI RESPONSE CODE : ", status)
         print("\nAPI RESPONSE BODY : ", body)
 
+        write_log_audit(status)
         return return_data
     except Exception as e:
+        write_log_audit(e.status if hasattr(e, 'status') else 999)
         print("\nException when calling TaxesApi->void_tax: %s\n" % e)
+
+def write_log_audit(status):
+    print(f"[Sample Code Testing] [{Path(__file__).stem}] {status}")
 
 if __name__ == "__main__":
     void_committed_tax_call()

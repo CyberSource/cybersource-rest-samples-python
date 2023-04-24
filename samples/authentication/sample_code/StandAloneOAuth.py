@@ -1,11 +1,12 @@
 from CyberSource import *
 import json
 import os
+from pathlib import Path
 
 # Assigning the configuration properties in the configuration dictionary
 def get_configuration():
     authentication_type ="mutual_auth"
-    run_environment = "api-matest.cybersource.com"    
+    run_environment = "api-matest.cybersource.com"
     enable_client_cert = True
     client_cert_dir = os.path.join(os.getcwd(), "resources")
     ssl_client_cert = ''
@@ -26,6 +27,9 @@ def get_configuration():
     configuration_dictionary["client_secret"] = client_secret
     return configuration_dictionary
 
+def write_log_audit(status):
+    print(f"[Sample Code Testing] [{Path(__file__).stem}] {status}")
+
 def standalone_oauth():
     result = None
     create_using_auth_code = False
@@ -43,10 +47,11 @@ def standalone_oauth():
         access_token = result.access_token
 
         #Call Payments SampleCode using OAuth, Set Authentication to OAuth in Sample Code Configuration
-        simple_authorizationinternet(access_token, refresh_token)    
+        simple_authorizationinternet(access_token, refresh_token)
+
 
 def post_access_token_from_auth_code(code, grant_type):
-    config = get_configuration()    
+    config = get_configuration()
     requestObj = CreateAccessTokenRequest(
         client_id = config['client_id'],
         client_secret = config['client_secret'],
@@ -66,10 +71,11 @@ def post_access_token_from_auth_code(code, grant_type):
 
         return return_data
     except Exception as e:
+        write_log_audit(400)
         print("\nException when calling PaymentsApi->create_payment: %s\n" % e)
 
 def post_access_token_from_refresh_token(refresh_token, grant_type):
-    config = get_configuration()        
+    config = get_configuration()
     requestObj = CreateAccessTokenRequest(
         client_id = config['client_id'],
         client_secret = config['client_secret'],
@@ -89,10 +95,8 @@ def post_access_token_from_refresh_token(refresh_token, grant_type):
 
         return return_data
     except Exception as e:
+        write_log_audit(400)
         print("\nException when calling PaymentsApi->create_payment: %s\n" % e)
-
-
-
 
 def simple_authorizationinternet(access_token, refresh_token):
     clientReferenceInformationCode = "TC50171_3"
@@ -101,7 +105,7 @@ def simple_authorizationinternet(access_token, refresh_token):
     )
 
     processingInformationCapture = False
-    
+
     processingInformation = Ptsv2paymentsProcessingInformation(
         capture = processingInformationCapture
     )
@@ -174,8 +178,10 @@ def simple_authorizationinternet(access_token, refresh_token):
         print("\nAPI RESPONSE CODE : ", status)
         print("\nAPI RESPONSE BODY : ", body)
 
+        write_log_audit(status)
         return return_data
     except Exception as e:
+        write_log_audit(400)
         print("\nException when calling PaymentsApi->create_payment: %s\n" % e)
 
 if __name__ == "__main__":

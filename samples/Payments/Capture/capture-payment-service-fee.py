@@ -1,4 +1,5 @@
 from CyberSource import *
+from pathlib import Path
 import os
 import json
 from importlib.machinery import SourceFileLoader
@@ -19,8 +20,7 @@ def del_none(d):
     return d
 
 def capture_payment_service_fee():
-    api_payment_response = process_payment.service_fees_with_credit_card_transaction(False)
-    id = api_payment_response.id
+    
 
     clientReferenceInformationCode = "TC50171_3"
     clientReferenceInformation = Ptsv2paymentsClientReferenceInformation(
@@ -65,6 +65,8 @@ def capture_payment_service_fee():
 
 
     try:
+        api_payment_response = process_payment.service_fees_with_credit_card_transaction(False)
+        id = api_payment_response.id
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = CaptureApi(client_config)
@@ -73,9 +75,14 @@ def capture_payment_service_fee():
         print("\nAPI RESPONSE CODE : ", status)
         print("\nAPI RESPONSE BODY : ", body)
 
+        write_log_audit(status)
         return return_data
     except Exception as e:
+        write_log_audit(e.status if hasattr(e, 'status') else 999)
         print("\nException when calling CaptureApi->capture_payment: %s\n" % e)
+
+def write_log_audit(status):
+    print(f"[Sample Code Testing] [{Path(__file__).stem}] {status}")
 
 if __name__ == "__main__":
     capture_payment_service_fee()

@@ -1,4 +1,5 @@
 from CyberSource import *
+from pathlib import Path
 import os
 import json
 from importlib.machinery import SourceFileLoader
@@ -20,10 +21,11 @@ def del_none(d):
 
 def delete_customer_payment_instrument():
     customerTokenId = "AB695DA801DD1BB6E05341588E0A3BDC"
-    api_response = create_customer_payment_instrument.create_customer_nondefault_payment_instrument_card()
-    paymentInstrumentTokenId = api_response.id
+   
 
     try:
+        api_response = create_customer_payment_instrument.create_customer_nondefault_payment_instrument_card()
+        paymentInstrumentTokenId = api_response.id
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = CustomerPaymentInstrumentApi(client_config)
@@ -32,9 +34,14 @@ def delete_customer_payment_instrument():
         print("\nAPI RESPONSE CODE : ", status)
         print("\nAPI RESPONSE BODY : ", body)
 
+        write_log_audit(status)
         return return_data
     except Exception as e:
+        write_log_audit(e.status if hasattr(e, 'status') else 999)
         print("\nException when calling CustomerPaymentInstrumentApi->delete_customer_payment_instrument: %s\n" % e)
+
+def write_log_audit(status):
+    print(f"[Sample Code Testing] [{Path(__file__).stem}] {status}")
 
 if __name__ == "__main__":
     delete_customer_payment_instrument()

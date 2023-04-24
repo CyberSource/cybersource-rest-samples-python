@@ -1,4 +1,5 @@
 from CyberSource import *
+from pathlib import Path
 import os
 import json
 from importlib.machinery import SourceFileLoader
@@ -19,7 +20,7 @@ def del_none(d):
     return d
 
 def timeout_reversal():
-    id = authorization.authorization_for_timeout_reversal_flow().id
+    # id = authorization.authorization_for_timeout_reversal_flow().id
     timeoutReversalTransactionId = authorization.timeoutReversalTransactionId
 
     clientReferenceInformationCode = "TC50171_3"
@@ -59,9 +60,14 @@ def timeout_reversal():
         print("\nAPI RESPONSE CODE : ", status)
         print("\nAPI RESPONSE BODY : ", body)
 
+        write_log_audit(status)
         return return_data
     except Exception as e:
+        write_log_audit(e.status if hasattr(e, 'status') else 999)
         print("\nException when calling ReversalApi->mit_reversal: %s\n" % e)
+
+def write_log_audit(status):
+    print(f"[Sample Code Testing] [{Path(__file__).stem}] {status}")
 
 if __name__ == "__main__":
     timeout_reversal()

@@ -1,5 +1,6 @@
 from CyberSource import *
 import json
+from pathlib import Path
 
 # Assigning the configuration properties in the configuration dictionary
 def get_configuration():
@@ -24,7 +25,6 @@ def get_configuration():
 def standalone_metakey():
     simple_payments_using_metakey()
 
-
 def simple_payments_using_metakey():
     clientReferenceInformationCode = "TC50171_3"
     clientReferenceInformation = Ptsv2paymentsClientReferenceInformation(
@@ -32,7 +32,7 @@ def simple_payments_using_metakey():
     )
 
     processingInformationCapture = False
-    
+
     processingInformation = Ptsv2paymentsProcessingInformation(
         capture = processingInformationCapture
     )
@@ -93,7 +93,6 @@ def simple_payments_using_metakey():
     requestObj = requestObj.__dict__
     requestObj = json.dumps(requestObj)
 
-
     try:
         client_config = get_configuration()
         api_instance = PaymentsApi(client_config)
@@ -102,9 +101,14 @@ def simple_payments_using_metakey():
         print("\nAPI RESPONSE CODE : ", status)
         print("\nAPI RESPONSE BODY : ", body)
 
+        write_log_audit(status)
         return return_data
     except Exception as e:
+        write_log_audit(400)
         print("\nException when calling PaymentsApi->create_payment: %s\n" % e)
+
+def write_log_audit(status):
+    print(f"[Sample Code Testing] [{Path(__file__).stem}] {status}")
 
 if __name__ == "__main__":
     standalone_metakey()
