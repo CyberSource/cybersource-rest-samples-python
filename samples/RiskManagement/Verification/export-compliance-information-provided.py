@@ -80,7 +80,7 @@ def export_compliance_information_provided():
     exportComplianceInformationWeightsAddress = "low"
     exportComplianceInformationWeightsCompany = "exact"
     exportComplianceInformationWeightsName = "exact"
-    exportComplianceInformationWeights = Riskv1exportcomplianceinquiriesExportComplianceInformationWeights(
+    exportComplianceInformationWeights = Ptsv2paymentsWatchlistScreeningInformationWeights(
         address = exportComplianceInformationWeightsAddress,
         company = exportComplianceInformationWeightsCompany,
         name = exportComplianceInformationWeightsName
