@@ -98,7 +98,7 @@ def multiple_sanction_lists():
     exportComplianceInformationWeightsAddress = "low"
     exportComplianceInformationWeightsCompany = "exact"
     exportComplianceInformationWeightsName = "exact"
-    exportComplianceInformationWeights = Riskv1exportcomplianceinquiriesExportComplianceInformationWeights(
+    exportComplianceInformationWeights = Ptsv2paymentsWatchlistScreeningInformationWeights(
         address = exportComplianceInformationWeightsAddress,
         company = exportComplianceInformationWeightsCompany,
         name = exportComplianceInformationWeightsName

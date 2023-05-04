@@ -75,7 +75,7 @@ def compliance_status_completed():
     exportComplianceInformationWeightsAddress = "abc"
     exportComplianceInformationWeightsCompany = "def"
     exportComplianceInformationWeightsName = "adb"
-    exportComplianceInformationWeights = Riskv1exportcomplianceinquiriesExportComplianceInformationWeights(
+    exportComplianceInformationWeights = Ptsv2paymentsWatchlistScreeningInformationWeights(
         address = exportComplianceInformationWeightsAddress,
         company = exportComplianceInformationWeightsCompany,
         name = exportComplianceInformationWeightsName
