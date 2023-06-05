@@ -22,8 +22,8 @@ class Configuration:
         # HTTP PARAMETERS
         self.merchant_keyid = "08c94330-f618-42a3-b09d-e1e43be5efda"
         self.merchant_secretkey = "yBJxy6LjM2TmcPGu+GaJrHtkke25fPpUX+UY6/L/1tE="
-        self.alternative_merchant_keyid = "e547c3d3-16e4-444c-9313-2a08784b906a"
-        self.alternative_merchant_secretkey = "JXm4dqKYIxWofM1TIbtYY9HuYo7Cg1HPHxn29f6waRo="
+        self.alternative_merchant_keyid = "964f2ecc-96f0-4432-a742-db0b44e6a73a"
+        self.alternative_merchant_secretkey = "zXKpCqMQPmOR/JRldSlkQUtvvIzOewUVqsUP0sBHpxQ="
         # META KEY PARAMETERS
         self.use_metakey = False
         self.portfolio_id = ''

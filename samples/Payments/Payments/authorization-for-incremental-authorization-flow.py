@@ -26,7 +26,7 @@ def authorization_for_incremental_authorization_flow():
 
     paymentInformationCardNumber = "4111111111111111"
     paymentInformationCardExpirationMonth = "12"
-    paymentInformationCardExpirationYear = "2021"
+    paymentInformationCardExpirationYear = "2031"
     paymentInformationCardType = "001"
     paymentInformationCard = Ptsv2paymentsPaymentInformationCard(
         number = paymentInformationCardNumber,
