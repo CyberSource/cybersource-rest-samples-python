@@ -46,6 +46,7 @@ class Configuration:
         self.default_headers ={ "Ocp-Apim-Subscription-Key":"=fchgfchgvjhvjh5536hg",
                                 "Ocp-Apim-Trace":"dfgcjgvjkhbkjkjhnkjvjgchdxh",
                                 "Host":"manage.windowsazure.com"}
+        self.JWEPemFIleDirectory = os.path.join(os.getcwd(), "resources", "NetworkTokenCert.pem")
 
     # Assigning the configuration properties in the configuration dictionary
     def get_configuration(self):
@@ -63,6 +64,7 @@ class Configuration:
         configuration_dictionary["use_metakey"] = self.use_metakey
         configuration_dictionary["portfolio_id"] = self.portfolio_id
         configuration_dictionary["timeout"] = self.timeout
+        configuration_dictionary['jwePEMFileDirectory'] = self.JWEPemFIleDirectory
         log_config = LogConfiguration()
         log_config.set_enable_log(self.enable_log)
         log_config.set_log_directory(self.log_directory)
