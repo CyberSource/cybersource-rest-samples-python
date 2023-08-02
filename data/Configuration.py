@@ -46,6 +46,9 @@ class Configuration:
         self.default_headers ={ "Ocp-Apim-Subscription-Key":"=fchgfchgvjhvjh5536hg",
                                 "Ocp-Apim-Trace":"dfgcjgvjkhbkjkjhnkjvjgchdxh",
                                 "Host":"manage.windowsazure.com"}
+
+	    # PEM Key file path for decoding JWE Response Enter the folder path where the .pem file is located.
+		# It is optional property, require adding only during JWE decryption.
         self.JWEPemFIleDirectory = os.path.join(os.getcwd(), "resources", "NetworkTokenCert.pem")
 
     # Assigning the configuration properties in the configuration dictionary
