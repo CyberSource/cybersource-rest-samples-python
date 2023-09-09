@@ -7,6 +7,7 @@ from pathlib import Path
 config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
 configuration = SourceFileLoader("module.name", config_file).load_module()
 
+
 # To delete None values in Input Request Json body
 def del_none(d):
     for key, value in list(d.items()):
@@ -16,7 +17,11 @@ def del_none(d):
             del_none(value)
     return d
 
+
 def create_plan():
+    # Required to make the sample code activate-plan.py work
+    planInformationStatus = "DRAFT"
+
     planInformationName = "Gold Plan"
     planInformationDescription = "New Gold Plan"
     planInformationBillingPeriodLength = "1"
@@ -34,6 +39,7 @@ def create_plan():
     planInformation = Rbsv1plansPlanInformation(
         name = planInformationName,
         description = planInformationDescription,
+        status = planInformationStatus,
         billing_period = planInformationBillingPeriod.__dict__,
         billing_cycles = planInformationBillingCycles.__dict__
     )
@@ -56,10 +62,8 @@ def create_plan():
         order_information = orderInformation.__dict__
     )
 
-
     requestObj = del_none(requestObj.__dict__)
     requestObj = json.dumps(requestObj)
-
 
     try:
         config_obj = configuration.Configuration()
@@ -77,8 +81,10 @@ def create_plan():
         write_log_audit(e.status)
         print("\nException when calling PlansApi->create_plan: %s\n" % e)
 
+
 def write_log_audit(status):
     print(f"[Sample Code Testing] [{Path(__file__).stem}] {status}")
+
 
 if __name__ == "__main__":
     create_plan()
