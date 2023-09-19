@@ -176,10 +176,10 @@ class StandAloneHttpSignature:
         header_list.append(", algorithm=\"HmacSHA256\"")
 
         if method.upper() == 'POST':
-            postheaders = "host date (request-target) digest v-c-merchant-id"
+            postheaders = "host date request-target digest v-c-merchant-id"
             header_list.append(", headers=\"" + postheaders + "\"")
         else:
-            getheaders = "host date (request-target) v-c-merchant-id"
+            getheaders = "host date request-target v-c-merchant-id"
             header_list.append(", headers=\"" + getheaders + "\"")
 
         signature_list = ([])
@@ -191,7 +191,7 @@ class StandAloneHttpSignature:
         signature_list.append("date: " + time + "\n")
 
         # This method adds the request target
-        signature_list.append("(request-target): ")
+        signature_list.append("request-target: ")
 
         request_target = method + " " + resource
         signature_list.append(request_target + "\n")
