@@ -24,7 +24,7 @@ def update_plan():
     planInformationDescription = "Updated Gold Plan"
     planInformationBillingPeriodLength = "2"
     planInformationBillingPeriodUnit = "W"
-    planInformationBillingPeriod = InlineResponse200PlanInformationBillingPeriod(
+    planInformationBillingPeriod = GetAllPlansResponsePlanInformationBillingPeriod(
         length = planInformationBillingPeriodLength,
         unit = planInformationBillingPeriodUnit
     )
@@ -53,13 +53,13 @@ def update_plan():
     orderInformationAmountDetailsCurrency = "USD"
     orderInformationAmountDetailsBillingAmount = "11"
     orderInformationAmountDetailsSetupFee = "2"
-    orderInformationAmountDetails = InlineResponse200OrderInformationAmountDetails(
+    orderInformationAmountDetails = GetAllPlansResponseOrderInformationAmountDetails(
         currency = orderInformationAmountDetailsCurrency,
         billing_amount = orderInformationAmountDetailsBillingAmount,
         setup_fee = orderInformationAmountDetailsSetupFee
     )
 
-    orderInformation = InlineResponse200OrderInformation(
+    orderInformation = GetAllPlansResponseOrderInformation(
         amount_details = orderInformationAmountDetails.__dict__
     )
 

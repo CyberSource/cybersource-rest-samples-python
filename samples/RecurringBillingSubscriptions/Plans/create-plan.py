@@ -26,7 +26,7 @@ def create_plan():
     planInformationDescription = "New Gold Plan"
     planInformationBillingPeriodLength = "1"
     planInformationBillingPeriodUnit = "M"
-    planInformationBillingPeriod = InlineResponse200PlanInformationBillingPeriod(
+    planInformationBillingPeriod = GetAllPlansResponsePlanInformationBillingPeriod(
         length = planInformationBillingPeriodLength,
         unit = planInformationBillingPeriodUnit
     )

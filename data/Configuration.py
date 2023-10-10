@@ -47,6 +47,10 @@ class Configuration:
                                 "Ocp-Apim-Trace":"dfgcjgvjkhbkjkjhnkjvjgchdxh",
                                 "Host":"manage.windowsazure.com"}
 
+	    # PEM Key file path for decoding JWE Response Enter the folder path where the .pem file is located.
+		# It is optional property, require adding only during JWE decryption.
+        self.JWEPemFIleDirectory = os.path.join(os.getcwd(), "resources", "NetworkTokenCert.pem")
+
     # Assigning the configuration properties in the configuration dictionary
     def get_configuration(self):
         configuration_dictionary = ({})
@@ -63,6 +67,7 @@ class Configuration:
         configuration_dictionary["use_metakey"] = self.use_metakey
         configuration_dictionary["portfolio_id"] = self.portfolio_id
         configuration_dictionary["timeout"] = self.timeout
+        configuration_dictionary['jwePEMFileDirectory'] = self.JWEPemFIleDirectory
         log_config = LogConfiguration()
         log_config.set_enable_log(self.enable_log)
         log_config.set_log_directory(self.log_directory)
