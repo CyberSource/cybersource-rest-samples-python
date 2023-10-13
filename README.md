@@ -48,7 +48,7 @@ You can run each sample directly from the command line.
 
     ```bash
     pip install -e .
-    pip install requests, munch
+    pip install requests munch
     ```
 
 * Run the individual samples by name. For example:
