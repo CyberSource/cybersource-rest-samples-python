@@ -79,8 +79,9 @@ def update_subscription():
 
 
     try:
-        create_subscription_response = create_subscription.create_subscription()
-        id = create_subscription_response.id
+        # create_subscription_response = create_subscription.create_subscription()
+        # The following `id` field is hardcoded because the above call will not allow duplicate requests.
+        id = "6971805775636334604953" # create_subscription_response.id
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = SubscriptionsApi(client_config)

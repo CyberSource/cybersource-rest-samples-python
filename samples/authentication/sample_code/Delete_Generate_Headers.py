@@ -1,4 +1,3 @@
-from asyncore import write
 from authenticationsdk.core.Authorization import *
 from authenticationsdk.core.MerchantConfiguration import *
 import CyberSource.logging.log_factory as LogFactory
