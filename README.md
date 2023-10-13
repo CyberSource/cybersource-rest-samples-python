@@ -20,33 +20,48 @@ You can run each sample directly from the command line.
 
 * Clone this repository:
 
-```bash
+    ```bash
     git clone https://github.com/CyberSource/cybersource-rest-samples-python.git
-```
+    ```
 
 * Install the CyberSource Python SDK:
 
-```bash
+    ```bash
     pip install cybersource-rest-client-python
-```
+    ```
 
-* Install the Sample Codes (required for running Authentication samples only)
+* Set the environment variable `PYTHONPATH` to the base directory of the Sample Codes.
 
-```bash
+    On Linux, run the following:
+
+    ```bash
+    export PYTHONPATH=$(pwd):$PYTHONPATH
+    ```
+
+    On Windows, run the following:
+
+    ```bash
+    set PYTHONPATH=%cd%
+    ```
+
+* Install the Sample Codes and its dependencies (required for running Authentication samples only)
+
+    ```bash
     pip install -e .
-```
+    pip install requests, munch
+    ```
 
 * Run the individual samples by name. For example:
 
-```bash
+    ```bash
     python [DirectoryPath]\[CodeSampleName]
-```
+    ```
 
-e.g.
+    e.g.
 
-```bash
+    ```bash
     python samples\Payments\Payments\simple-authorizationinternet.py
-```
+    ```
 
 ### Setting your own API credentials for an API Request
 
@@ -54,56 +69,56 @@ Configure the following information in data/configuration.py file:
 
 * Http Signature
 
-```python
-        self.authentication_type      = "http_signature"
-        self.merchantid               = "Your Merchant ID"
-        self.merchant_keyid           = "Your key id"
-        self.merchant_secretkey       = "Your secret key"
-```
+    ```python
+    self.authentication_type      = "http_signature"
+    self.merchantid               = "Your Merchant ID"
+    self.merchant_keyid           = "Your key id"
+    self.merchant_secretkey       = "Your secret key"
+    ```
 
 * Jwt
 
-```python
-        self.authentication_type      = "jwt"
-        self.merchantid               = "Your Merchant ID"
-        self.key_alias                = "Your key alias"
-        self.key_pass                 = "Your key password"
-        self.key_file_name            = "Your key filename"
-        self.keys_directory           = os.getcwd()+"\\resources\\"
-```
+    ```python
+    self.authentication_type      = "jwt"
+    self.merchantid               = "Your Merchant ID"
+    self.key_alias                = "Your key alias"
+    self.key_pass                 = "Your key password"
+    self.key_file_name            = "Your key filename"
+    self.keys_directory           = os.getcwd()+"\\resources\\"
+    ```
 
 * MetaKey Http
 
-```python
-        self.authentication_type      = "http_Signature"
-        self.merchantid               = "your_child_merchant_id"
-        self.merchant_keyid           = "your_metakey_serial_number"
-        self.merchant_secretkey       = "your_metakey_shared_secret"
-        self.portfolio_id             = "your_portfolio_id"
-        self.use_metakey              = true
-```
+    ```python
+    self.authentication_type      = "http_Signature"
+    self.merchantid               = "your_child_merchant_id"
+    self.merchant_keyid           = "your_metakey_serial_number"
+    self.merchant_secretkey       = "your_metakey_shared_secret"
+    self.portfolio_id             = "your_portfolio_id"
+    self.use_metakey              = true
+    ```
 
 * MetaKey JWT
 
-```python
-        self.authentication_type      = "jwt"
-        self.merchantid               = "your_child_merchant_id"
-        self.key_alias                = "your_child_merchant_id"
-        self.key_pass                 = "your_portfolio_id"
-        self.key_file_name            = "your_portfolio_id"
-        self.keys_directory           = os.getcwd()+"\\resources\\"
-        self.use_metakey              = true
-```
+    ```python
+    self.authentication_type      = "jwt"
+    self.merchantid               = "your_child_merchant_id"
+    self.key_alias                = "your_child_merchant_id"
+    self.key_pass                 = "your_portfolio_id"
+    self.key_file_name            = "your_portfolio_id"
+    self.keys_directory           = os.getcwd()+"\\resources\\"
+    self.use_metakey              = true
+    ```
 
 ### Switching between the sandbox environment and the production environment
 
 CyberSource maintains a complete sandbox environment for testing and development purposes. This sandbox environment is an exact duplicate of our production environment with the transaction authorization and settlement process simulated. By default, this SDK is configured to communicate with the sandbox environment. To switch to the production environment, set the appropriate environment constant in data/Configuration.py file.  For example:
 
 ```python
-   For TESTING use
-   self.run_environment = "apitest.cybersource.com"
-   # For PRODUCTION use
-   # self.run_environment = "api.cybersource.com"
+    # For TESTING use
+    self.run_environment = "apitest.cybersource.com"
+    # For PRODUCTION use
+    # self.run_environment = "api.cybersource.com"
 ```
 
 ## API Reference
@@ -135,17 +150,17 @@ For the old run environments previously used, they should be replaced by the fol
 For example, replace the following code in the Configuration file:
 
 ```python
-   For TESTING use
-     self.run_environment = "cybersource.environment.sandbox"
-   # For PRODUCTION use
-   # self.run_environment = "cybersource.environment.production"
+    # For TESTING use
+    self.run_environment = "cybersource.environment.sandbox"
+    # For PRODUCTION use
+    # self.run_environment = "cybersource.environment.production"
 ```
 
 with the following code:
 
 ```python
-   For TESTING use
-     self.run_environment = "apitest.cybersource.com"
-   # For PRODUCTION use
-   # self.run_environment = "api.cybersource.com"
+    # For TESTING use
+    self.run_environment = "apitest.cybersource.com"
+    # For PRODUCTION use
+    # self.run_environment = "api.cybersource.com"
 ```
