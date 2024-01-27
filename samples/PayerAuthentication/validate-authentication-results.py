@@ -14,6 +14,9 @@ def del_none(d):
             del d[key]
         elif isinstance(value, dict):
             del_none(value)
+        elif isinstance(value, list):
+            for item in value:
+                del_none(item)
     return d
 
 def validate_authentication_results():
@@ -32,24 +35,13 @@ def validate_authentication_results():
 
     orderInformationAmountDetailsCurrency = "USD"
     orderInformationAmountDetailsTotalAmount = "200.00"
-    orderInformationAmountDetails = Riskv1authenticationsOrderInformationAmountDetails(
+    orderInformationAmountDetails = Riskv1authenticationresultsOrderInformationAmountDetails(
         currency = orderInformationAmountDetailsCurrency,
         total_amount = orderInformationAmountDetailsTotalAmount
     )
 
-
-    orderInformationLineItems = []
-    orderInformationLineItems1 = Riskv1authenticationresultsOrderInformationLineItems(
-        unit_price = "10",
-        quantity = 2,
-        tax_amount = "32.40"
-    )
-
-    orderInformationLineItems.append(orderInformationLineItems1.__dict__)
-
     orderInformation = Riskv1authenticationresultsOrderInformation(
-        amount_details = orderInformationAmountDetails.__dict__,
-        line_items = orderInformationLineItems
+        amount_details = orderInformationAmountDetails.__dict__
     )
 
     paymentInformationCardType = "002"
@@ -68,10 +60,8 @@ def validate_authentication_results():
     )
 
     consumerAuthenticationInformationAuthenticationTransactionId = "PYffv9G3sa1e0CQr5fV0"
-    consumerAuthenticationInformationSignedPares = "eNqdmFmT4jgSgN+J4D90zD4yMz45PEFVhHzgA2zwjXnzhQ984Nvw61dAV1"
     consumerAuthenticationInformation = Riskv1authenticationresultsConsumerAuthenticationInformation(
-        authentication_transaction_id = consumerAuthenticationInformationAuthenticationTransactionId,
-        signed_pares = consumerAuthenticationInformationSignedPares
+        authentication_transaction_id = consumerAuthenticationInformationAuthenticationTransactionId
     )
 
     requestObj = ValidateRequest(
@@ -96,6 +86,7 @@ def validate_authentication_results():
         print("\nAPI RESPONSE BODY : ", body)
 
         write_log_audit(status)
+
         return return_data
     except Exception as e:
         write_log_audit(e.status if hasattr(e, 'status') else 999)

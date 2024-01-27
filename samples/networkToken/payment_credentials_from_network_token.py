@@ -1,8 +1,9 @@
+import json
 import os
 from importlib.machinery import SourceFileLoader
 from pathlib import Path
 
-from CyberSource import TokenApi
+from CyberSource import *
 from create_instrument_identifier_card_enroll_for_network_token import create_instrument_identifier_card_enroll_for_network_token
 
 config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
@@ -27,7 +28,10 @@ def payment_credentials_from_network_token(token_id=None):
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = TokenApi(client_config)
-        return_data, status, body = api_instance.post_token_payment_credentials(token_id, profile_id=profile_id)
+        post_payment_credentials_request = PostPaymentCredentialsRequest()
+        post_payment_credentials_request = del_none(post_payment_credentials_request.__dict__)
+        post_payment_credentials_request = json.dumps(post_payment_credentials_request)
+        return_data, status, body = api_instance.post_token_payment_credentials(token_id, post_payment_credentials_request, profile_id=profile_id)
         print("\nAPI RESPONSE CODE : ", status)
         print("\nAPI RESPONSE BODY : ", body)
 
