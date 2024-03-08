@@ -23,7 +23,7 @@ def create_instrument_identifier_card_enroll_for_network_token():
     cardExpirationMonth = "12"
     cardExpirationYear = "2031"
     cardSecurityCode = "123"
-    card = Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierCard(
+    card = TmsEmbeddedInstrumentIdentifierCard(
         number = cardNumber,
         expiration_month = cardExpirationMonth,
         expiration_year = cardExpirationYear,
@@ -35,7 +35,7 @@ def create_instrument_identifier_card_enroll_for_network_token():
     billToAdministrativeArea = "CA"
     billToPostalCode = "94105"
     billToCountry = "US"
-    billTo = Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierBillTo(
+    billTo = TmsEmbeddedInstrumentIdentifierBillTo(
         address1 = billToAddress1,
         locality = billToLocality,
         administrative_area = billToAdministrativeArea,

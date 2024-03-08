@@ -72,11 +72,11 @@ def create_customer_payment_instrument_bank_account():
     )
 
     processingInformationBankTransferOptionsSeCCode = "WEB"
-    processingInformationBankTransferOptions = Tmsv2customersEmbeddedDefaultPaymentInstrumentProcessingInformationBankTransferOptions(
+    processingInformationBankTransferOptions = TmsPaymentInstrumentProcessingInfoBankTransferOptions(
         sec_code = processingInformationBankTransferOptionsSeCCode
     )
 
-    processingInformation = Tmsv2customersEmbeddedDefaultPaymentInstrumentProcessingInformation(
+    processingInformation = TmsPaymentInstrumentProcessingInfo(
         bank_transfer_options = processingInformationBankTransferOptions.__dict__
     )
 

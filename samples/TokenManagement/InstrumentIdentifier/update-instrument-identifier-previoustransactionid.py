@@ -21,19 +21,19 @@ def update_instrument_identifier_previoustransactionid():
     instrumentIdentifierTokenId = "7010000000016241111"
 
     processingInformationAuthorizationOptionsInitiatorMerchantInitiatedTransactionPreviousTransactionId = "123456789012345"
-    processingInformationAuthorizationOptionsInitiatorMerchantInitiatedTransaction = Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierProcessingInformationAuthorizationOptionsInitiatorMerchantInitiatedTransaction(
+    processingInformationAuthorizationOptionsInitiatorMerchantInitiatedTransaction = MerchantInitiatedTransactionObject(
         previous_transaction_id = processingInformationAuthorizationOptionsInitiatorMerchantInitiatedTransactionPreviousTransactionId
     )
 
-    processingInformationAuthorizationOptionsInitiator = Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierProcessingInformationAuthorizationOptionsInitiator(
+    processingInformationAuthorizationOptionsInitiator = TmsAuthorizationOptionsInitiator(
         merchant_initiated_transaction = processingInformationAuthorizationOptionsInitiatorMerchantInitiatedTransaction.__dict__
     )
 
-    processingInformationAuthorizationOptions = Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierProcessingInformationAuthorizationOptions(
+    processingInformationAuthorizationOptions = TmsAuthorizationOptions(
         initiator = processingInformationAuthorizationOptionsInitiator.__dict__
     )
 
-    processingInformation = Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierProcessingInformation(
+    processingInformation = TmsEmbeddedInstrumentIdentifierProcessingInformation(
         authorization_options = processingInformationAuthorizationOptions.__dict__
     )
 

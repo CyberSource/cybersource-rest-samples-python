@@ -24,7 +24,7 @@ def enroll_instrument_identifier_for_network_tokenization():
     cardExpirationMonth = "12"
     cardExpirationYear = "2031"
     cardSecurityCode = "123"
-    card = Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierCard(
+    card = TmsEmbeddedInstrumentIdentifierCard(
         expiration_month = cardExpirationMonth,
         expiration_year = cardExpirationYear,
         security_code = cardSecurityCode
@@ -35,7 +35,7 @@ def enroll_instrument_identifier_for_network_tokenization():
     billToAdministrativeArea = "CA"
     billToPostalCode = "94105"
     billToCountry = "US"
-    billTo = Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierBillTo(
+    billTo = TmsEmbeddedInstrumentIdentifierBillTo(
         address1 = billToAddress1,
         locality = billToLocality,
         administrative_area = billToAdministrativeArea,

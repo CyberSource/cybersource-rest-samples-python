@@ -20,7 +20,7 @@ def create_instrument_identifier_card():
     profileid = "93B32398-AD51-4CC2-A682-EA3E93614EB1"
 
     cardNumber = "4111111111111111"
-    card = Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierCard(
+    card = TmsEmbeddedInstrumentIdentifierCard(
         number = cardNumber
     )
 

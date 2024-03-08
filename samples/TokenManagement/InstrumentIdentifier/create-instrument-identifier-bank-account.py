@@ -20,7 +20,7 @@ def create_instrument_identifier_bank_account():
     profileid = "93B32398-AD51-4CC2-A682-EA3E93614EB1"
     bankAccountNumber = "4100"
     bankAccountRoutingNumber = "071923284"
-    bankAccount = Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierBankAccount(
+    bankAccount = TmsEmbeddedInstrumentIdentifierBankAccount(
         number = bankAccountNumber,
         routing_number = bankAccountRoutingNumber
     )
