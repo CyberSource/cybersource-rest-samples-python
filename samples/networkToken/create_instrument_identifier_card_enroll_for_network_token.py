@@ -3,7 +3,7 @@ import os
 from importlib.machinery import SourceFileLoader
 from pathlib import Path
 
-from CyberSource import Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierCard, \
+from CyberSource import TmsEmbeddedInstrumentIdentifierCard, \
     PostInstrumentIdentifierRequest, InstrumentIdentifierApi
 config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
 configuration = SourceFileLoader("module.name", config_file).load_module()
@@ -23,7 +23,7 @@ def create_instrument_identifier_card_enroll_for_network_token():
     cardNumber = "5204245750003216"
     cardExpirationMonth = "12"
     cardExpirationYear = "2025"
-    card = Tmsv2customersEmbeddedDefaultPaymentInstrumentEmbeddedInstrumentIdentifierCard(
+    card = TmsEmbeddedInstrumentIdentifierCard(
         number=cardNumber,
         expiration_month=cardExpirationMonth,
         expiration_year=cardExpirationYear
