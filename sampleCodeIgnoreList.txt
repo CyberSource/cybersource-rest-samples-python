@@ -2,4 +2,4 @@
 .*/data/.*
 .*Flex_Security_Exception.py
 .*/Webhooks/.*
-
+.*/authentication/.*
