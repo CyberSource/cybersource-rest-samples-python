@@ -16,7 +16,7 @@ class Configuration:
         self.key_pass = "testrest"
         self.key_file_name = "testrest"
         self.alternative_key_alias = "testrest_cpctv"
-        self.alternative_key_pass = "testrest_cpctv"
+        self.alternative_key_pass = "Ap!C38tp12@"
         self.alternative_key_file_name = "testrest_cpctv"
         self.keys_directory = os.path.join(os.getcwd(), "resources")
         # HTTP PARAMETERS
