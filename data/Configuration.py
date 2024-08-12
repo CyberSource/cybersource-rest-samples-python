@@ -3,7 +3,7 @@ from CyberSource.logging.log_configuration import LogConfiguration
 
 class Configuration:
     def __init__(self):
-        self.authentication_type ="http_signature"
+        self.authentication_type ="jwt"
         self.merchantid = "testrest"
         self.alternative_merchantid = "testrest_cpctv"
         self.run_environment = "apitest.cybersource.com"
