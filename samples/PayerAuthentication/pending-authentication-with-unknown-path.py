@@ -18,7 +18,7 @@ def del_none(d):
 
 def pending_authentication_with_unknown_path():
     clientReferenceInformationCode = "UNKNOWN"
-    clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
+    clientReferenceInformation = Riskv1authenticationsetupsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 
@@ -61,7 +61,7 @@ def pending_authentication_with_unknown_path():
     paymentInformationCardExpirationMonth = "12"
     paymentInformationCardExpirationYear = "2025"
     paymentInformationCardNumber = "4012001037490014"
-    paymentInformationCard = Riskv1authenticationsPaymentInformationCard(
+    paymentInformationCard = Riskv1authenticationsetupsPaymentInformationCard(
         type = paymentInformationCardType,
         expiration_month = paymentInformationCardExpirationMonth,
         expiration_year = paymentInformationCardExpirationYear,

@@ -25,7 +25,7 @@ def authentication_with_no_redirect():
         solution_id = clientReferenceInformationPartnerSolutionId
     )
 
-    clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
+    clientReferenceInformation = Riskv1authenticationsetupsClientReferenceInformation(
         code = clientReferenceInformationCode,
         partner = clientReferenceInformationPartner.__dict__
     )
@@ -69,7 +69,7 @@ def authentication_with_no_redirect():
     paymentInformationCardExpirationMonth = "12"
     paymentInformationCardExpirationYear = "2025"
     paymentInformationCardNumber = "4000990000000004"
-    paymentInformationCard = Riskv1authenticationsPaymentInformationCard(
+    paymentInformationCard = Riskv1authenticationsetupsPaymentInformationCard(
         type = paymentInformationCardType,
         expiration_month = paymentInformationCardExpirationMonth,
         expiration_year = paymentInformationCardExpirationYear,

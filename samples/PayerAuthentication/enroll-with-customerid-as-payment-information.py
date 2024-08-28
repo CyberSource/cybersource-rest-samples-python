@@ -18,7 +18,7 @@ def del_none(d):
 
 def enroll_with_customerid_as_payment_information():
     clientReferenceInformationCode = "UNKNOWN"
-    clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
+    clientReferenceInformation = Riskv1authenticationsetupsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 

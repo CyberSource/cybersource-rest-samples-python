@@ -18,7 +18,7 @@ def del_none(d):
 
 def enroll_with_pending_authentication():
     clientReferenceInformationCode = "cybs_test"
-    clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
+    clientReferenceInformation = Riskv1authenticationsetupsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 
@@ -61,7 +61,7 @@ def enroll_with_pending_authentication():
     paymentInformationCardExpirationMonth = "12"
     paymentInformationCardExpirationYear = "2025"
     paymentInformationCardNumber = "4000000000000101"
-    paymentInformationCard = Riskv1authenticationsPaymentInformationCard(
+    paymentInformationCard = Riskv1authenticationsetupsPaymentInformationCard(
         type = paymentInformationCardType,
         expiration_month = paymentInformationCardExpirationMonth,
         expiration_year = paymentInformationCardExpirationYear,

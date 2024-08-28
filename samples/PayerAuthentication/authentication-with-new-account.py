@@ -18,7 +18,7 @@ def del_none(d):
 
 def authentication_with_new_account():
     clientReferenceInformationCode = "New Account"
-    clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
+    clientReferenceInformation = Riskv1authenticationsetupsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 
@@ -61,7 +61,7 @@ def authentication_with_new_account():
     paymentInformationCardExpirationMonth = "12"
     paymentInformationCardExpirationYear = "2025"
     paymentInformationCardNumber = "4000990000000004"
-    paymentInformationCard = Riskv1authenticationsPaymentInformationCard(
+    paymentInformationCard = Riskv1authenticationsetupsPaymentInformationCard(
         type = paymentInformationCardType,
         expiration_month = paymentInformationCardExpirationMonth,
         expiration_year = paymentInformationCardExpirationYear,
