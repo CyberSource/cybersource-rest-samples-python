@@ -28,7 +28,7 @@ def validate_authentication_results():
         solution_id = clientReferenceInformationPartnerSolutionId
     )
 
-    clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
+    clientReferenceInformation = Riskv1authenticationsetupsClientReferenceInformation(
         code = clientReferenceInformationCode,
         partner = clientReferenceInformationPartner.__dict__
     )
