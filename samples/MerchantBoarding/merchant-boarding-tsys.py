@@ -20,204 +20,203 @@ def del_none(d):
 
 def merchant_boarding_tsys():
 
+        
     req_obj = PostRegistrationBody()
 
-    organization_info = Boardingv1registrationsOrganizationInformation()
-    organization_info.parent_organization_id = "apitester00"
-    organization_info.type = "MERCHANT"
-    organization_info.configurable = True
+    business_address = Boardingv1registrationsOrganizationInformationBusinessInformationAddress(
+        country="US",
+        address1="123456 SandMarket",
+        locality="ORMOND BEACH",
+        administrative_area="FL",
+        postal_code="32176"
+    ).__dict__
 
-    business_info = Boardingv1registrationsOrganizationInformationBusinessInformation()
-    business_info.name = "StuartWickedFastEatz"
+    business_contact = Boardingv1registrationsOrganizationInformationBusinessInformationBusinessContact(
+        first_name="Stuart",
+        last_name="Stuart",
+        phone_number="6574567813",
+        email="svc_email_bt@corpdev.visa.com"
+    ).__dict__
 
-    address = Boardingv1registrationsOrganizationInformationBusinessInformationAddress()
-    address.country = "US"
-    address.address1 = "123456 SandMarket"
-    address.locality = "ORMOND BEACH"
-    address.administrative_area = "FL"
-    address.postal_code = "32176"
-    business_info.address = address.__dict__
-    business_info.website_url = "https://www.StuartWickedEats.com"
-    business_info.phone_number = "6574567813"
+    business_information = Boardingv1registrationsOrganizationInformationBusinessInformation(
+        name="StuartWickedFastEatz",
+        address=business_address,
+        website_url="https://www.StuartWickedEats.com",
+        phone_number="6574567813",
+        business_contact=business_contact,
+        merchant_category_code="5999"
+    ).__dict__
 
-    business_contact = Boardingv1registrationsOrganizationInformationBusinessInformationBusinessContact()
-    business_contact.first_name = "Stuart"
-    business_contact.last_name = "Stuart"
-    business_contact.phone_number = "6574567813"
-    business_contact.email = "svc_email_bt@corpdev.visa.com"
-    business_info.business_contact = business_contact.__dict__
-    business_info.merchant_category_code = "5999"
-    organization_info.business_information = business_info.__dict__
+    organization_info = Boardingv1registrationsOrganizationInformation(
+        parent_organization_id="apitester00",
+        type="MERCHANT",
+        configurable=True,
+        business_information=business_information
+    ).__dict__
 
-    req_obj.organization_information = organization_info.__dict__
+    req_obj.organization_information = organization_info
 
-    product_information = Boardingv1registrationsProductInformation()
-    selected_products = Boardingv1registrationsProductInformationSelectedProducts()
+    card_not_present = PaymentsProductsCardProcessingSubscriptionInformationFeatures(enabled=True).__dict__
+    card_present = PaymentsProductsCardProcessingSubscriptionInformationFeatures(enabled=True).__dict__
+    features = {
+        "cardNotPresent": card_not_present,
+        "cardPresent": card_present
+    }
 
-    payments = PaymentsProducts()
-    card_processing = PaymentsProductsCardProcessing()
-    subscription_information = PaymentsProductsCardProcessingSubscriptionInformation()
+    subscription_information = PaymentsProductsCardProcessingSubscriptionInformation(
+        enabled=True,
+        features=features
+    ).__dict__
 
-    subscription_information.enabled = True
-    features = {}
+    merchant_descriptor_information = CardProcessingConfigCommonMerchantDescriptorInformation(
+        city="cupertino",
+        country="USA",
+        name="kumar",
+        state="CA",
+        phone="888555333",
+        zip="94043",
+        street="steet1"
+    ).__dict__
 
-    obj1 = PaymentsProductsCardProcessingSubscriptionInformationFeatures()
-    obj1.enabled = True
-    features["cardNotPresent"] = obj1.__dict__
-    features["cardPresent"] = obj1.__dict__
-    subscription_information.features = features
-    card_processing.subscription_information = subscription_information.__dict__
+    currencies = {
+        "CAD": CardProcessingConfigCommonCurrencies1(
+            enabled=True,
+            enabled_card_present=True,
+            enabled_card_not_present=True,
+            terminal_id="1234",
+            service_enablement_number=""
+        ).__dict__
+    }
 
-    configuration_information = PaymentsProductsCardProcessingConfigurationInformation()
+    payment_types = {
+        "MASTERCARD": CardProcessingConfigCommonPaymentTypes(enabled=True).__dict__,
+        "VISA": CardProcessingConfigCommonPaymentTypes(enabled=True).__dict__
+    }
 
-    configurations = CardProcessingConfig()
-    common = CardProcessingConfigCommon()
-    common.merchant_category_code = "5999"
-    common.process_level3_data = "ignored"
-    common.default_auth_type_code = "FINAL"
-    common.enable_partial_auth = False
-    common.amex_vendor_code = "2233"
+    tsys_processor = CardProcessingConfigCommonProcessors(
+        acquirer=CardProcessingConfigCommonAcquirer().__dict__,
+        currencies=currencies,
+        payment_types=payment_types,
+        bank_number="234576",
+        chain_number="223344",
+        batch_group="vital_1130",
+        enhanced_data="disabled",
+        industry_code="D",
+        merchant_bin_number="765576",
+        merchant_id="834215123456",
+        merchant_location_number="00001",
+        store_id="2563",
+        vital_number="71234567",
+        quasi_cash=False,
+        send_amex_level2_data=None,
+        soft_descriptor_type="1 - trans_ref_no",
+        travel_agency_code="2356",
+        travel_agency_name="Agent"
+    ).__dict__
 
-    merchant_descriptor_information = CardProcessingConfigCommonMerchantDescriptorInformation()
+    processors = {"tsys": tsys_processor}
 
-    merchant_descriptor_information.city = "cupertino"
-    merchant_descriptor_information.country = "USA"
-    merchant_descriptor_information.name = "kumar"
-    merchant_descriptor_information.state = "CA"
-    merchant_descriptor_information.phone = "888555333"
-    merchant_descriptor_information.zip = "94043"
-    merchant_descriptor_information.street = "steet1"
+    common = CardProcessingConfigCommon(
+        merchant_category_code="5999",
+        process_level3_data="ignored",
+        default_auth_type_code="FINAL",
+        enable_partial_auth=False,
+        amex_vendor_code="2233",
+        merchant_descriptor_information=merchant_descriptor_information,
+        processors=processors
+    ).__dict__
 
-    common.merchant_descriptor_information = merchant_descriptor_information.__dict__
+    card_not_present_feature = CardProcessingConfigFeaturesCardNotPresent(
+        visa_straight_through_processing_only=False,
+        amex_transaction_advice_addendum1=None
+    ).__dict__
 
-    processors = {}
-    obj5 = CardProcessingConfigCommonProcessors()
-    acquirer = CardProcessingConfigCommonAcquirer()
+    features2 = CardProcessingConfigFeatures(
+        card_not_present=card_not_present_feature
+    ).__dict__
 
-    obj5.acquirer = acquirer.__dict__
+    configurations = CardProcessingConfig(
+        common=common,
+        features=features2
+    ).__dict__
 
-    currencies = {}
+    configuration_information = PaymentsProductsCardProcessingConfigurationInformation(
+        configurations=configurations,
+        template_id=str(uuid.UUID("818048AD-2860-4D2D-BC39-2447654628A1"))
+    ).__dict__
 
-    obj6 = CardProcessingConfigCommonCurrencies1()
-    obj6.enabled = True
-    obj6.enabled_card_present = True
-    obj6.enabled_card_not_present = True
-    obj6.terminal_id = "1234"
-    obj6.service_enablement_number = ""
+    card_processing = PaymentsProductsCardProcessing(
+        subscription_information=subscription_information,
+        configuration_information=configuration_information
+    ).__dict__
 
-    currencies["CAD"] = obj6.__dict__
+    virtual_terminal_subscription = PaymentsProductsPayerAuthenticationSubscriptionInformation(
+        enabled=True
+    ).__dict__
 
-    obj5.currencies = currencies
+    virtual_terminal_configuration = PaymentsProductsVirtualTerminalConfigurationInformation(
+        template_id=str(uuid.UUID("9FA1BB94-5119-48D3-B2E5-A81FD3C657B5"))
+    ).__dict__
 
-    payment_types = {}
-    obj7 = CardProcessingConfigCommonPaymentTypes()
-    obj7.enabled = True
+    virtual_terminal = PaymentsProductsVirtualTerminal(
+        subscription_information=virtual_terminal_subscription,
+        configuration_information=virtual_terminal_configuration
+    ).__dict__
 
-    payment_types["MASTERCARD"] = obj7.__dict__
-    payment_types["VISA"] = obj7.__dict__
+    customer_invoicing = PaymentsProductsTax(
+        subscription_information=virtual_terminal_subscription
+    ).__dict__
 
-    obj5.payment_types = payment_types
+    payments = PaymentsProducts(
+        card_processing=card_processing,
+        virtual_terminal=virtual_terminal,
+        customer_invoicing=customer_invoicing
+    ).__dict__
 
-    obj5.bank_number = "234576"
-    obj5.chain_number = "223344"
-    obj5.batch_group = "vital_1130"
-    obj5.enhanced_data = "disabled"
-    obj5.industry_code = "D"
-    obj5.merchant_bin_number = "765576"
-    obj5.merchant_id = "834215123456"
-    obj5.merchant_location_number = "00001"
-    obj5.store_id = "2563"
-    obj5.vital_number = "71234567"
-    obj5.quasi_cash = False
-    obj5.send_amex_level2_data = None
-    obj5.soft_descriptor_type = "1 - trans_ref_no"
-    obj5.travel_agency_code = "2356"
-    obj5.travel_agency_name = "Agent"
+    risk = RiskProducts().__dict__
 
-    processors["tsys"] = obj5.__dict__
+    token_management_subscription = PaymentsProductsPayerAuthenticationSubscriptionInformation(
+        enabled=True
+    ).__dict__
 
-    common.processors = processors
+    token_management_configuration = CommerceSolutionsProductsTokenManagementConfigurationInformation(
+        template_id=str(uuid.UUID("D62BEE20-DCFD-4AA2-8723-BA3725958ABA"))
+    ).__dict__
 
-    configurations.common = common.__dict__
+    token_management = CommerceSolutionsProductsTokenManagement(
+        subscription_information=token_management_subscription,
+        configuration_information=token_management_configuration
+    ).__dict__
 
-    features2 = CardProcessingConfigFeatures()
+    commerce_solutions = CommerceSolutionsProducts(
+        token_management=token_management
+    ).__dict__
 
-    card_not_present = CardProcessingConfigFeaturesCardNotPresent()
+    transaction_search = PaymentsProductsTax(
+        subscription_information=virtual_terminal_subscription
+    ).__dict__
 
-    card_not_present.visa_straight_through_processing_only = False
-    card_not_present.amex_transaction_advice_addendum1 = None
+    reporting = PaymentsProductsTax(
+        subscription_information=virtual_terminal_subscription
+    ).__dict__
 
-    features2.card_not_present = card_not_present.__dict__
+    value_added_services = ValueAddedServicesProducts(
+        transaction_search=transaction_search,
+        reporting=reporting
+    ).__dict__
 
-    configurations.features = features2.__dict__
-    configuration_information.configurations = configurations.__dict__
-    template_id = uuid.UUID("818048AD-2860-4D2D-BC39-2447654628A1").__dict__
-    configuration_information.template_id = template_id
+    selected_products = Boardingv1registrationsProductInformationSelectedProducts(
+        payments=payments,
+        risk=risk,
+        commerce_solutions=commerce_solutions,
+        value_added_services=value_added_services
+    ).__dict__
 
-    card_processing.configuration_information = configuration_information.__dict__
-    payments.card_processing = card_processing.__dict__
+    product_information = Boardingv1registrationsProductInformation(
+        selected_products=selected_products
+    ).__dict__
 
-    virtual_terminal = PaymentsProductsVirtualTerminal()
-    subscription_information5 = PaymentsProductsPayerAuthenticationSubscriptionInformation()
-    subscription_information5.enabled = True
-    virtual_terminal.subscription_information = subscription_information5.__dict__
-
-    configuration_information5 = PaymentsProductsVirtualTerminalConfigurationInformation()
-    template_id2 = uuid.UUID("9FA1BB94-5119-48D3-B2E5-A81FD3C657B5").__dict__
-    configuration_information5.template_id = template_id2
-    virtual_terminal.configuration_information = configuration_information5.__dict__
-
-    payments.virtual_terminal = virtual_terminal.__dict__
-
-    customer_invoicing = PaymentsProductsTax()
-
-    subscription_information6 = PaymentsProductsPayerAuthenticationSubscriptionInformation()
-    subscription_information6.enabled = True
-    customer_invoicing.subscription_information = subscription_information6.__dict__
-    payments.customer_invoicing = customer_invoicing.__dict__
-
-    selected_products.payments = payments.__dict__
-
-    risk = RiskProducts()
-
-    selected_products.risk = risk.__dict__
-
-    commerce_solutions = CommerceSolutionsProducts()
-
-    token_management = CommerceSolutionsProductsTokenManagement()
-
-    subscription_information7 = PaymentsProductsPayerAuthenticationSubscriptionInformation()
-    subscription_information7.enabled = True
-    token_management.subscription_information = subscription_information7.__dict__
-
-    configuration_information7 = CommerceSolutionsProductsTokenManagementConfigurationInformation()
-
-    template_id3 = uuid.UUID("D62BEE20-DCFD-4AA2-8723-BA3725958ABA").__dict__
-    configuration_information7.template_id = template_id3
-    token_management.configuration_information = configuration_information7.__dict__
-
-    commerce_solutions.token_management = token_management.__dict__
-    selected_products.commerce_solutions = commerce_solutions.__dict__
-
-    value_added_services = ValueAddedServicesProducts()
-
-    transaction_search = PaymentsProductsTax()
-
-    subscription_information9 = PaymentsProductsPayerAuthenticationSubscriptionInformation()
-    subscription_information9.enabled = True
-    transaction_search.subscription_information = subscription_information9.__dict__
-    value_added_services.transaction_search = transaction_search.__dict__
-
-    reporting = PaymentsProductsTax()
-    subscription_information3 = PaymentsProductsPayerAuthenticationSubscriptionInformation()
-    subscription_information3.enabled = True
-    reporting.subscription_information = subscription_information3.__dict__
-    value_added_services.reporting = reporting.__dict__
-
-    selected_products.value_added_services = value_added_services.__dict__
-
-    product_information.selected_products = selected_products.__dict__
-    req_obj.product_information = product_information.__dict__
+    req_obj.product_information = product_information
     
     
 

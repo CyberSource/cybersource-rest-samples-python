@@ -152,7 +152,7 @@ def merchant_boarding_fdi_global():
 
     configurations.features = features2.__dict__
     configuration_information.configurations = configurations.__dict__
-    template_id = uuid.UUID("685A1FC9-3CEC-454C-9D8A-19205529CE45").__dict__
+    template_id = str(uuid.UUID("685A1FC9-3CEC-454C-9D8A-19205529CE45"))
     configuration_information.template_id = template_id
 
     card_processing.configuration_information = configuration_information.__dict__
