@@ -42,6 +42,9 @@ class Configuration:
         #self.proxy_address = "userproxy.com"
         #self.proxy_port = ""
 
+        #Add the property if required to override the cybs default developerId in all request body
+        self.defaultDeveloperId=""
+
         #Optional default Axa/Client Headers- Client can add additional headers
         self.default_headers ={ "Ocp-Apim-Subscription-Key":"=fchgfchgvjhvjh5536hg",
                                 "Ocp-Apim-Trace":"dfgcjgvjkhbkjkjhnkjvjgchdxh",
@@ -67,6 +70,7 @@ class Configuration:
         configuration_dictionary["use_metakey"] = self.use_metakey
         configuration_dictionary["portfolio_id"] = self.portfolio_id
         configuration_dictionary["timeout"] = self.timeout
+        configuration_dictionary['defaultDeveloperId'] = self.defaultDeveloperId
         configuration_dictionary['jwePEMFileDirectory'] = self.JWEPemFIleDirectory
         log_config = LogConfiguration()
         log_config.set_enable_log(self.enable_log)
