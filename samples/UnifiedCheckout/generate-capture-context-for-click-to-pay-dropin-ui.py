@@ -1,4 +1,6 @@
 from CyberSource import *
+from CyberSource.rest import ApiException
+from CyberSource.models import Upv1capturecontextsCaptureMandate, Upv1capturecontextsOrderInformationAmountDetails, Upv1capturecontextsOrderInformation, GenerateUnifiedCheckoutCaptureContextRequest
 from pathlib import Path
 import os
 import json
@@ -41,12 +43,7 @@ def generate_unified_checkout_capture_context():
     allowedCardNetworks.append("MEEZA")
 
     allowedPaymentTypes = []
-    allowedPaymentTypes.append("APPLEPAY")
-    allowedPaymentTypes.append("CHECK")
     allowedPaymentTypes.append("CLICKTOPAY")
-    allowedPaymentTypes.append("GOOGLEPAY")
-    allowedPaymentTypes.append("PANENTRY")
-    allowedPaymentTypes.append("PAZE")
     country = "US"
     locale = "en_US"
     captureMandateBillingType = "FULL"
