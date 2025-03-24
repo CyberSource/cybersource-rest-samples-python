@@ -51,7 +51,7 @@ def create_subscription():
 
     subscriptionInformationPlanId = "6868912495476705603955"
     subscriptionInformationName = "Subscription with PlanId"
-    subscriptionInformationStartDate = "2024-06-11"
+    subscriptionInformationStartDate = "2025-06-11"
     subscriptionInformation = Rbsv1subscriptionsSubscriptionInformation(
         plan_id = subscriptionInformationPlanId,
         name = subscriptionInformationName,

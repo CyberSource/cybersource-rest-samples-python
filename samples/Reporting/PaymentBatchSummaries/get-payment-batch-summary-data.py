@@ -17,8 +17,8 @@ def del_none(d):
     return d
 
 def get_payment_batch_summary_data():
-    startTime = "2020-09-01T12:00:00Z"
-    endTime = "2020-09-30T12:00:00Z"
+    startTime = "2024-09-01T12:00:00Z"
+    endTime = "2024-09-30T12:00:00Z"
     organizationId = "testrest"
 
     try:

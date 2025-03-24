@@ -17,8 +17,8 @@ def del_none(d):
     return d
 
 def get_list_of_files():
-    startDate = "2020-07-20"
-    endDate = "2020-07-30"
+    startDate = "2024-07-20"
+    endDate = "2024-07-30"
     organizationId = "testrest"
     name = None
 

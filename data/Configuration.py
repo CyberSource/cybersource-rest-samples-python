@@ -35,9 +35,10 @@ class Configuration:
         self.log_maximum_size = 10487560
         self.log_directory = os.path.join(os.getcwd(), "Logs")
         self.log_level = "Debug"
-        self.enable_masking = False
+        self.enable_masking = True
         self.log_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
         self.log_date_format = "%Y-%m-%d %H:%M:%S"
+        self.useMLEGlobally = False
         # PROXY PARAMETERS
         #self.proxy_address = "userproxy.com"
         #self.proxy_port = ""
@@ -72,6 +73,7 @@ class Configuration:
         configuration_dictionary["timeout"] = self.timeout
         configuration_dictionary['defaultDeveloperId'] = self.defaultDeveloperId
         configuration_dictionary['jwePEMFileDirectory'] = self.JWEPemFIleDirectory
+        configuration_dictionary['useMLEGlobally'] = self.useMLEGlobally
         log_config = LogConfiguration()
         log_config.set_enable_log(self.enable_log)
         log_config.set_log_directory(self.log_directory)
