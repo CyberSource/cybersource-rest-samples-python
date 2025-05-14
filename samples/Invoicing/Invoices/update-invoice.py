@@ -44,9 +44,9 @@ def update_invoice():
     orderInformationAmountDetailsTotalAmount = "2623.64"
     orderInformationAmountDetailsCurrency = "USD"
     orderInformationAmountDetailsDiscountAmount = "126.08"
-    orderInformationAmountDetailsDiscountPercent = 5.00
-    orderInformationAmountDetailsSubAmount = 2749.72
-    orderInformationAmountDetailsMinimumPartialAmount = 20.00
+    orderInformationAmountDetailsDiscountPercent = "5.00"
+    orderInformationAmountDetailsSubAmount = "2749.72"
+    orderInformationAmountDetailsMinimumPartialAmount = "20.00"
     orderInformationAmountDetailsTaxDetailsType = "State Tax"
     orderInformationAmountDetailsTaxDetailsAmount = "208.00"
     orderInformationAmountDetailsTaxDetailsRate = "8.25"
