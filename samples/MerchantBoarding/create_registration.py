@@ -74,7 +74,6 @@ def create_registration():
     configurations=configurations.__dict__
     )
     payer_authentication = PaymentsProductsPayerAuthentication(
-    subscription_information=PaymentsProductsPayerAuthenticationSubscriptionInformation(enabled=True).__dict__,
     configuration_information=configuration_information.__dict__
     )
 
@@ -125,22 +124,18 @@ def create_registration():
 
     # Virtual Terminal
     virtual_terminal = PaymentsProductsVirtualTerminal(
-    subscription_information=PaymentsProductsPayerAuthenticationSubscriptionInformation(enabled=True).__dict__
     )
 
     # Customer Invoicing
     customer_invoicing = PaymentsProductsTax(
-    subscription_information=PaymentsProductsPayerAuthenticationSubscriptionInformation(enabled=True).__dict__
     )
 
     # Payouts
     payouts = PaymentsProductsPayouts(
-    subscription_information=PaymentsProductsPayerAuthenticationSubscriptionInformation(enabled=True).__dict__
     )
 
     # Commerce Solutions
     token_management = CommerceSolutionsProductsTokenManagement(
-    subscription_information=PaymentsProductsPayerAuthenticationSubscriptionInformation(enabled=True).__dict__
     )
     commerce_solutions = CommerceSolutionsProducts(
     token_management=token_management.__dict__
@@ -151,7 +146,6 @@ def create_registration():
     template_id="E4EDB280-9DAC-4698-9EB9-9434D40FF60C"
     )
     fraud_management_essentials = RiskProductsFraudManagementEssentials(
-    subscription_information=PaymentsProductsPayerAuthenticationSubscriptionInformation(enabled=True).__dict__,
     configuration_information=configuration_information5.__dict__
     )
     risk = RiskProducts(

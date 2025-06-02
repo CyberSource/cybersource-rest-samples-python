@@ -137,16 +137,10 @@ def merchant_boarding_barclays():
     )
 
     virtual_terminal = PaymentsProductsVirtualTerminal(
-        subscription_information=PaymentsProductsPayerAuthenticationSubscriptionInformation(
-            enabled=True
-        ).__dict__,
         configuration_information=virtual_terminal_configuration.__dict__
     )
 
     customer_invoicing = PaymentsProductsTax(
-        subscription_information=PaymentsProductsPayerAuthenticationSubscriptionInformation(
-            enabled=True
-        ).__dict__
     )
 
     token_management_configuration = CommerceSolutionsProductsTokenManagementConfigurationInformation(
@@ -154,22 +148,13 @@ def merchant_boarding_barclays():
     )
 
     token_management = CommerceSolutionsProductsTokenManagement(
-        subscription_information=PaymentsProductsPayerAuthenticationSubscriptionInformation(
-            enabled=True
-        ).__dict__,
         configuration_information=token_management_configuration.__dict__
     )
 
     transaction_search = PaymentsProductsTax(
-        subscription_information=PaymentsProductsPayerAuthenticationSubscriptionInformation(
-            enabled=True
-        ).__dict__
     )
 
     reporting = PaymentsProductsTax(
-        subscription_information=PaymentsProductsPayerAuthenticationSubscriptionInformation(
-            enabled=True
-        ).__dict__
     )
 
     value_added_services = ValueAddedServicesProducts(

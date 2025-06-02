@@ -63,10 +63,6 @@ def merchant_boarding_bin_lookup():
     # Assigning organization information to request object
     req_obj.organization_information = organization_information.__dict__
 
-    # Subscription Information
-    subscription_information = PaymentsProductsPayerAuthenticationSubscriptionInformation(
-        enabled=True
-    )
 
     # Configurations
     configurations = CommerceSolutionsProductsBinLookupConfigurationInformationConfigurations(
@@ -81,7 +77,6 @@ def merchant_boarding_bin_lookup():
 
     # Bin Lookup
     bin_lookup = CommerceSolutionsProductsBinLookup(
-        subscription_information=subscription_information.__dict__,
         configuration_information=configuration_information.__dict__
     )
 

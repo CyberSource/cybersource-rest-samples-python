@@ -138,14 +138,12 @@ def merchant_boarding_amex_direct():
         )
 
         virtual_terminal = PaymentsProductsVirtualTerminal(
-            subscription_information=PaymentsProductsPayerAuthenticationSubscriptionInformation(enabled=True).__dict__,
             configuration_information=PaymentsProductsVirtualTerminalConfigurationInformation(
                 template_id=str(uuid.UUID("9FA1BB94-5119-48D3-B2E5-A81FD3C657B5"))
             ).__dict__
         )
 
         customer_invoicing = PaymentsProductsTax(
-            subscription_information=PaymentsProductsPayerAuthenticationSubscriptionInformation(enabled=True).__dict__
         )
 
         selected_products = Boardingv1registrationsProductInformationSelectedProducts(
@@ -157,7 +155,6 @@ def merchant_boarding_amex_direct():
             risk=RiskProducts().__dict__,
             commerce_solutions=CommerceSolutionsProducts(
                 token_management=CommerceSolutionsProductsTokenManagement(
-                    subscription_information=PaymentsProductsPayerAuthenticationSubscriptionInformation(enabled=True).__dict__,
                     configuration_information=CommerceSolutionsProductsTokenManagementConfigurationInformation(
                         template_id=str(uuid.UUID("D62BEE20-DCFD-4AA2-8723-BA3725958ABA"))
                     ).__dict__
@@ -165,10 +162,8 @@ def merchant_boarding_amex_direct():
             ).__dict__,
             value_added_services=ValueAddedServicesProducts(
                 transaction_search=PaymentsProductsTax(
-                    subscription_information=PaymentsProductsPayerAuthenticationSubscriptionInformation(enabled=True).__dict__
                 ).__dict__,
                 reporting=PaymentsProductsTax(
-                    subscription_information=PaymentsProductsPayerAuthenticationSubscriptionInformation(enabled=True).__dict__
                 ).__dict__
             ).__dict__
         )
