@@ -120,14 +120,12 @@ def merchant_boarding_cup():
     )
 
     virtual_terminal = PaymentsProductsVirtualTerminal(
-        subscription_information=PaymentsProductsPayerAuthenticationSubscriptionInformation(enabled=True).__dict__,
         configuration_information=PaymentsProductsVirtualTerminalConfigurationInformation(
             template_id=str(uuid.UUID("9FA1BB94-5119-48D3-B2E5-A81FD3C657B5"))
         ).__dict__
     )
 
     customer_invoicing = PaymentsProductsTax(
-        subscription_information=PaymentsProductsPayerAuthenticationSubscriptionInformation(enabled=True).__dict__
     )
 
     payments = PaymentsProducts(
@@ -144,7 +142,6 @@ def merchant_boarding_cup():
 
     # Commerce Solutions Product
     token_management = CommerceSolutionsProductsTokenManagement(
-        subscription_information=PaymentsProductsPayerAuthenticationSubscriptionInformation(enabled=True).__dict__,
         configuration_information=CommerceSolutionsProductsTokenManagementConfigurationInformation(
             template_id=str(uuid.UUID("9FA1BB94-5119-48D3-B2E5-A81FD3C657B5"))
         ).__dict__
@@ -158,11 +155,9 @@ def merchant_boarding_cup():
 
     # Value Added Services
     transaction_search = PaymentsProductsTax(
-        subscription_information=PaymentsProductsPayerAuthenticationSubscriptionInformation(enabled=True).__dict__
     )
 
     reporting = PaymentsProductsTax(
-        subscription_information=PaymentsProductsPayerAuthenticationSubscriptionInformation(enabled=True).__dict__
     )
 
     value_added_services = ValueAddedServicesProducts(

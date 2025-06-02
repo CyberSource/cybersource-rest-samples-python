@@ -150,21 +150,15 @@ def merchant_boarding_tsys():
         configuration_information=configuration_information
     ).__dict__
 
-    virtual_terminal_subscription = PaymentsProductsPayerAuthenticationSubscriptionInformation(
-        enabled=True
-    ).__dict__
-
     virtual_terminal_configuration = PaymentsProductsVirtualTerminalConfigurationInformation(
         template_id=str(uuid.UUID("9FA1BB94-5119-48D3-B2E5-A81FD3C657B5"))
     ).__dict__
 
     virtual_terminal = PaymentsProductsVirtualTerminal(
-        subscription_information=virtual_terminal_subscription,
         configuration_information=virtual_terminal_configuration
     ).__dict__
 
     customer_invoicing = PaymentsProductsTax(
-        subscription_information=virtual_terminal_subscription
     ).__dict__
 
     payments = PaymentsProducts(
@@ -175,16 +169,12 @@ def merchant_boarding_tsys():
 
     risk = RiskProducts().__dict__
 
-    token_management_subscription = PaymentsProductsPayerAuthenticationSubscriptionInformation(
-        enabled=True
-    ).__dict__
 
     token_management_configuration = CommerceSolutionsProductsTokenManagementConfigurationInformation(
         template_id=str(uuid.UUID("D62BEE20-DCFD-4AA2-8723-BA3725958ABA"))
     ).__dict__
 
     token_management = CommerceSolutionsProductsTokenManagement(
-        subscription_information=token_management_subscription,
         configuration_information=token_management_configuration
     ).__dict__
 
@@ -193,11 +183,9 @@ def merchant_boarding_tsys():
     ).__dict__
 
     transaction_search = PaymentsProductsTax(
-        subscription_information=virtual_terminal_subscription
     ).__dict__
 
     reporting = PaymentsProductsTax(
-        subscription_information=virtual_terminal_subscription
     ).__dict__
 
     value_added_services = ValueAddedServicesProducts(

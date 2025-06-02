@@ -104,18 +104,15 @@ def merchant_boarding_smart_fdc():
         configuration_information=configuration_info
     ).__dict__
 
-    virtual_terminal_subscription = PaymentsProductsPayerAuthenticationSubscriptionInformation(enabled=True).__dict__
     virtual_terminal_config = PaymentsProductsVirtualTerminalConfigurationInformation(
         template_id=str(uuid.UUID("9FA1BB94-5119-48D3-B2E5-A81FD3C657B5"))
     ).__dict__
 
     virtual_terminal = PaymentsProductsVirtualTerminal(
-        subscription_information=virtual_terminal_subscription,
         configuration_information=virtual_terminal_config
     ).__dict__
 
     customer_invoicing = PaymentsProductsTax(
-        subscription_information=PaymentsProductsPayerAuthenticationSubscriptionInformation(enabled=True).__dict__
     ).__dict__
 
     payments = PaymentsProducts(
@@ -124,24 +121,20 @@ def merchant_boarding_smart_fdc():
         customer_invoicing=customer_invoicing
     ).__dict__
 
-    token_management_subscription = PaymentsProductsPayerAuthenticationSubscriptionInformation(enabled=True).__dict__
     token_management_config = CommerceSolutionsProductsTokenManagementConfigurationInformation(
         template_id=str(uuid.UUID("D62BEE20-DCFD-4AA2-8723-BA3725958ABA"))
     ).__dict__
 
     token_management = CommerceSolutionsProductsTokenManagement(
-        subscription_information=token_management_subscription,
         configuration_information=token_management_config
     ).__dict__
 
     commerce_solutions = CommerceSolutionsProducts(token_management=token_management).__dict__
 
     transaction_search = PaymentsProductsTax(
-        subscription_information=PaymentsProductsPayerAuthenticationSubscriptionInformation(enabled=True).__dict__
     ).__dict__
 
     reporting = PaymentsProductsTax(
-        subscription_information=PaymentsProductsPayerAuthenticationSubscriptionInformation(enabled=True).__dict__
     ).__dict__
 
     value_added_services = ValueAddedServicesProducts(
