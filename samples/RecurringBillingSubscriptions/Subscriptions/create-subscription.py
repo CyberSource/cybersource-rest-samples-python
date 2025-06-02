@@ -20,7 +20,7 @@ def create_subscription():
     clientReferenceInformationCode = "TC501713"
     clientReferenceInformationPartnerDeveloperId = "ABCD1234"
     clientReferenceInformationPartnerSolutionId = "GEF1234"
-    clientReferenceInformationPartner = Riskv1decisionsClientReferenceInformationPartner(
+    clientReferenceInformationPartner = Rbsv1subscriptionsClientReferenceInformationPartner(
         developer_id = clientReferenceInformationPartnerDeveloperId,
         solution_id = clientReferenceInformationPartnerSolutionId
     )
