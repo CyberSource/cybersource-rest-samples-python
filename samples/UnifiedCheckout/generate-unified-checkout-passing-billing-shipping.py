@@ -172,6 +172,11 @@ def generate_unified_checkout_capture_context():
         bill_to = orderInformationBillTo.__dict__,
         ship_to = orderInformationShipTo.__dict__
     )
+    
+    completemandate = Upv1capturecontextsCompleteMandate(
+        type= "CAPTURE",
+        decision_manager = False
+    )
 
     requestObj = GenerateUnifiedCheckoutCaptureContextRequest(
         client_version = clientVersion,
@@ -181,7 +186,9 @@ def generate_unified_checkout_capture_context():
         country = country,
         locale = locale,
         capture_mandate = captureMandate.__dict__,
-        order_information = orderInformation.__dict__
+        order_information = orderInformation.__dict__,
+        complete_mandate = completemandate.__dict__ 
+
     )
 
 
