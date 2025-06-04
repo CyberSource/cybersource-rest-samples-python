@@ -1,6 +1,6 @@
 from CyberSource import *
 from CyberSource.rest import ApiException
-from CyberSource.models import Upv1capturecontextsCaptureMandate, Upv1capturecontextsOrderInformationAmountDetails, Upv1capturecontextsOrderInformation, GenerateUnifiedCheckoutCaptureContextRequest
+from CyberSource.models import Upv1capturecontextsCaptureMandate, Upv1capturecontextsOrderInformationAmountDetails, Upv1capturecontextsOrderInformation, GenerateUnifiedCheckoutCaptureContextRequest, Upv1capturecontextsCompleteMandate
 from pathlib import Path
 import os
 import json
@@ -74,6 +74,11 @@ def generate_unified_checkout_capture_context():
     orderInformation = Upv1capturecontextsOrderInformation(
         amount_details = orderInformationAmountDetails.__dict__
     )
+    
+    completemandate = Upv1capturecontextsCompleteMandate(
+        type= "CAPTURE",
+        decision_manager = False
+    )
 
     requestObj = GenerateUnifiedCheckoutCaptureContextRequest(
         client_version = clientVersion,
@@ -83,7 +88,8 @@ def generate_unified_checkout_capture_context():
         country = country,
         locale = locale,
         capture_mandate = captureMandate.__dict__,
-        order_information = orderInformation.__dict__
+        order_information = orderInformation.__dict__,
+        complete_mandate = completemandate.__dict__ 
     )
 
 

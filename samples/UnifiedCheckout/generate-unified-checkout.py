@@ -18,7 +18,7 @@ def del_none(d):
 
 def generate_unified_checkout_capture_context():
 
-    clientVersion = "0.23"
+    clientVersion = "0.26"
 
     targetOrigins = []
     targetOrigins.append("https://yourCheckoutPage.com")
@@ -77,6 +77,11 @@ def generate_unified_checkout_capture_context():
     orderInformation = Upv1capturecontextsOrderInformation(
         amount_details = orderInformationAmountDetails.__dict__
     )
+    
+    completemandate = Upv1capturecontextsCompleteMandate(
+        type= "CAPTURE",
+        decision_manager = False
+    )
 
     requestObj = GenerateUnifiedCheckoutCaptureContextRequest(
         client_version = clientVersion,
@@ -86,7 +91,9 @@ def generate_unified_checkout_capture_context():
         country = country,
         locale = locale,
         capture_mandate = captureMandate.__dict__,
-        order_information = orderInformation.__dict__
+        order_information = orderInformation.__dict__,
+        complete_mandate = completemandate.__dict__ 
+
     )
 
 
