@@ -44,7 +44,7 @@ def batch_upload_mtls_with_keys():
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = BatchUploadWithMTLSApi(client_config["log_config"])
-        return_data, status, body = (
+        body, status, headers = (
             api_instance.upload_batch_api_with_key_and_certs_file(
                 input_file_path=input_file_path,
                 environment_hostname=env_host_name,
@@ -59,7 +59,7 @@ def batch_upload_mtls_with_keys():
 
         write_log_audit(status)
 
-        return return_data
+        return body
     except Exception as e:
         write_log_audit(getattr(e, "status", "0"))
         print(
