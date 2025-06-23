@@ -49,9 +49,9 @@ def batch_upload_mtls_with_keys():
                 input_file_path=input_file_path,
                 environment_hostname=env_host_name,
                 pgp_encryption_public_key_path=public_key_file,
-                server_trust_cert_path=server_certificate_file,
                 client_cert_path=client_certificate_file,
                 client_key_path=private_key_file,
+                server_trust_cert_path=server_certificate_file,
             )
         )
         print("\nAPI RESPONSE CODE : ", status)
