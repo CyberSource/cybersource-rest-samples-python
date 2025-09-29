@@ -150,3 +150,14 @@ class Configuration:
         #configuration_dictionary["proxy_address"] = self.proxy_address
         #configuration_dictionary["proxy_port"] = self.proxy_port
         return configuration_dictionary
+
+    def get_configuration_for_batchUploadSample(self):
+        configuration_dictionary = ({})
+        configuration_dictionary["authentication_type"] = "JWT"
+        configuration_dictionary["merchantid"] = "qaebc2"
+        configuration_dictionary["run_environment"] = self.run_environment
+        configuration_dictionary["key_alias"] = "qaebc2"
+        configuration_dictionary["key_password"] = "?Test1234"
+        configuration_dictionary["key_file_name"] = "qaebc2"
+        configuration_dictionary["keys_directory"] = self.keys_directory
+        return configuration_dictionary
