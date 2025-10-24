@@ -3,7 +3,7 @@ from CyberSource.logging.log_configuration import LogConfiguration
 
 class BankAccountValidationConfiguration:
     """
-    The ConfigurationForBankAccountValidation class provides the necessary settings for 
+    The BankAccountValidationConfiguration class provides the necessary settings for 
     Bank Account Validation (BAV) using the CyberSource REST API. 
 
     This configuration uses JWT authentication, which is required for Request MLE. 
