@@ -4,7 +4,7 @@ import os
 import json
 from importlib.machinery import SourceFileLoader
 
-config_file = os.path.join(os.getcwd(), "data", "ConfigurationForBankAccountValidation.py")
+config_file = os.path.join(os.getcwd(), "data", "BankAccountValidationConfiguration.py")
 configuration = SourceFileLoader("module.name", config_file).load_module()
 
 # To delete None values in Input Request Json body
@@ -52,7 +52,7 @@ def bank_account_validation(flag):
 
     try:
         #The BAV API mandates Request MLE, and JWT is the only supported authentication type for this feature. By default SDK sends encrypted requests for the APIs having mandatory Request MLE.
-        config_obj = configuration.ConfigurationForBankAccountValidation()
+        config_obj = configuration.BankAccountValidationConfiguration()
         client_config = config_obj.get_configuration_for_bav()
         api_instance = BankAccountValidationApi(client_config)
         return_data, status, body = api_instance.bank_account_validation_request(requestObj)

@@ -1,7 +1,7 @@
 import os
 from CyberSource.logging.log_configuration import LogConfiguration
 
-class ConfigurationForBankAccountValidation:
+class BankAccountValidationConfiguration:
     """
     The ConfigurationForBankAccountValidation class provides the necessary settings for 
     Bank Account Validation (BAV) using the CyberSource REST API. 
