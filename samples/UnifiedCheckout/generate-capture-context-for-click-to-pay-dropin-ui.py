@@ -1,10 +1,12 @@
 from CyberSource import *
 from CyberSource.rest import ApiException
 from CyberSource.models import Upv1capturecontextsCaptureMandate, Upv1capturecontextsOrderInformationAmountDetails, Upv1capturecontextsOrderInformation, GenerateUnifiedCheckoutCaptureContextRequest, Upv1capturecontextsCompleteMandate
+from CyberSource.utilities.flex.CaptureContextParsingUtility import parse_capture_context_response
 from pathlib import Path
 import os
 import json
 from importlib.machinery import SourceFileLoader
+from authenticationsdk.core.MerchantConfiguration import MerchantConfiguration
 
 config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
 configuration = SourceFileLoader("module.name", config_file).load_module()
@@ -104,6 +106,21 @@ def generate_unified_checkout_capture_context():
 
         print("\nAPI RESPONSE CODE : ", status)
         print("\nAPI RESPONSE BODY : ", body)
+
+        # Parse the capture context response
+        try:
+            merchant_config = MerchantConfiguration()
+            merchant_config.set_merchantconfig(client_config)
+            
+            parsed_result = parse_capture_context_response(
+                jwt_value=return_data,
+                merchant_config=merchant_config,
+                verify_jwt_signature=True
+            )
+            
+            print("\nParsed Capture Context : ", json.dumps(parsed_result, indent=2))
+        except Exception as parse_error:
+            print("\nError in Capture Context Parsing : ", str(parse_error))
 
         write_log_audit(status)
         return return_data
