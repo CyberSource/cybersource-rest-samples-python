@@ -6,7 +6,6 @@ import os
 import json
 from importlib.machinery import SourceFileLoader
 from pathlib import Path
-from authenticationsdk.core.MerchantConfiguration import MerchantConfiguration
 
 config_file = os.path.join(os.getcwd(), "data", "Configuration.py")
 configuration = SourceFileLoader("module.name", config_file).load_module()
@@ -49,12 +48,10 @@ def generate_capture_context_accept_check():
 
         # Parse the capture context response
         try:
-            merchant_config = MerchantConfiguration()
-            merchant_config.set_merchantconfig(client_config)
             
             parsed_result = parse_capture_context_response(
                 jwt_value=return_data,
-                merchant_config=merchant_config,
+                merchant_config=api_instance.api_client.mconfig,
                 verify_jwt_signature=True
             )
             
