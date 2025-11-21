@@ -20,7 +20,7 @@ def create_payment_instrument_bank_account():
     profileid = "93B32398-AD51-4CC2-A682-EA3E93614EB1"
 
     bankAccountType = "savings"
-    bankAccount = Tmsv2customersEmbeddedDefaultPaymentInstrumentBankAccount(
+    bankAccount = Tmsv2tokenizeTokenInformationCustomerEmbeddedDefaultPaymentInstrumentBankAccount(
         type = bankAccountType
     )
 
@@ -29,11 +29,11 @@ def create_payment_instrument_bank_account():
     buyerInformationDateOfBirth = "2000-12-13"
 
     buyerInformationPersonalIdentification = []
-    buyerInformationPersonalIdentificationIssuedBy1 = Tmsv2customersEmbeddedDefaultPaymentInstrumentBuyerInformationIssuedBy(
+    buyerInformationPersonalIdentificationIssuedBy1 = Tmsv2tokenizeTokenInformationCustomerEmbeddedDefaultPaymentInstrumentBuyerInformationIssuedBy(
         administrative_area = "CA"
     )
 
-    buyerInformationPersonalIdentification1 = Tmsv2customersEmbeddedDefaultPaymentInstrumentBuyerInformationPersonalIdentification(
+    buyerInformationPersonalIdentification1 = Tmsv2tokenizeTokenInformationCustomerEmbeddedDefaultPaymentInstrumentBuyerInformationPersonalIdentification(
         id = "57684432111321",
         type = "driver license",
         issued_by = buyerInformationPersonalIdentificationIssuedBy1.__dict__
@@ -41,7 +41,7 @@ def create_payment_instrument_bank_account():
 
     buyerInformationPersonalIdentification.append(buyerInformationPersonalIdentification1.__dict__)
 
-    buyerInformation = Tmsv2customersEmbeddedDefaultPaymentInstrumentBuyerInformation(
+    buyerInformation = Tmsv2tokenizeTokenInformationCustomerEmbeddedDefaultPaymentInstrumentBuyerInformation(
         company_tax_id = buyerInformationCompanyTaxID,
         currency = buyerInformationCurrency,
         date_of_birth = buyerInformationDateOfBirth,
@@ -58,7 +58,7 @@ def create_payment_instrument_bank_account():
     billToCountry = "US"
     billToEmail = "test@cybs.com"
     billToPhoneNumber = "4158880000"
-    billTo = Tmsv2customersEmbeddedDefaultPaymentInstrumentBillTo(
+    billTo = Tmsv2tokenizeTokenInformationCustomerEmbeddedDefaultPaymentInstrumentBillTo(
         first_name = billToFirstName,
         last_name = billToLastName,
         company = billToCompany,
@@ -81,7 +81,7 @@ def create_payment_instrument_bank_account():
     )
 
     instrumentIdentifierId = "A7A91A2CA872B272E05340588D0A0699"
-    instrumentIdentifier = Tmsv2customersEmbeddedDefaultPaymentInstrumentInstrumentIdentifier(
+    instrumentIdentifier = Tmsv2tokenizeTokenInformationCustomerEmbeddedDefaultPaymentInstrumentInstrumentIdentifier(
         id = instrumentIdentifierId
     )
 

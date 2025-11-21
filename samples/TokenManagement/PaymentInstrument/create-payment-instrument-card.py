@@ -22,7 +22,7 @@ def create_payment_instrument_card():
     cardExpirationMonth = "12"
     cardExpirationYear = "2031"
     cardType = "visa"
-    card = Tmsv2customersEmbeddedDefaultPaymentInstrumentCard(
+    card = Tmsv2tokenizeTokenInformationCustomerEmbeddedDefaultPaymentInstrumentCard(
         expiration_month = cardExpirationMonth,
         expiration_year = cardExpirationYear,
         type = cardType
@@ -38,7 +38,7 @@ def create_payment_instrument_card():
     billToCountry = "US"
     billToEmail = "test@cybs.com"
     billToPhoneNumber = "4158880000"
-    billTo = Tmsv2customersEmbeddedDefaultPaymentInstrumentBillTo(
+    billTo = Tmsv2tokenizeTokenInformationCustomerEmbeddedDefaultPaymentInstrumentBillTo(
         first_name = billToFirstName,
         last_name = billToLastName,
         company = billToCompany,
@@ -52,7 +52,7 @@ def create_payment_instrument_card():
     )
 
     instrumentIdentifierId = "7010000000016241111"
-    instrumentIdentifier = Tmsv2customersEmbeddedDefaultPaymentInstrumentInstrumentIdentifier(
+    instrumentIdentifier = Tmsv2tokenizeTokenInformationCustomerEmbeddedDefaultPaymentInstrumentInstrumentIdentifier(
         id = instrumentIdentifierId
     )
 

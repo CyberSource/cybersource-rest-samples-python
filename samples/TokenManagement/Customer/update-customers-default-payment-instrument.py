@@ -20,7 +20,7 @@ def update_customers_default_payment_instrument():
     customerTokenId = "AB695DA801DD1BB6E05341588E0A3BDC"
 
     defaultPaymentInstrumentId = "AB6A54B982A6FCB6E05341588E0A3935"
-    defaultPaymentInstrument = Tmsv2customersDefaultPaymentInstrument(
+    defaultPaymentInstrument = Tmsv2tokenizeTokenInformationCustomerDefaultPaymentInstrument(
         id = defaultPaymentInstrumentId
     )
 

@@ -30,7 +30,7 @@ def create_customer_nondefault_shipping_address():
     shipToCountry = "US"
     shipToEmail = "test@cybs.com"
     shipToPhoneNumber = "4158880000"
-    shipTo = Tmsv2customersEmbeddedDefaultShippingAddressShipTo(
+    shipTo = Tmsv2tokenizeTokenInformationCustomerEmbeddedDefaultShippingAddressShipTo(
         first_name = shipToFirstName,
         last_name = shipToLastName,
         company = shipToCompany,

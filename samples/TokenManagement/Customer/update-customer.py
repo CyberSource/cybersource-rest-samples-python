@@ -20,19 +20,19 @@ def update_customer():
     customerTokenId = "AB695DA801DD1BB6E05341588E0A3BDC"
     buyerInformationMerchantCustomerID = "Your customer identifier"
     buyerInformationEmail = "test@cybs.com"
-    buyerInformation = Tmsv2customersBuyerInformation(
+    buyerInformation = Tmsv2tokenizeTokenInformationCustomerBuyerInformation(
         merchant_customer_id = buyerInformationMerchantCustomerID,
         email = buyerInformationEmail
     )
 
     clientReferenceInformationCode = "TC50171_3"
-    clientReferenceInformation = Tmsv2customersClientReferenceInformation(
+    clientReferenceInformation = Tmsv2tokenizeTokenInformationCustomerClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 
 
     merchantDefinedInformation = []
-    merchantDefinedInformation1 = Tmsv2customersMerchantDefinedInformation(
+    merchantDefinedInformation1 = Tmsv2tokenizeTokenInformationCustomerMerchantDefinedInformation(
         name = "data1",
         value = "Your customer data"
     )
