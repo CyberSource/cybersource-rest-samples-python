@@ -114,8 +114,7 @@ def generate_unified_checkout_capture_context():
         try:
             parsed_result = parse_capture_context_response(
                 jwt_value=return_data,
-                merchant_config=api_instance.api_client.mconfig,
-                verify_jwt_signature=True
+                merchant_config=api_instance.api_client.mconfig
             )
             
             print("\nParsed Capture Context : ", json.dumps(parsed_result, indent=2))
