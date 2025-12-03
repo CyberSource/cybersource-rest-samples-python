@@ -20,7 +20,7 @@ def update_customers_default_shipping_address():
     customerTokenId = "AB695DA801DD1BB6E05341588E0A3BDC"
 
     defaultShippingAddressId = "AB6A54B97C00FCB6E05341588E0A3935"
-    defaultShippingAddress = Tmsv2customersDefaultShippingAddress(
+    defaultShippingAddress = Tmsv2tokenizeTokenInformationCustomerDefaultShippingAddress(
         id = defaultShippingAddressId
     )
 

@@ -1,5 +1,7 @@
 from CyberSource import *
 from CyberSource.rest import ApiException
+from CyberSource.utilities.flex.CaptureContextParsingUtility import parse_capture_context_response
+from CyberSource.models import Upv1capturecontextsCaptureMandate, Upv1capturecontextsOrderInformationAmountDetails, Upv1capturecontextsOrderInformation, GenerateUnifiedCheckoutCaptureContextRequest, Upv1capturecontextsCompleteMandate, Upv1capturecontextsDataOrderInformationBillTo, Upv1capturecontextsDataOrderInformationBillToCompany, Upv1capturecontextsDataOrderInformationShipTo
 from pathlib import Path
 import os
 import json
@@ -96,7 +98,7 @@ def generate_unified_checkout_capture_context():
     orderInformationBillToCompanyDistrict = "district"
     orderInformationBillToCompanyLocality = "Foster City"
     orderInformationBillToCompanyPostalCode = "94404"
-    orderInformationBillToCompany = Upv1capturecontextsOrderInformationBillToCompany(
+    orderInformationBillToCompany = Upv1capturecontextsDataOrderInformationBillToCompany(
         name = orderInformationBillToCompanyName,
         address1 = orderInformationBillToCompanyAddress1,
         address2 = orderInformationBillToCompanyAddress2,
@@ -118,7 +120,7 @@ def generate_unified_checkout_capture_context():
     orderInformationBillToTitle = "Mr"
     orderInformationBillToPhoneNumber = "1234567890"
     orderInformationBillToPhoneType = "phoneType"
-    orderInformationBillTo = Upv1capturecontextsOrderInformationBillTo(
+    orderInformationBillTo = Upv1capturecontextsDataOrderInformationBillTo(
         address1 = orderInformationBillToAddress1,
         address2 = orderInformationBillToAddress2,
         address3 = orderInformationBillToAddress3,
@@ -152,7 +154,7 @@ def generate_unified_checkout_capture_context():
     orderInformationShipToPostalCode = "BT1 4LS"
     orderInformationShipToFirstName = "Joe"
     orderInformationShipToLastName = "Soap"
-    orderInformationShipTo = Upv1capturecontextsOrderInformationShipTo(
+    orderInformationShipTo = Upv1capturecontextsDataOrderInformationShipTo(
         address1 = orderInformationShipToAddress1,
         address2 = orderInformationShipToAddress2,
         address3 = orderInformationShipToAddress3,
@@ -203,6 +205,17 @@ def generate_unified_checkout_capture_context():
 
         print("\nAPI RESPONSE CODE : ", status)
         print("\nAPI RESPONSE BODY : ", body)
+
+        # Parse the capture context response
+        try:
+            parsed_result = parse_capture_context_response(
+                jwt_value=return_data,
+                merchant_config=api_instance.api_client.mconfig
+            )
+            
+            print("\nParsed Capture Context : ", json.dumps(parsed_result, indent=2))
+        except Exception as parse_error:
+            print("\nError in Capture Context Parsing : ", str(parse_error))
 
         write_log_audit(status)
         return return_data

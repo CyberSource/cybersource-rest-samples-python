@@ -1,6 +1,7 @@
 from CyberSource import *
 from CyberSource.rest import ApiException
 from CyberSource import GenerateCaptureContextRequest
+from CyberSource.utilities.flex.CaptureContextParsingUtility import parse_capture_context_response
 import os
 import json
 from importlib.machinery import SourceFileLoader
@@ -44,6 +45,18 @@ def generate_capture_context_accept_check():
 
         print("\nAPI RESPONSE CODE : ", status)
         print("\nAPI RESPONSE BODY : ", body)
+
+        # Parse the capture context response
+        try:
+            
+            parsed_result = parse_capture_context_response(
+                jwt_value=return_data,
+                merchant_config=api_instance.api_client.mconfig
+            )
+            
+            print("\nParsed Capture Context : ", json.dumps(parsed_result, indent=2))
+        except Exception as parse_error:
+            print("\nError in Capture Context Parsing : ", str(parse_error))
 
         write_log_audit(status)
 
