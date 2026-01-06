@@ -32,9 +32,15 @@ class MLEConfiguration:
         #self.proxy_address = "userproxy.com"
         #self.proxy_port = ""
 
-	    # PEM Key file path for decoding JWE Response Enter the folder path where the .pem file is located.
+        # PEM Key file path for decoding JWE Response Enter the folder path where the .pem file is located.
 		# It is optional property, require adding only during JWE decryption.
         self.JWEPemFIleDirectory = os.path.join(os.getcwd(), "resources", "NetworkTokenCert.pem")
+
+        # RESPONSE MLE PARAMETERS
+        self.enableResponseMleGlobally = False
+        self.responseMlePrivateKeyFilePath = ""
+        self.responseMlePrivateKeyFilePassword = ""
+        self.responseMleKID = ""
 
     # MLEConfiguration1
     def get_configuration_with_mle_Type1(self):
@@ -68,6 +74,91 @@ class MLEConfiguration:
         configuration_dictionary["log_config"] = log_config
         #configuration_dictionary["proxy_address"] = self.proxy_address
         #configuration_dictionary["proxy_port"] = self.proxy_port
+        return configuration_dictionary
+
+    # MLEConfigurationWithRequestAndResponseMLE2
+    def get_configuration_with_request_and_response_mle_Type2(self):
+        configuration_dictionary = ({})
+        configuration_dictionary["authentication_type"] = self.authentication_type
+        configuration_dictionary["merchantid"] = "agentic_mid_091225001"
+        configuration_dictionary["run_environment"] = self.run_environment
+        configuration_dictionary["key_alias"] = "agentic_mid_091225001"
+        configuration_dictionary["key_password"] = "Changeit@123"
+        configuration_dictionary["key_file_name"] = "agentic_mid_091225001"
+        configuration_dictionary["keys_directory"] = self.keys_directory
+        configuration_dictionary["timeout"] = self.timeout
+
+        # Set Request MLE Settings in Merchant Configuration
+        configuration_dictionary['enableRequestMLEForOptionalApisGlobally'] = False #Disable request MLE globally for all APIs that have optional MLE support
+        # APIs that has MLE Request mandatory is default has MLE support in SDK without any configuration but support with JWT auth type.
+
+        # Set Response MLE Settings in Merchant Configuration
+        configuration_dictionary['enableResponseMleGlobally'] = False #Disable response MLE globally for all APIs that support MLE responses
+
+        # Set Request & Response MLE Settings in Merchant Configuration through MAP for API control level
+        configuration_dictionary['mapToControlMLEonAPI'] = {
+            "create_payment": "true::false", #only create_payment function will have Request MLE=true and Response MLE=false i.e. (/pts/v2/payments POST API)
+            "enroll_card": "true::true" #only enroll_card function will have Request MLE=true & Response MLE=true i.e. (/acp/v1/tokens POST API)
+        }
+
+        # Since one of the API has Response MLE true, below fields are required for Response MLE
+        configuration_dictionary['responseMlePrivateKeyFilePath'] = os.path.join(os.getcwd(), "resources", "agentic_mid_091225001_new_generated_mle.p12") #Path to the Response MLE private key file. Supported formats: .p12, .pfx, .pem, .key, .p8
+        configuration_dictionary['responseMlePrivateKeyFilePassword'] = "Changeit@123" #Password for the private key file (required for .p12/.pfx files or encrypted private keys)
+        configuration_dictionary['responseMleKID'] = "1764104507829324018353" #Optional since p12 is Cybs Generated
+        # This parameter is optional when responseMlePrivateKeyFilePath points to a CyberSource-generated P12 file.
+        # If not provided, the SDK will automatically fetch the Key ID from the P12 file.
+        # Required when using PEM format files (.pem, .key, .p8) or when providing responseMlePrivateKey object directly.
+
+        #Log Config
+        log_config = LogConfiguration()
+        log_config.set_enable_log(self.enable_log)
+        log_config.set_log_directory(self.log_directory)
+        log_config.set_log_file_name(self.log_file_name)
+        log_config.set_log_maximum_size(self.log_maximum_size)
+        log_config.set_log_level(self.log_level)
+        log_config.set_enable_masking(self.enable_masking)
+        log_config.set_log_format(self.log_format)
+        log_config.set_log_date_format(self.log_date_format)
+        configuration_dictionary["log_config"] = log_config
+        return configuration_dictionary
+
+    # MLEConfigurationWithRequestAndResponseMLE1
+    def get_configuration_with_request_and_response_mle_Type1(self):
+        configuration_dictionary = ({})
+        configuration_dictionary["authentication_type"] = self.authentication_type
+        configuration_dictionary["merchantid"] = "agentic_mid_091225001"
+        configuration_dictionary["run_environment"] = self.run_environment
+        configuration_dictionary["key_alias"] = "agentic_mid_091225001"
+        configuration_dictionary["key_password"] = "Changeit@123"
+        configuration_dictionary["key_file_name"] = "agentic_mid_091225001"
+        configuration_dictionary["keys_directory"] = self.keys_directory
+        configuration_dictionary["timeout"] = self.timeout
+
+        # Set Request MLE Settings in Merchant Configuration
+        # configuration_dictionary['enableRequestMLEForOptionalApisGlobally'] = True #Enables request MLE globally for all APIs that have optional MLE support
+        # APIs that has MLE Request mandatory is default has MLE support in SDK without any configuration but support with JWT auth type.
+        configuration_dictionary['useMLEGlobally'] = False #deprecated variable, use 'enableRequestMLEForOptionalApisGlobally' instead
+
+        # Set Response MLE Settings in Merchant Configuration
+        configuration_dictionary['enableResponseMleGlobally'] = True #Enables response MLE globally for all APIs that support MLE responses
+        configuration_dictionary['responseMlePrivateKeyFilePath'] = os.path.join(os.getcwd(), "resources", "agentic_mid_091225001_mle.p12") #Path to the Response MLE private key file. Supported formats: .p12, .pfx, .pem, .key, .p8
+        configuration_dictionary['responseMlePrivateKeyFilePassword'] = "Changeit@123" #Password for the private key file (required for .p12/.pfx files or encrypted private keys)
+        configuration_dictionary['responseMleKID'] = "1757970970891045729358" #Optional since p12 is Cybs Generated
+        # This parameter is optional when responseMlePrivateKeyFilePath points to a CyberSource-generated P12 file.
+        # If not provided, the SDK will automatically fetch the Key ID from the P12 file.
+        # Required when using PEM format files (.pem, .key, .p8) or when providing responseMlePrivateKey object directly.
+
+        #Log Config
+        log_config = LogConfiguration()
+        log_config.set_enable_log(self.enable_log)
+        log_config.set_log_directory(self.log_directory)
+        log_config.set_log_file_name(self.log_file_name)
+        log_config.set_log_maximum_size(self.log_maximum_size)
+        log_config.set_log_level(self.log_level)
+        log_config.set_enable_masking(self.enable_masking)
+        log_config.set_log_format(self.log_format)
+        log_config.set_log_date_format(self.log_date_format)
+        configuration_dictionary["log_config"] = log_config
         return configuration_dictionary
 
     # MLEConfiguration2
