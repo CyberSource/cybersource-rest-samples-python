@@ -1,0 +1,24 @@
+{
+  "latest_version": "0.0.73",
+  "minimum_supported_version": "0.0.50",
+  "versions": [
+    {
+      "version": "0.0.73",
+      "release_date": "2026-01-04",
+      "tag_name": "0.0.73",
+      "download_url": "https://github.com/CyberSource/cybersource-rest-client-python/archive/refs/tags/0.0.73.zip"
+    },
+    {
+      "version": "0.0.72",
+      "release_date": "2025-12-02",
+      "tag_name": "0.0.72",
+      "download_url": "https://github.com/CyberSource/cybersource-rest-client-python/archive/refs/tags/0.0.72.zip"
+    }
+  ],
+  "repository": {
+    "owner": "CyberSource",
+    "repo": "cybersource-rest-client-python",
+    "url": "https://github.com/CyberSource/cybersource-rest-client-python"
+  },
+  "last_updated": "2026-01-12T05:05:46Z"
+}
