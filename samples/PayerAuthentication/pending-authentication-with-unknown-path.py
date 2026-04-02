@@ -18,7 +18,7 @@ def del_none(d):
 
 def pending_authentication_with_unknown_path():
     clientReferenceInformationCode = "UNKNOWN"
-    clientReferenceInformation = Riskv1authenticationsetupsClientReferenceInformation(
+    clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 

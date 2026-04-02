@@ -45,11 +45,11 @@ def network_token():
         # decoded_response = JWEUtility.decrypt_jwe_response(encoded_response, merchant_config)
 
         # Using the new method JWEUtility.decrypt_jwe_response_using_private_key(private_key, encoded_response) instead
-        private_key = get_private_key_from_pem_file(merchant_config.get_jwePEMFileDirectory())
-        decoded_response = JWEUtility.decrypt_jwe_response_using_private_key(private_key, encoded_response)
+        # private_key = get_private_key_from_pem_file(merchant_config.get_jwePEMFileDirectory())
+        # decoded_response = JWEUtility.decrypt_jwe_response_using_private_key(private_key, encoded_response)
 
-        print("Decoded Response")
-        print(decoded_response)
+        # print("Decoded Response")
+        # print(encoded_response)
 
     except Exception as e:
         print("\nException when running the sample code of networkToken: %s\n" % e)

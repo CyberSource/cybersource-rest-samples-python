@@ -18,7 +18,7 @@ def del_none(d):
 
 def authentication_with_new_account():
     clientReferenceInformationCode = "New Account"
-    clientReferenceInformation = Riskv1authenticationsetupsClientReferenceInformation(
+    clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
         code = clientReferenceInformationCode
     )
 

@@ -25,7 +25,7 @@ def authentication_with_no_redirect():
         solution_id = clientReferenceInformationPartnerSolutionId
     )
 
-    clientReferenceInformation = Riskv1authenticationsetupsClientReferenceInformation(
+    clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
         code = clientReferenceInformationCode,
         partner = clientReferenceInformationPartner.__dict__
     )
