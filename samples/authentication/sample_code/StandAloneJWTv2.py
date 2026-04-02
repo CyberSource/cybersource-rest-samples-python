@@ -1,15 +1,12 @@
-# This sample code is Depracated as it is meant for JWTv1 . Refer StandAloneJWTv2.py for JWTv2 implementation.
-
-import json
 import hashlib
 import base64
 import ssl
 import urllib3
-import re
-import hmac
 import os
 import jwt
 import warnings
+import time
+import uuid
 
 from datetime import date, datetime
 from time import mktime
@@ -17,19 +14,15 @@ from wsgiref.handlers import format_date_time
 from six import PY3, integer_types, iteritems, text_type
 from OpenSSL import crypto
 from pathlib import Path
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.serialization import pkcs12
 
 class StandAloneJWT:
-    def get_time(self):
-        now = datetime.now()
-        stamp = mktime(now.timetuple())
-
-        return format_date_time(stamp)
 
     def write_log_audit(self, status):
         print(f"[Sample Code Testing] [{Path(__file__).stem}] {status}")
 
     def __init__(self):
-        warnings.filterwarnings("ignore", category=DeprecationWarning)
         self.request_host = "apitest.cybersource.com"
         self.merchant_id = "testrest"
         self.merchant_key_id = "08c94330-f618-42a3-b09d-e1e43be5efda"
@@ -163,60 +156,155 @@ class StandAloneJWT:
                 new_params.append((k, v))
         return new_params
 
-    def get_digest(self):
+    def get_digest(self, payload):
         hashobj = hashlib.sha256()
-        hashobj.update(self.payload.encode('utf-8'))
+        hashobj.update(payload.encode('utf-8'))
         hash_data = hashobj.digest()
         digest = base64.b64encode(hash_data)
 
         return digest
 
+    def extract_serial_number_from_certificate(self, certificate):
+        """
+        Extract serial number from X.509 certificate subject field.
+        :param certificate: OpenSSL X.509 certificate object
+        :return: Serial number as string
+        """
+        try:
+            # Get certificate subject components
+            subject = certificate.get_subject()
+            
+            # Look for serialNumber in subject components using get_components()
+            components = subject.get_components()
+            for component in components:
+                if component[0].decode('utf-8') == 'serialNumber':
+                    return component[1].decode('utf-8')
+            
+            # If serialNumber not found in subject, raise exception
+            raise ValueError("Serial number not found in certificate subject field")
+            
+        except Exception as e:
+            raise ValueError(f"Error extracting serial number from certificate: {str(e)}")
+
+    def extract_resource_path(self, resource_path):
+        """
+        Extract resource path without query parameters.
+        :param resource_path: Full resource path with potential query parameters
+        :return: Resource path without query parameters
+        """
+        if not resource_path:
+            return ""
+        
+        # Split the string to remove the query params
+        parts = resource_path.split('?', 1)
+        return parts[0]
+
+    def get_jwtv2_payload_claims(self, method, resource_path, payload_data=None):
+        """
+        Generate JWTv2 payload with all required claims.
+        :param method: HTTP method (GET, POST, etc.)
+        :param resource_path: API resource path
+        :param payload_data: Request payload for POST/PUT/PATCH requests
+        :return: JWT payload dictionary
+        """
+        jwt_payload = {}
+        
+        # Setting the JWT digest and digest Algorithm when a POST, PUT, or PATCH request is made
+        if method.upper() in ['POST', 'PUT', 'PATCH']:
+            digest = self.get_digest(self.payload)
+            jwt_payload["digest"] = digest.decode("utf-8")
+            jwt_payload["digestAlgorithm"] = "SHA-256"
+        
+        # Set the iat and exp claims using epoch timestamps
+        current_time = int(time.time())
+        jwt_payload["iat"] = current_time
+        jwt_payload["exp"] = current_time + 120  # The token is set to expire 2 minutes after creation
+        
+        # Set the request method, host and resource path in the JWT body
+        jwt_payload["request-method"] = method.upper()
+        jwt_payload["request-host"] = self.request_host
+        jwt_payload["request-resource-path"] = self.extract_resource_path(resource_path)
+        
+        # Set issuer claim - Using merchant ID for non-metaKey implementation. (Use portfolio ID if metaKey is being used).
+        jwt_payload["iss"] = self.merchant_id
+        
+        # Generate unique JWT ID
+        jwt_payload["jti"] = str(uuid.uuid4())
+        
+        # Set JWT version and merchant ID
+        jwt_payload["v-c-jwt-version"] = "2"
+        jwt_payload["v-c-merchant-id"] = self.merchant_id
+        
+        return jwt_payload
+
     def fetch_certificate_info(self):
         filecache = {}
-        filename = 'testrest'
+        filename = 'testrest' #This is the filename of the PKCS12 file without the .p12 extension. For example, if the file is named "testrest.p12", then the filename variable should be set to "testrest".
+        filepath = "samples/authentication/Resources" # This is the relative path to the directory containing the PKCS12 file from the current working directory. For example, if the PKCS12 file is located in "samples/authentication/Resources/testrest.p12", then the filepath variable should be set to "samples/authentication/Resources".
+        
+        # Load PKCS12 file
+        with open(os.path.join(os.getcwd(), filepath, filename) + ".p12", 'rb') as f:
+            p12_data = f.read()
+        
+        # Parse PKCS12 using cryptography library
+        private_key_crypto, certificate_crypto, additional_certificates = pkcs12.load_key_and_certificates(
+            p12_data, self.merchant_id.encode('utf-8')
+        )
+        
+        # Convert to OpenSSL format for compatibility
+        cert_pem = certificate_crypto.public_bytes(serialization.Encoding.PEM)
+        private_key_pem = private_key_crypto.private_bytes(
+            encoding=serialization.Encoding.PEM,
+            format=serialization.PrivateFormat.PKCS8,
+            encryption_algorithm=serialization.NoEncryption()
+        )
+        
+        # Create OpenSSL certificate object for serial number extraction
+        x509_certificate = crypto.load_certificate(crypto.FILETYPE_PEM, cert_pem)
+        private_key_str = private_key_pem.decode("utf-8")
 
-        p12 = crypto.load_pkcs12(open(os.path.join(os.getcwd(), "samples/authentication/Resources", filename) + ".p12", 'rb').read(), self.merchant_id)
-
-        cert_str = crypto.dump_certificate(crypto.FILETYPE_PEM, p12.get_certificate())
-        der_cert_string = base64.b64encode(ssl.PEM_cert_to_DER_cert(cert_str.decode("utf-8")))
-        private_key = crypto.dump_privatekey(crypto.FILETYPE_PEM, p12.get_privatekey()).decode("utf-8")
-
-        filecache.setdefault(str(filename), []).append(der_cert_string)
-        filecache.setdefault(str(filename), []).append(private_key)
+        filecache.setdefault(str(filename), []).append(private_key_str)
+        filecache.setdefault(str(filename), []).append(x509_certificate)  # Add X.509 certificate object
 
         return filecache[filename]
 
-    def get_token(self, method, time):
-        if method.upper() == 'POST':
-            digest = self.get_digest()
-            jwt_body = { "digest": digest.decode("utf-8"), "digestAlgorithm": "SHA-256", "iat": time }
-        elif method.upper() == 'GET':
-            jwt_body = { "iat": time }
-
-        # Reading the .p12 file
-        cache_memory = self.fetch_certificate_info()
-        der_cert_string = cache_memory[0]
-        private_key = cache_memory[1]
-
-        # Setting the headers - merchant_id and the public key
-        headers_jwt = { "v-c-merchant-id": str(self.merchant_id) }
-
-        public_key_list = ([])
-        public_key_list.append(der_cert_string.decode("utf-8"))
-        public_key_headers = { "x5c": public_key_list }
-
-        headers_jwt.update(public_key_headers)
-
-        # generating the token of jwt
-        encoded_jwt = jwt.encode(jwt_body, private_key, algorithm='RS256', headers=headers_jwt)
-
-        return encoded_jwt.encode("utf-8").decode("utf-8")
+    def get_token(self, method, resource_path):
+        """
+        Generate JWTv2 compliant token.
+        :param method: HTTP method (GET, POST, etc.)
+        :param resource_path: API resource path
+        :return: JWT token string
+        """
+        try:
+            # Generate JWTv2 payload with all required claims
+            jwt_payload = self.get_jwtv2_payload_claims(method, resource_path)
+            
+            # Get certificate information including X.509 certificate object
+            cache_memory = self.fetch_certificate_info()
+            private_key = cache_memory[0]
+            x509_certificate = cache_memory[1]  # X.509 certificate object
+            
+            # Extract serial number for kid header
+            serial_number = self.extract_serial_number_from_certificate(x509_certificate)
+            
+            # Generate JWT with kid in header (JWTv2 specification)
+            # PyJWT supports the typ and alg header claims by default if algorithm is specified.
+            # To add new header claims that are not registred in PyJWT, add the key value pair to the header_claims dictionary below.
+            # adding `kid` as per JWTv2 specification.
+            header_claims = {"kid": str(serial_number)}
+            
+            # Generate the JWT token
+            encoded_jwt = jwt.encode(jwt_payload, private_key, algorithm='RS256', headers=header_claims)
+            
+            return encoded_jwt
+            
+        except Exception as e:
+            print(f"Error generating JWTv2 token: {str(e)}")
+            raise e
 
     def process_post(self):
         resource = '/pts/v2/payments/'
         method = 'post'
-
-        time = self.get_time()
 
         header_params = {}
         header_params['Accept'] = 'application/hal+json;charset=utf-8'
@@ -231,9 +319,10 @@ class StandAloneJWT:
         print("\tv-c-merchant-id : " + self.merchant_id)
         print("\tHost : " + self.request_host)
 
-        token = self.get_token(method, time)
+        # Pass resource path to get_token for JWTv2
+        token = self.get_token(method, resource)
 
-        print("\n -- TOKEN --\n" + token);
+        print("\n -- TOKEN --\n" + token)
 
         token = "Bearer " + token
 
@@ -259,19 +348,16 @@ class StandAloneJWT:
         print("\tv-c-correlation-id :" + r.getheaders().get('v-c-correlation-id'))
         print("\tResponse Data :\n" + r.data.decode('utf-8') + "\n")
 
-        if not 200 <= r.status <= 299:
-            return -1
-
-        return 0
+        return r.status
 
     def process_get(self):
-        resource = '/reporting/v3/reports?startTime=2021-02-01T00:00:00.0Z&endTime=2021-02-02T23:59:59.0Z&timeQueryType=executedTime&reportMimeType=application/xml'
+        # Updated to TMS endpoint as per PHP samples PR
+        resource = '/tms/v2/customers/AB695DA801DD1BB6E05341588E0A3BDC/shipping-addresses/AB6A54B97C00FCB6E05341588E0A3935'
         method = 'get'
 
-        time = self.get_time()
-
         header_params = {}
-        header_params['Accept'] = 'application/hal+json;charset=utf-8'
+        # Updated Accept header as per PHP samples PR
+        header_params['Accept'] = 'application/json;charset=utf-8'
         header_params['Content-Type'] = 'application/json;charset=utf-8'
 
         url = "https://" + self.request_host + resource
@@ -283,7 +369,8 @@ class StandAloneJWT:
         print("\tv-c-merchant-id : " + self.merchant_id)
         print("\tHost : " + self.request_host)
 
-        token = self.get_token(method, time)
+        # Pass resource path to get_token for JWTv2
+        token = self.get_token(method, resource)
 
         print("\n -- TOKEN --\n" + token)
 
@@ -308,33 +395,31 @@ class StandAloneJWT:
         print("\tv-c-correlation-id :" + r.getheaders().get('v-c-correlation-id'))
         print("\tResponse Data :\n" + r.data.decode('utf-8') + "\n")
 
-        if not 200 <= r.status <= 299:
-            return -1
-
-        return 0
+        return r.status
+    
+    def is_success(self, status_code):
+        return 200 <= status_code <= 299
 
     def process_standalone_jwt(self):
         # HTTP POST REQUEST
         print("\n\nSample 1: POST call - CyberSource Payments API - HTTP POST Payment request")
-        status_code = self.process_post()
-        status_code_post = status_code
+        status_code_post = self.process_post()
 
-        if status_code == 0:
-            print("STATUS : SUCCESS (HTTP Status = " + str(status_code) + ")")
+        if self.is_success(status_code_post):
+            print("STATUS : SUCCESS (HTTP Status = " + str(status_code_post) + ")")
         else:
-            print("STATUS : ERROR (HTTP Status = " + str(status_code) + ")")
+            print("STATUS : ERROR (HTTP Status = " + str(status_code_post) + ")")
 
         # HTTP GET REQUEST
-        print("\n\nSample 2: GET call - CyberSource Reporting API - HTTP GET Reporting request")
-        status_code = self.process_get()
-        status_code_get = status_code
+        print("\n\nSample 2: GET call - CyberSource Customer Shipping Address API - HTTP GET Customer Shipping Address request")
+        status_code_get = self.process_get()
 
-        if status_code == 0:
-            print("STATUS : SUCCESS (HTTP Status = " + str(status_code) + ")")
+        if self.is_success(status_code_get):
+            print("STATUS : SUCCESS (HTTP Status = " + str(status_code_get) + ")")
         else:
-            print("STATUS : ERROR (HTTP Status = " + str(status_code) + ")")
+            print("STATUS : ERROR (HTTP Status = " + str(status_code_get) + ")")
 
-        if status_code_post == 0 and status_code_get == 0:
+        if self.is_success(status_code_post) and self.is_success(status_code_get):
             self.write_log_audit(200)
         else:
             self.write_log_audit(400)

@@ -25,7 +25,7 @@ def setup_completion_with_card_number():
         solution_id = clientReferenceInformationPartnerSolutionId
     )
 
-    clientReferenceInformation = Riskv1authenticationsetupsClientReferenceInformation(
+    clientReferenceInformation = Riskv1decisionsClientReferenceInformation(
         code = clientReferenceInformationCode,
         partner = clientReferenceInformationPartner.__dict__
     )
