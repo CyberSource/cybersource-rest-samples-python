@@ -1,3 +1,15 @@
+"""
+Payment Authorization with MLE Control via Map Only - Selective Enable.
+
+MLE Configuration Type 3: Global Disable + Selective Enable
+- useMLEGlobally = false: Disables MLE globally
+- mapToControlMLEonAPI = {"create_payment": True}: Enables MLE only for create_payment
+- Requires JWT authentication (JWT with P12 or JWT with Shared Secret)
+
+For JWT with Shared Secret authentication (no P12 required), 
+see: samples/JwtSharedSecretAuth/mle_payment_with_jwt_shared_secret.py
+"""
+
 from CyberSource import *
 from pathlib import Path
 import os
@@ -93,7 +105,10 @@ def simple_authorization_internet_with_Only_Map_Control_MLE(flag):
     try:
         config_obj = configuration.MLEConfiguration()
         
-        # useMLEGlobally=false in config, but mapToControlMLEonAPI has create_payment=true, so MLE will be enabled only for create_payment function/method.
+        # MLE Configuration Type 3: Global Disable with Selective Enable
+        # useMLEGlobally=false disables MLE for all APIs by default
+        # mapToControlMLEonAPI={"create_payment": True} enables MLE only for the create_payment API
+        # All other APIs will NOT have MLE enabled (even if they support it)
         client_config = config_obj.get_configuration_with_mle_Type3()
 
         api_instance = PaymentsApi(client_config)

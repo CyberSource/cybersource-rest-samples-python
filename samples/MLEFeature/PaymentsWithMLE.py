@@ -1,3 +1,14 @@
+"""
+Payment Authorization with MLE (Message Level Encryption) - Global Enablement.
+
+MLE Configuration Type 1: Global Enablement
+- useMLEGlobally = true: Enables MLE for all CyberSource-supported APIs
+- Requires JWT authentication (JWT with P12 or JWT with Shared Secret)
+
+For JWT with Shared Secret authentication (no P12 required), 
+see: samples/JwtSharedSecretAuth/mle_payment_with_jwt_shared_secret.py
+"""
+
 from CyberSource import *
 from pathlib import Path
 import os
@@ -92,7 +103,9 @@ def simple_authorization_internet_with_MLE(flag):
     try:
         config_obj = configuration.MLEConfiguration()
 
-        # add useMLEGlobally=true in config to enable the MLE feature globally in SDK for all supported APIs
+        # MLE Configuration Type 1: Global Enablement
+        # useMLEGlobally=true enables MLE for all CyberSource-supported APIs
+        # This configuration automatically encrypts request payloads for all supported endpoints
         client_config = config_obj.get_configuration_with_mle_Type1()
         
         api_instance = PaymentsApi(client_config)

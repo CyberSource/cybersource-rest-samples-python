@@ -67,7 +67,7 @@ You can run each sample directly from the command line.
 
 Configure the following information in data/configuration.py file:
 
-* Http Signature
+* Http Signature (**Deprecated** — migrate to JWT with Shared Secret below)
 
     ```python
     self.authentication_type      = "http_signature"
@@ -76,7 +76,7 @@ Configure the following information in data/configuration.py file:
     self.merchant_secretkey       = "Your secret key"
     ```
 
-* Jwt
+* Jwt (with P12 certificate)
 
     ```python
     self.authentication_type      = "jwt"
@@ -87,28 +87,77 @@ Configure the following information in data/configuration.py file:
     self.keys_directory           = os.getcwd()+"\\resources\\"
     ```
 
-* MetaKey Http
+* Jwt with Shared Secret (**Recommended migration path from Http Signature**)
 
-    ```python
-    self.authentication_type      = "http_Signature"
-    self.merchantid               = "your_child_merchant_id"
-    self.merchant_keyid           = "your_metakey_serial_number"
-    self.merchant_secretkey       = "your_metakey_shared_secret"
-    self.portfolio_id             = "your_portfolio_id"
-    self.use_metakey              = true
-    ```
+    Uses the **same** `merchant_keyid` and `merchant_secretkey` credentials as Http Signature, but authenticates via JWT. This enables MLE (Message Level Encryption) support for both request and response payloads, which Http Signature does not support.
 
-* MetaKey JWT
+    For detailed migration guide, configuration, and sample code, see the [JWT Shared Secret Auth samples](samples/JwtSharedSecretAuth/README.md).
 
     ```python
     self.authentication_type      = "jwt"
-    self.merchantid               = "your_child_merchant_id"
-    self.key_alias                = "your_child_merchant_id"
-    self.key_pass                 = "your_portfolio_id"
-    self.key_file_name            = "your_portfolio_id"
-    self.keys_directory           = os.getcwd()+"\\resources\\"
-    self.use_metakey              = true
+    self.jwt_key_type             = "SHARED_SECRET"
+    self.merchantid               = "your_merchant_id"
+    self.merchant_keyid           = "your_key_serial_number"
+    self.merchant_secretkey       = "your_key_shared_secret"
     ```
+
+* MetaKey Http (**Deprecated** — migrate to MetaKey JWT Shared Secret below)
+
+    ```python
+    self.authentication_type      = "http_signature"
+    self.merchantid               = "your_transacting_merchant_id"
+    self.merchant_keyid           = "your_metakey_portfolio_KeyId"
+    self.merchant_secretkey       = "your_metakey_portfolio_shared_secret_key"
+    self.portfolio_id             = "your_portfolio_id"
+    self.use_metakey              = True
+    ```
+
+* MetaKey JWT (P12)
+
+    ```python
+    self.authentication_type      = "jwt"
+    self.merchantid               = "your_transacting_merchant_id"
+    self.key_alias                = "your_portfolio_id"
+    self.key_pass                 = "your_metakey_portfolio_p12File_password"
+    self.key_file_name            = "your_metakey_portfolio_p12FileName"
+    self.keys_directory           = os.getcwd()+"\\resources\\"
+    self.portfolio_id             = "your_portfolio_id"
+    self.use_metakey              = True
+    ```
+
+* MetaKey JWT with Shared Secret (**Recommended migration from MetaKey Http**)
+
+    Uses the same MetaKey credentials as MetaKey Http but authenticates via JWT, enabling MLE support.
+
+    ```python
+    self.authentication_type      = "jwt"
+    self.jwt_key_type             = "SHARED_SECRET"
+    self.merchantid               = "your_transacting_merchant_id"
+    self.merchant_keyid           = "your_metakey_portfolio_KeyId"
+    self.merchant_secretkey       = "your_metakey_portfolio_shared_secret_key"
+    self.portfolio_id             = "your_portfolio_id"
+    self.use_metakey              = True
+    ```
+
+* Response MLE with MetaKey
+
+    When Response MLE is enabled (`enableResponseMleGlobally=True`) and MetaKey is in use (`use_metakey=True`), the Response MLE configuration must use the **portfolio's** response MLE key — not the transacting merchant's. Specifically:
+
+    - `responseMlePrivateKeyFilePath` (or `responseMlePrivateKey` object) must point to the **portfolio's** response MLE private key.
+    - `responseMleKID` — the KID value associated with the **portfolio's** response MLE certificate.
+      - **Optional** when `responseMlePrivateKeyFilePath` points to a CyberSource-generated P12 file (SDK auto-fetches from P12).
+      - **Required** when using PEM format files (`.pem`, `.key`, `.p8`) or when providing `responseMlePrivateKey` object directly.
+
+    ```python
+    self.enableResponseMleGlobally          = True
+    self.responseMlePrivateKeyFilePath      = "/path/to/portfolio/response/mle/private/key.p12"
+    self.responseMlePrivateKeyFilePassword  = "portfolio_private_key_password"
+    # responseMleKID is optional when using a CyberSource-generated P12 file (auto-fetched from P12)
+    # Required when using PEM files or responseMlePrivateKey object
+    # self.responseMleKID                   = "your_portfolio_response_mle_kid"
+    ```
+
+    > **Important:** The response MLE private key (and KID, if applicable) must belong to the portfolio (parent account), since in MetaKey mode the portfolio is the transaction submitter and the response is encrypted using the portfolio's MLE certificate.
 
 ### Switching between the sandbox environment and the production environment
 

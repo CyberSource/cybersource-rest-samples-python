@@ -1,3 +1,16 @@
+"""
+Card Enrollment with Request and Response MLE (Message Level Encryption).
+
+MLE Configuration: Request and Response Encryption
+- enableRequestMLEForOptionalApisGlobally: Encrypts request payload
+- enableResponseMleGlobally: Decrypts encrypted response
+- mapToControlMLEonAPI: Fine-grained per-API control
+- Requires JWT authentication (JWT with P12 or JWT with Shared Secret)
+
+For JWT with Shared Secret authentication (no P12 required), 
+see: samples/JwtSharedSecretAuth/mle_payment_with_jwt_shared_secret.py
+"""
+
 from CyberSource import *
 from pathlib import Path
 import os
@@ -155,12 +168,14 @@ def enroll_card_with_mle(flag=False):
         request_obj = del_none(request_obj.__dict__)
         request_obj = json.dumps(request_obj)
         
-        # Configure MLE
+        # Configure MLE with Request and Response Encryption
         config_obj = configuration.MLEConfiguration()
         
-        # Use MLE configuration type 1 (globally enabled MLE for all supported APIs)
-        # You can change this to get_configuration_with_mle_Type2() or get_configuration_with_mle_Type3()
-        # depending on your MLE requirements
+        # MLE Configuration: Request and Response Encryption (Type 2)
+        # - Encrypts the request payload (card data) before sending to CyberSource
+        # - Decrypts the encrypted response received from CyberSource
+        # - Provides end-to-end encryption for sensitive data
+        # - mapToControlMLEonAPI allows fine-grained control per API
         client_config = config_obj.get_configuration_with_request_and_response_mle_Type2()
         
         # Create API instance and make the call
