@@ -27,7 +27,7 @@ def payment_credentials_from_network_token(token_id=None):
     try:
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
-        api_instance = TokenApi(client_config)
+        api_instance = NetworkTokensApi(client_config)
         post_payment_credentials_request = PostPaymentCredentialsRequest()
         post_payment_credentials_request = del_none(post_payment_credentials_request.__dict__)
         post_payment_credentials_request = json.dumps(post_payment_credentials_request)
