@@ -28,10 +28,10 @@ def merchant_boarding_fdi_global():
     organization_information.type = "MERCHANT"
     organization_information.configurable = True
 
-    business_information = Boardingv1registrationsOrganizationInformationBusinessInformation()
+    business_information = BoardingBusinessInformation()
     business_information.name = "StuartWickedFastEatz"
 
-    address = Boardingv1registrationsOrganizationInformationBusinessInformationAddress()
+    address = BoardingBusinessInformationAddress()
     address.country = "US"
     address.address1 = "123456 SandMarket"
     address.locality = "ORMOND BEACH"
@@ -42,7 +42,7 @@ def merchant_boarding_fdi_global():
     business_information.website_url = "https://www.StuartWickedEats.com"
     business_information.phone_number = "6574567813"
 
-    business_contact = Boardingv1registrationsOrganizationInformationBusinessInformationBusinessContact()
+    business_contact = BoardingBusinessInformationBusinessContact()
     business_contact.first_name = "Stuart"
     business_contact.last_name = "Stuart"
     business_contact.phone_number = "6574567813"

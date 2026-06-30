@@ -18,29 +18,17 @@ def del_none(d):
 
 def create_subscription():
     clientReferenceInformationCode = "TC501713"
-    clientReferenceInformationPartnerDeveloperId = "ABCD1234"
-    clientReferenceInformationPartnerSolutionId = "GEF1234"
-    clientReferenceInformationPartner = Rbsv1subscriptionsClientReferenceInformationPartner(
-        developer_id = clientReferenceInformationPartnerDeveloperId,
-        solution_id = clientReferenceInformationPartnerSolutionId
-    )
-
-    clientReferenceInformationApplicationName = "CYBS-SDK"
-    clientReferenceInformationApplicationVersion = "v1"
-    clientReferenceInformation = Rbsv1subscriptionsClientReferenceInformation(
-        code = clientReferenceInformationCode,
-        partner = clientReferenceInformationPartner.__dict__,
-        application_name = clientReferenceInformationApplicationName,
-        application_version = clientReferenceInformationApplicationVersion
+    clientReferenceInformation = GetAllSubscriptionsResponseClientReferenceInformation(
+        code = clientReferenceInformationCode
     )
 
     processingInformationCommerceIndicator = "recurring"
     processingInformationAuthorizationOptionsInitiatorType = "merchant"
-    processingInformationAuthorizationOptionsInitiator = Rbsv1subscriptionsProcessingInformationAuthorizationOptionsInitiator(
+    processingInformationAuthorizationOptionsInitiator = RbsAuthorizationOptionsInitiator(
         type = processingInformationAuthorizationOptionsInitiatorType
     )
 
-    processingInformationAuthorizationOptions = Rbsv1subscriptionsProcessingInformationAuthorizationOptions(
+    processingInformationAuthorizationOptions = RbsAuthorizationOptions(
         initiator = processingInformationAuthorizationOptionsInitiator.__dict__
     )
 
@@ -51,7 +39,7 @@ def create_subscription():
 
     subscriptionInformationPlanId = "6868912495476705603955"
     subscriptionInformationName = "Subscription with PlanId"
-    subscriptionInformationStartDate = "2025-06-11"
+    subscriptionInformationStartDate = "2030-07-11"
     subscriptionInformation = Rbsv1subscriptionsSubscriptionInformation(
         plan_id = subscriptionInformationPlanId,
         name = subscriptionInformationName,

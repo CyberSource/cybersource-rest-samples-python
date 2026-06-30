@@ -27,7 +27,7 @@ def authorization_using_bluefin_pci_p2pe_with_visa_platform_connect():
     processingInformationAuthorizationOptionsPartialAuthIndicator = True
     processingInformationAuthorizationOptionsIgnoreAvsResult = True
     processingInformationAuthorizationOptionsIgnoreCvResult = True
-    processingInformationAuthorizationOptions = Ptsv2paymentsProcessingInformationAuthorizationOptions(
+    processingInformationAuthorizationOptions = ProcessingInfoAuthorizationOptions(
         partial_auth_indicator = processingInformationAuthorizationOptionsPartialAuthIndicator,
         ignore_avs_result = processingInformationAuthorizationOptionsIgnoreAvsResult,
         ignore_cv_result = processingInformationAuthorizationOptionsIgnoreCvResult

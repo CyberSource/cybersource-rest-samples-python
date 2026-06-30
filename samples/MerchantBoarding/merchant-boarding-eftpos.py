@@ -32,9 +32,9 @@ def merchant_boarding_eftpos():
     )
 
     # Business Information
-    business_information = Boardingv1registrationsOrganizationInformationBusinessInformation(
+    business_information = BoardingBusinessInformation(
         name="StuartWickedFastEatz",
-        address=Boardingv1registrationsOrganizationInformationBusinessInformationAddress(
+        address=BoardingBusinessInformationAddress(
             country="US",
             address1="123456 SandMarket",
             locality="ORMOND BEACH",
@@ -43,7 +43,7 @@ def merchant_boarding_eftpos():
         ).__dict__,
         website_url="https://www.StuartWickedEats.com",
         phone_number="6574567813",
-        business_contact=Boardingv1registrationsOrganizationInformationBusinessInformationBusinessContact(
+        business_contact=BoardingBusinessInformationBusinessContact(
             first_name="Stuart",
             last_name="Stuart",
             phone_number="6574567813",

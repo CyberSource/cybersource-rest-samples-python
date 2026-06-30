@@ -22,7 +22,7 @@ def del_none(d):
     return d
 
 def get_details_on_all_created_webhooks():
-    // QUERY PARAMETERS
+    # QUERY PARAMETERS
     organization_id = "testrest"
     product_id = "testProductId"
     event_type = "testEventType"
