@@ -47,7 +47,7 @@ def merchant_boarding_vpc():
         "email": "svc_email_bt@corpdev.visa.com"
     }
 
-    business_info = Boardingv1registrationsOrganizationInformationBusinessInformation(
+    business_info = BoardingBusinessInformation(
         name="StuartWickedFastEatz",
         address=business_address,
         website_url="https://www.StuartWickedEats.com",

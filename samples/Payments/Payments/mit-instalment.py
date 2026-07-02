@@ -32,17 +32,17 @@ def mit_instalment():
     processingInformationAuthorizationOptionsInitiatorType = "merchant"
     processingInformationAuthorizationOptionsInitiatorStoredCredentialUsed = True
     processingInformationAuthorizationOptionsInitiatorMerchantInitiatedTransactionPreviousTransactionId = "123456789012345"
-    processingInformationAuthorizationOptionsInitiatorMerchantInitiatedTransaction = Ptsv2paymentsProcessingInformationAuthorizationOptionsInitiatorMerchantInitiatedTransaction(
+    processingInformationAuthorizationOptionsInitiatorMerchantInitiatedTransaction = ProcessingInfoAuthorizationOptionsInitiatorMerchantInitiatedTransaction(
         previous_transaction_id = processingInformationAuthorizationOptionsInitiatorMerchantInitiatedTransactionPreviousTransactionId
     )
 
-    processingInformationAuthorizationOptionsInitiator = Ptsv2paymentsProcessingInformationAuthorizationOptionsInitiator(
+    processingInformationAuthorizationOptionsInitiator = ProcessingInfoAuthorizationOptionsInitiator(
         type = processingInformationAuthorizationOptionsInitiatorType,
         stored_credential_used = processingInformationAuthorizationOptionsInitiatorStoredCredentialUsed,
         merchant_initiated_transaction = processingInformationAuthorizationOptionsInitiatorMerchantInitiatedTransaction.__dict__
     )
 
-    processingInformationAuthorizationOptions = Ptsv2paymentsProcessingInformationAuthorizationOptions(
+    processingInformationAuthorizationOptions = ProcessingInfoAuthorizationOptions(
         ignore_avs_result = processingInformationAuthorizationOptionsIgnoreAvsResult,
         ignore_cv_result = processingInformationAuthorizationOptionsIgnoreCvResult,
         initiator = processingInformationAuthorizationOptionsInitiator.__dict__

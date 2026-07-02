@@ -29,7 +29,7 @@ def merchant_boarding_gpx():
         configurable=True
     )
 
-    business_info = Boardingv1registrationsOrganizationInformationBusinessInformation(
+    business_info = BoardingBusinessInformation(
         name="StuartWickedFastEatz",
         address={
             "country": "US",

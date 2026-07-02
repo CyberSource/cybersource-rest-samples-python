@@ -21,24 +21,16 @@ def del_none(d):
 
 def update_subscription():
     clientReferenceInformationCode = "APGHU"
-    clientReferenceInformationPartnerDeveloperId = "ABCD1234"
-    clientReferenceInformationPartnerSolutionId = "GEF1234"
-    clientReferenceInformationPartner = Rbsv1subscriptionsClientReferenceInformationPartner(
-        developer_id = clientReferenceInformationPartnerDeveloperId,
-        solution_id = clientReferenceInformationPartnerSolutionId
-    )
-
-    clientReferenceInformation = Rbsv1subscriptionsClientReferenceInformation(
-        code = clientReferenceInformationCode,
-        partner = clientReferenceInformationPartner.__dict__
+    clientReferenceInformation = GetAllSubscriptionsResponseClientReferenceInformation(
+        code = clientReferenceInformationCode
     )
 
     processingInformationAuthorizationOptionsInitiatorType = "merchant"
-    processingInformationAuthorizationOptionsInitiator = Rbsv1subscriptionsProcessingInformationAuthorizationOptionsInitiator(
+    processingInformationAuthorizationOptionsInitiator = RbsAuthorizationOptionsInitiator(
         type = processingInformationAuthorizationOptionsInitiatorType
     )
 
-    processingInformationAuthorizationOptions = Rbsv1subscriptionsProcessingInformationAuthorizationOptions(
+    processingInformationAuthorizationOptions = RbsAuthorizationOptions(
         initiator = processingInformationAuthorizationOptionsInitiator.__dict__
     )
 

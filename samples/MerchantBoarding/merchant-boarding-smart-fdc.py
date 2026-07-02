@@ -29,7 +29,7 @@ def merchant_boarding_smart_fdc():
         configurable=True
     )
 
-    business_address = Boardingv1registrationsOrganizationInformationBusinessInformationAddress(
+    business_address = BoardingBusinessInformationAddress(
         country="US",
         address1="123456 SandMarket",
         locality="ORMOND BEACH",
@@ -37,14 +37,14 @@ def merchant_boarding_smart_fdc():
         postal_code="32176"
     ).__dict__
 
-    business_contact = Boardingv1registrationsOrganizationInformationBusinessInformationBusinessContact(
+    business_contact = BoardingBusinessInformationBusinessContact(
         first_name="Stuart",
         last_name="Stuart",
         phone_number="6574567813",
         email="svc_email_bt@corpdev.visa.com"
     ).__dict__
 
-    business_info = Boardingv1registrationsOrganizationInformationBusinessInformation(
+    business_info = BoardingBusinessInformation(
         name="StuartWickedFastEatz",
         address=business_address,
         website_url="https://www.StuartWickedEats.com",

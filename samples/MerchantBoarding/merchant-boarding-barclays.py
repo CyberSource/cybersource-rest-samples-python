@@ -23,7 +23,7 @@ def merchant_boarding_barclays():
     req_obj = PostRegistrationBody()
 
     # Organization Information
-    address = Boardingv1registrationsOrganizationInformationBusinessInformationAddress(
+    address = BoardingBusinessInformationAddress(
         country="US",
         address1="123456 SandMarket",
         locality="ORMOND BEACH",
@@ -31,14 +31,14 @@ def merchant_boarding_barclays():
         postal_code="32176"
     )
 
-    business_contact = Boardingv1registrationsOrganizationInformationBusinessInformationBusinessContact(
+    business_contact = BoardingBusinessInformationBusinessContact(
         first_name="Stuart",
         last_name="Stuart",
         phone_number="6574567813",
         email="svc_email_bt@corpdev.visa.com"
     )
 
-    business_info = Boardingv1registrationsOrganizationInformationBusinessInformation(
+    business_info = BoardingBusinessInformation(
         name="StuartWickedFastEatz",
         address=address.__dict__,
         website_url="https://www.StuartWickedEats.com",

@@ -33,7 +33,7 @@ def restaurant_authorization():
     processingInformationAuthorizationOptionsPartialAuthIndicator = True
     processingInformationAuthorizationOptionsIgnoreAvsResult = False
     processingInformationAuthorizationOptionsIgnoreCvResult = False
-    processingInformationAuthorizationOptions = Ptsv2paymentsProcessingInformationAuthorizationOptions(
+    processingInformationAuthorizationOptions = ProcessingInfoAuthorizationOptions(
         partial_auth_indicator = processingInformationAuthorizationOptionsPartialAuthIndicator,
         ignore_avs_result = processingInformationAuthorizationOptionsIgnoreAvsResult,
         ignore_cv_result = processingInformationAuthorizationOptionsIgnoreCvResult

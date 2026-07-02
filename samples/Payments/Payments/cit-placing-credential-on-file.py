@@ -30,11 +30,11 @@ def cit_placing_credential_on_file():
     processingInformationAuthorizationOptionsIgnoreAvsResult = False
     processingInformationAuthorizationOptionsIgnoreCvResult = False
     processingInformationAuthorizationOptionsInitiatorCredentialStoredOnFile = True
-    processingInformationAuthorizationOptionsInitiator = Ptsv2paymentsProcessingInformationAuthorizationOptionsInitiator(
+    processingInformationAuthorizationOptionsInitiator = ProcessingInfoAuthorizationOptionsInitiator(
         credential_stored_on_file = processingInformationAuthorizationOptionsInitiatorCredentialStoredOnFile
     )
 
-    processingInformationAuthorizationOptions = Ptsv2paymentsProcessingInformationAuthorizationOptions(
+    processingInformationAuthorizationOptions = ProcessingInfoAuthorizationOptions(
         ignore_avs_result = processingInformationAuthorizationOptionsIgnoreAvsResult,
         ignore_cv_result = processingInformationAuthorizationOptionsIgnoreCvResult,
         initiator = processingInformationAuthorizationOptionsInitiator.__dict__
