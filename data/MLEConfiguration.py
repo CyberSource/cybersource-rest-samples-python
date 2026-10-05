@@ -83,7 +83,7 @@ class MLEConfiguration:
         configuration_dictionary["merchantid"] = "agentic_mid_091225001"
         configuration_dictionary["run_environment"] = self.run_environment
         configuration_dictionary["key_alias"] = "agentic_mid_091225001"
-        configuration_dictionary["key_password"] = "Changeit@123"
+        configuration_dictionary["key_password"] = "Ap!C38tp12@"
         configuration_dictionary["key_file_name"] = "agentic_mid_091225001"
         configuration_dictionary["keys_directory"] = self.keys_directory
         configuration_dictionary["timeout"] = self.timeout
@@ -103,8 +103,8 @@ class MLEConfiguration:
 
         # Since one of the API has Response MLE true, below fields are required for Response MLE
         configuration_dictionary['responseMlePrivateKeyFilePath'] = os.path.join(os.getcwd(), "resources", "agentic_mid_091225001_new_generated_mle.p12") #Path to the Response MLE private key file. Supported formats: .p12, .pfx, .pem, .key, .p8
-        configuration_dictionary['responseMlePrivateKeyFilePassword'] = "Changeit@123" #Password for the private key file (required for .p12/.pfx files or encrypted private keys)
-        configuration_dictionary['responseMleKID'] = "1764104507829324018353" #Optional since p12 is Cybs Generated
+        configuration_dictionary['responseMlePrivateKeyFilePassword'] = "Ap!C38tp12@ML3" #Password for the private key file (required for .p12/.pfx files or encrypted private keys)
+        configuration_dictionary['responseMleKID'] = "1764300612804157241592" #Optional since p12 is Cybs Generated
         # This parameter is optional when responseMlePrivateKeyFilePath points to a CyberSource-generated P12 file.
         # If not provided, the SDK will automatically fetch the Key ID from the P12 file.
         # Required when using PEM format files (.pem, .key, .p8) or when providing responseMlePrivateKey object directly.
@@ -129,7 +129,7 @@ class MLEConfiguration:
         configuration_dictionary["merchantid"] = "agentic_mid_091225001"
         configuration_dictionary["run_environment"] = self.run_environment
         configuration_dictionary["key_alias"] = "agentic_mid_091225001"
-        configuration_dictionary["key_password"] = "Changeit@123"
+        configuration_dictionary["key_password"] = "Ap!C38tp12@"
         configuration_dictionary["key_file_name"] = "agentic_mid_091225001"
         configuration_dictionary["keys_directory"] = self.keys_directory
         configuration_dictionary["timeout"] = self.timeout
@@ -142,8 +142,8 @@ class MLEConfiguration:
         # Set Response MLE Settings in Merchant Configuration
         configuration_dictionary['enableResponseMleGlobally'] = True #Enables response MLE globally for all APIs that support MLE responses
         configuration_dictionary['responseMlePrivateKeyFilePath'] = os.path.join(os.getcwd(), "resources", "agentic_mid_091225001_mle.p12") #Path to the Response MLE private key file. Supported formats: .p12, .pfx, .pem, .key, .p8
-        configuration_dictionary['responseMlePrivateKeyFilePassword'] = "Changeit@123" #Password for the private key file (required for .p12/.pfx files or encrypted private keys)
-        configuration_dictionary['responseMleKID'] = "1757970970891045729358" #Optional since p12 is Cybs Generated
+        configuration_dictionary['responseMlePrivateKeyFilePassword'] = "Ap!C38tp12@ML3" #Password for the private key file (required for .p12/.pfx files or encrypted private keys)
+        configuration_dictionary['responseMleKID'] = "1764300612804157241592" #Optional since p12 is Cybs Generated
         # This parameter is optional when responseMlePrivateKeyFilePath points to a CyberSource-generated P12 file.
         # If not provided, the SDK will automatically fetch the Key ID from the P12 file.
         # Required when using PEM format files (.pem, .key, .p8) or when providing responseMlePrivateKey object directly.
