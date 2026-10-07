@@ -32,7 +32,7 @@ def del_none(d):
 def enroll_card_with_mle(flag=False):
     """
     Enroll a card using the Agentic Card Enrollment API with MLE support.
-    This function demonstrates how to use the AgentCapabilitiesApi to enroll a card
+    This function demonstrates how to use the EnrollmentApi to enroll a card
     with comprehensive device information, buyer information, assurance data, and consent data.
     """
     
@@ -179,7 +179,7 @@ def enroll_card_with_mle(flag=False):
         client_config = config_obj.get_configuration_with_request_and_response_mle_Type2()
         
         # Create API instance and make the call
-        api_instance = AgentCapabilitiesApi(client_config)
+        api_instance = EnrollmentApi(client_config)
         return_data, status, body = api_instance.enroll_card(request_obj)
         
         print("\nAPI RESPONSE CODE : ", status)
@@ -190,7 +190,7 @@ def enroll_card_with_mle(flag=False):
         
     except Exception as e:
         write_log_audit(e.status if hasattr(e, 'status') else 999)
-        print("\nException when calling AgentCapabilitiesApi->enroll_card: %s\n" % e)
+        print("\nException when calling EnrollmentApi->enroll_card: %s\n" % e)
 
 def write_log_audit(status):
     print(f"[Sample Code Testing] [{Path(__file__).stem}] {status}")
