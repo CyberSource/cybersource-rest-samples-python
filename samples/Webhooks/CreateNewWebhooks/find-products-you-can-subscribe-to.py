@@ -42,5 +42,6 @@ def find_products_you_can_subscribe_to(organization_id):
 def write_log_audit(status):
     print(f"[Sample Code Testing] [{Path(__file__).stem}] {status}")
 
+organization_id = "INSERT ID VALUE"
 if __name__ == "__main__":
     find_products_you_can_subscribe_to(organization_id)

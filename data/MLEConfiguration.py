@@ -102,7 +102,7 @@ class MLEConfiguration:
         }
 
         # Since one of the API has Response MLE true, below fields are required for Response MLE
-        configuration_dictionary['responseMlePrivateKeyFilePath'] = os.path.join(os.getcwd(), "resources", "agentic_mid_091225001_new_generated_mle.p12") #Path to the Response MLE private key file. Supported formats: .p12, .pfx, .pem, .key, .p8
+        configuration_dictionary['responseMlePrivateKeyFilePath'] = os.path.join(os.getcwd(), "resources", "agentic_mid_091225001_mle.p12") #Path to the Response MLE private key file. Supported formats: .p12, .pfx, .pem, .key, .p8
         configuration_dictionary['responseMlePrivateKeyFilePassword'] = "Ap!C38tp12@ML3" #Password for the private key file (required for .p12/.pfx files or encrypted private keys)
         configuration_dictionary['responseMleKID'] = "1764300612804157241592" #Optional since p12 is Cybs Generated
         # This parameter is optional when responseMlePrivateKeyFilePath points to a CyberSource-generated P12 file.

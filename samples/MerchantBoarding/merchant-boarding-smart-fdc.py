@@ -57,8 +57,8 @@ def merchant_boarding_smart_fdc():
     req_obj.organization_information = organization_info.__dict__
 
     subscription_features = {
-        "cardNotPresent": PaymentsProductsCardProcessingSubscriptionInformationFeatures(enabled=True).__dict__,
-        "cardPresent": PaymentsProductsCardProcessingSubscriptionInformationFeatures(enabled=True).__dict__
+        "cardNotPresent": CardProessingFeatureSubscriptionItem(enabled=True).__dict__,
+        "cardPresent": CardProessingFeatureSubscriptionItem(enabled=True).__dict__
     }
 
     subscription_info = PaymentsProductsCardProcessingSubscriptionInformation(

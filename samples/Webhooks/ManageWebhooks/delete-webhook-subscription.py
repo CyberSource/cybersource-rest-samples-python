@@ -42,5 +42,6 @@ def delete_webhook_subscription(webhook_id):
 def write_log_audit(status):
     print(f"[Sample Code Testing] [{Path(__file__).stem}] {status}")
 
+webhook_id = "INSERT ID VALUE"
 if __name__ == "__main__":
     delete_webhook_subscription(webhook_id)

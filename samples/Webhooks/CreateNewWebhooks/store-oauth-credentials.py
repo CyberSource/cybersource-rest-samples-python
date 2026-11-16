@@ -69,5 +69,8 @@ def store_oauth_credentials(v_c_correlation_id, v_c_sender_organization_id, v_c_
 def write_log_audit(status):
     print(f"[Sample Code Testing] [{Path(__file__).stem}] {status}")
 
+v_c_correlation_id = "INSERT ID VALUE"
+v_c_sender_organization_id = "INSERT ID VALUE"
+v_c_permissions = "INSERT ID VALUE"
 if __name__ == "__main__":
     store_oauth_credentials(v_c_correlation_id, v_c_sender_organization_id, v_c_permissions)

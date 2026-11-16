@@ -64,7 +64,7 @@ def merchant_boarding_fdi_global():
     subscription_information.enabled = True
     features = {}
 
-    obj1 = PaymentsProductsCardProcessingSubscriptionInformationFeatures()
+    obj1 = CardProessingFeatureSubscriptionItem()
     obj1.enabled = True
     features["cardNotPresent"] = obj1.__dict__
     features["cardPresent"] = obj1.__dict__

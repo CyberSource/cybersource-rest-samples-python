@@ -39,7 +39,7 @@ def create_webhook_using_oauth_with_client_credentials():
     retryPolicyDeactivateFlag = "false"
     retryPolicyRepeatSequenceCount = 0
     retryPolicyRepeatSequenceWaitTime = 0
-    retryPolicy = Notificationsubscriptionsv1webhooksRetryPolicy(
+    retryPolicy = Notificationsubscriptionsv2webhooksRetryPolicy(
         algorithm = retryPolicyAlgorithm,
         first_retry = retryPolicyFirstRetry,
         interval = retryPolicyInterval,
@@ -54,24 +54,21 @@ def create_webhook_using_oauth_with_client_credentials():
     securityPolicyConfigOAuthTokenExpiry = "365"
     securityPolicyConfigOAuthURL = "https://MyWebhookServer.com:8443/oAuthToken"
     securityPolicyConfigOAuthTokenType = "Bearer"
-    securityPolicyConfig = Notificationsubscriptionsv1webhooksSecurityPolicy1Config(
-        o_auth_token_expiry = securityPolicyConfigOAuthTokenExpiry,
-        o_auth_u_r_l = securityPolicyConfigOAuthURL,
+    securityPolicyConfig = Notificationsubscriptionsv2webhooksSecurityPolicyConfig(
+        o_auth_url = securityPolicyConfigOAuthURL,
         o_auth_token_type = securityPolicyConfigOAuthTokenType
     )
 
-    securityPolicy = Notificationsubscriptionsv1webhooksSecurityPolicy1(
+    securityPolicy = Notificationsubscriptionsv2webhooksSecurityPolicy(
         security_type = securityPolicySecurityType,
-        proxy_type = securityPolicyProxyType,
         config = securityPolicyConfig.__dict__
     )
 
-    requestObj = CreateWebhookRequest(
+    requestObj = CreateWebhook(
         name = name,
         description = description,
         organization_id = organizationId,
-        product_id = productId,
-        event_types = eventTypes,
+        products = [CreateWebhookRequestProductItem(product_id=productId, event_types=eventTypes).__dict__],
         webhook_url = webhookUrl,
         health_check_url = healthCheckUrl,
         notification_scope = notificationScope,

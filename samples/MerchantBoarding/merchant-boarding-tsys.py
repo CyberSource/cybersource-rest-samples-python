@@ -56,8 +56,8 @@ def merchant_boarding_tsys():
 
     req_obj.organization_information = organization_info
 
-    card_not_present = PaymentsProductsCardProcessingSubscriptionInformationFeatures(enabled=True).__dict__
-    card_present = PaymentsProductsCardProcessingSubscriptionInformationFeatures(enabled=True).__dict__
+    card_not_present = CardProessingFeatureSubscriptionItem(enabled=True).__dict__
+    card_present = CardProessingFeatureSubscriptionItem(enabled=True).__dict__
     features = {
         "cardNotPresent": card_not_present,
         "cardPresent": card_present

@@ -12,10 +12,10 @@ from datetime import date, datetime
 from time import mktime
 from wsgiref.handlers import format_date_time
 from six import PY3, integer_types, iteritems, text_type
-from OpenSSL import crypto
 from pathlib import Path
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.serialization import pkcs12
+from cryptography.x509.oid import NameOID
 
 class StandAloneJWT:
 
@@ -167,22 +167,14 @@ class StandAloneJWT:
     def extract_serial_number_from_certificate(self, certificate):
         """
         Extract serial number from X.509 certificate subject field.
-        :param certificate: OpenSSL X.509 certificate object
+        :param certificate: cryptography X.509 certificate object
         :return: Serial number as string
         """
         try:
-            # Get certificate subject components
-            subject = certificate.get_subject()
-            
-            # Look for serialNumber in subject components using get_components()
-            components = subject.get_components()
-            for component in components:
-                if component[0].decode('utf-8') == 'serialNumber':
-                    return component[1].decode('utf-8')
-            
-            # If serialNumber not found in subject, raise exception
+            attrs = certificate.subject.get_attributes_for_oid(NameOID.SERIAL_NUMBER)
+            if attrs:
+                return attrs[0].value
             raise ValueError("Serial number not found in certificate subject field")
-            
         except Exception as e:
             raise ValueError(f"Error extracting serial number from certificate: {str(e)}")
 
@@ -251,16 +243,14 @@ class StandAloneJWT:
             p12_data, self.merchant_id.encode('utf-8')
         )
         
-        # Convert to OpenSSL format for compatibility
-        cert_pem = certificate_crypto.public_bytes(serialization.Encoding.PEM)
         private_key_pem = private_key_crypto.private_bytes(
             encoding=serialization.Encoding.PEM,
             format=serialization.PrivateFormat.PKCS8,
             encryption_algorithm=serialization.NoEncryption()
         )
-        
-        # Create OpenSSL certificate object for serial number extraction
-        x509_certificate = crypto.load_certificate(crypto.FILETYPE_PEM, cert_pem)
+
+        # certificate_crypto is already a cryptography x509 object; no OpenSSL roundtrip needed
+        x509_certificate = certificate_crypto
         private_key_str = private_key_pem.decode("utf-8")
 
         filecache.setdefault(str(filename), []).append(private_key_str)

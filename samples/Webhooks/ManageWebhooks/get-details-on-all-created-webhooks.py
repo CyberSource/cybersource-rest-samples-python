@@ -31,7 +31,7 @@ def get_details_on_all_created_webhooks():
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = ManageWebhooksApi(client_config)
-        return_data, status, body = api_instance.get_webhook_subscriptions_by_org(organization_id, product_id, event_type)
+        return_data, status, body = api_instance.get_webhook_subscriptions_by_org(organization_id, product_id=product_id, event_type=event_type)
 
         print("\nAPI RESPONSE CODE : ", status)
         print("\nAPI RESPONSE BODY : ", body)

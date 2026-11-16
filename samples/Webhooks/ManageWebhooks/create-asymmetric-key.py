@@ -52,7 +52,7 @@ def create_asymmetric_key(v_c_correlation_id, v_c_sender_organization_id, v_c_pe
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = ManageWebhooksApi(client_config)
-        return_data, status, body = api_instance.save_asym_egress_key(v_c_sender_organization_id, v_c_permissions, requestObj, v_c_correlation_id = v_c_correlation_id)
+        return_data, status, body = api_instance.save_asym_egress_key(requestObj, v_c_correlation_id=v_c_correlation_id, v_c_sender_organization_id=v_c_sender_organization_id, v_c_permissions=v_c_permissions)
 
         print("\nAPI RESPONSE CODE : ", status)
         print("\nAPI RESPONSE BODY : ", body)
@@ -67,5 +67,8 @@ def create_asymmetric_key(v_c_correlation_id, v_c_sender_organization_id, v_c_pe
 def write_log_audit(status):
     print(f"[Sample Code Testing] [{Path(__file__).stem}] {status}")
 
+v_c_correlation_id = "INSERT ID VALUE"
+v_c_sender_organization_id = "INSERT ID VALUE"
+v_c_permissions = "INSERT ID VALUE"
 if __name__ == "__main__":
     create_asymmetric_key(v_c_correlation_id, v_c_sender_organization_id, v_c_permissions)

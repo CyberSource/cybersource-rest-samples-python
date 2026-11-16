@@ -117,7 +117,7 @@ def create_registration():
     card_processing = PaymentsProductsCardProcessing(
     subscription_information=PaymentsProductsCardProcessingSubscriptionInformation(
         enabled=True,
-        features={"cardNotPresent": PaymentsProductsCardProcessingSubscriptionInformationFeatures(enabled=True).__dict__}
+        features={"cardNotPresent": CardProessingFeatureSubscriptionItem(enabled=True).__dict__}
     ).__dict__,
     configuration_information=configuration_information2.__dict__
     )
