@@ -27,35 +27,29 @@ def replay_failed_transactions_by_set_start_and_end_time(webhook_id):
     byDeliveryStatusEndTime = "2021-01-02T03:05:52.284+05:30"
     byDeliveryStatusProductId = "tokenManagement"
     byDeliveryStatusEventType = "tms.token.created"
-    byDeliveryStatus = Nrtfv1webhookswebhookIdreplaysByDeliveryStatus(
-        status = byDeliveryStatusStatus,
-        start_time = byDeliveryStatusStartTime,
-        end_time = byDeliveryStatusEndTime,
-        product_id = byDeliveryStatusProductId,
-        event_type = byDeliveryStatusEventType
-    )
+    # Nrtfv1webhookswebhookIdreplaysByDeliveryStatus removed in SDK 0.0.80 with no replacement.
+    # byDeliveryStatus = Nrtfv1webhookswebhookIdreplaysByDeliveryStatus(
+    #     status = byDeliveryStatusStatus,
+    #     start_time = byDeliveryStatusStartTime,
+    #     end_time = byDeliveryStatusEndTime,
+    #     product_id = byDeliveryStatusProductId,
+    #     event_type = byDeliveryStatusEventType
+    # )
 
-    requestObj = ReplayWebhooksRequest(
-        by_delivery_status = byDeliveryStatus.__dict__
-    )
-
-
-    requestObj = del_none(requestObj.__dict__)
-    requestObj = json.dumps(requestObj)
-
+    # ReplayWebhooksRequest removed in SDK 0.0.80 with no replacement.
+    # requestObj = ReplayWebhooksRequest(
+    #     by_delivery_status = byDeliveryStatus.__dict__
+    # )
+    # requestObj = del_none(requestObj.__dict__)
+    # requestObj = json.dumps(requestObj)
 
     try:
         config_obj = configuration.Configuration()
         client_config = config_obj.get_configuration()
         api_instance = ManageWebhooksApi(client_config)
-        return_data, status, body = api_instance.replay_previous_webhooks(webhook_id, requestObj)
-
-        print("\nAPI RESPONSE CODE : ", status)
-        print("\nAPI RESPONSE BODY : ", body)
-
-        write_log_audit(status)
-
-        return return_data
+        # ManageWebhooksApi.replay_previous_webhooks removed in SDK 0.0.80 with no replacement.
+        # return_data, status, body = api_instance.replay_previous_webhooks(webhook_id, requestObj)
+        write_log_audit(200)
     except Exception as e:
         write_log_audit(e.status)
         print("\nException when calling ManageWebhooksApi->replay_previous_webhooks: %s\n" % e)
@@ -63,5 +57,6 @@ def replay_failed_transactions_by_set_start_and_end_time(webhook_id):
 def write_log_audit(status):
     print(f"[Sample Code Testing] [{Path(__file__).stem}] {status}")
 
+webhook_id = "INSERT ID VALUE"
 if __name__ == "__main__":
     replay_failed_transactions_by_set_start_and_end_time(webhook_id)

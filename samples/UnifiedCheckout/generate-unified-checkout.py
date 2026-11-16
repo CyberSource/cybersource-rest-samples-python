@@ -85,7 +85,6 @@ def generate_unified_checkout_capture_context():
     )
 
     requestObj = GenerateUnifiedCheckoutCaptureContextRequest(
-        client_version = clientVersion,
         target_origins = targetOrigins,
         allowed_card_networks = allowedCardNetworks,
         allowed_payment_types = allowedPaymentTypes,

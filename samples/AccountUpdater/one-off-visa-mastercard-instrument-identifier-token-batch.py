@@ -42,7 +42,7 @@ def one_off_visa_mastercard_instrument_identifier_token_batch():
 
     merchantReference = "TC50171_3"
     notificationEmail = "test@cybs.com"
-    requestObj = Body(
+    requestObj = PostBatchRequest(
         type = type,
         included = included.__dict__,
         merchant_reference = merchantReference,

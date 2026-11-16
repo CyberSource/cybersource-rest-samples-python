@@ -15,8 +15,9 @@ from datetime import date, datetime
 from time import mktime
 from wsgiref.handlers import format_date_time
 from six import PY3, integer_types, iteritems, text_type
-from OpenSSL import crypto
 from pathlib import Path
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.serialization import pkcs12
 
 class StandAloneJWT:
     def get_time(self):
@@ -175,11 +176,20 @@ class StandAloneJWT:
         filecache = {}
         filename = 'testrest'
 
-        p12 = crypto.load_pkcs12(open(os.path.join(os.getcwd(), "samples/authentication/Resources", filename) + ".p12", 'rb').read(), self.merchant_id)
+        with open(os.path.join(os.getcwd(), "samples/authentication/Resources", filename) + ".p12", 'rb') as f:
+            p12_data = f.read()
 
-        cert_str = crypto.dump_certificate(crypto.FILETYPE_PEM, p12.get_certificate())
-        der_cert_string = base64.b64encode(ssl.PEM_cert_to_DER_cert(cert_str.decode("utf-8")))
-        private_key = crypto.dump_privatekey(crypto.FILETYPE_PEM, p12.get_privatekey()).decode("utf-8")
+        private_key_crypto, certificate_crypto, _ = pkcs12.load_key_and_certificates(
+            p12_data, self.merchant_id.encode('utf-8')
+        )
+
+        cert_der = certificate_crypto.public_bytes(serialization.Encoding.DER)
+        der_cert_string = base64.b64encode(cert_der)
+        private_key = private_key_crypto.private_bytes(
+            encoding=serialization.Encoding.PEM,
+            format=serialization.PrivateFormat.PKCS8,
+            encryption_algorithm=serialization.NoEncryption()
+        ).decode("utf-8")
 
         filecache.setdefault(str(filename), []).append(der_cert_string)
         filecache.setdefault(str(filename), []).append(private_key)

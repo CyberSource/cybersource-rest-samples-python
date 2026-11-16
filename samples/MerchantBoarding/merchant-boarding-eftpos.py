@@ -58,8 +58,8 @@ def merchant_boarding_eftpos():
 
     # Subscription Information Features
     features = {
-        "cardNotPresent": PaymentsProductsCardProcessingSubscriptionInformationFeatures(enabled=True).__dict__,
-        "cardPresent": PaymentsProductsCardProcessingSubscriptionInformationFeatures(enabled=False).__dict__
+        "cardNotPresent": CardProessingFeatureSubscriptionItem(enabled=True).__dict__,
+        "cardPresent": CardProessingFeatureSubscriptionItem(enabled=False).__dict__
     }
 
     # Subscription Information

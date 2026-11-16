@@ -39,7 +39,7 @@ def create_alternative_payments_notification_webhook():
     retryPolicyDeactivateFlag = "false"
     retryPolicyRepeatSequenceCount = 0
     retryPolicyRepeatSequenceWaitTime = 0
-    retryPolicy = Notificationsubscriptionsv1webhooksRetryPolicy(
+    retryPolicy = Notificationsubscriptionsv2webhooksRetryPolicy(
         algorithm = retryPolicyAlgorithm,
         first_retry = retryPolicyFirstRetry,
         interval = retryPolicyInterval,
@@ -51,17 +51,15 @@ def create_alternative_payments_notification_webhook():
 
     securityPolicySecurityType = "KEY"
     securityPolicyProxyType = "external"
-    securityPolicy = Notificationsubscriptionsv1webhooksSecurityPolicy1(
-        security_type = securityPolicySecurityType,
-        proxy_type = securityPolicyProxyType
+    securityPolicy = Notificationsubscriptionsv2webhooksSecurityPolicy(
+        security_type = securityPolicySecurityType
     )
 
-    requestObj = CreateWebhookRequest(
+    requestObj = CreateWebhook(
         name = name,
         description = description,
         organization_id = organizationId,
-        product_id = productId,
-        event_types = eventTypes,
+        products = [CreateWebhookRequestProductItem(product_id=productId, event_types=eventTypes).__dict__],
         webhook_url = webhookUrl,
         health_check_url = healthCheckUrl,
         notification_scope = notificationScope,

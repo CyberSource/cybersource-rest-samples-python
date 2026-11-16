@@ -34,20 +34,16 @@ def update_webhook(webhook_id):
     healthCheckUrl = "https://MyWebhookServer.com:8443:/simulateClientHealthCheck"
     status = "INACTIVE"
     notificationScopeScope = "SELF"
-    notificationScope = Notificationsubscriptionsv1webhooksNotificationScope(
-        scope = notificationScopeScope
-    )
+    # Notificationsubscriptionsv1webhooksNotificationScope removed in SDK 0.0.80 with no replacement;
+    # notification_scope is now a plain string field on UpdateWebhook.
 
-    requestObj = UpdateWebhookRequest(
+    requestObj = UpdateWebhook(
         name = name,
         description = description,
         organization_id = organizationId,
-        product_id = productId,
-        event_types = eventTypes,
         webhook_url = webhookUrl,
         health_check_url = healthCheckUrl,
-        status = status,
-        notification_scope = notificationScope.__dict__
+        notification_scope = notificationScopeScope
     )
 
 
@@ -74,5 +70,6 @@ def update_webhook(webhook_id):
 def write_log_audit(status):
     print(f"[Sample Code Testing] [{Path(__file__).stem}] {status}")
 
+webhook_id = "INSERT ID VALUE"
 if __name__ == "__main__":
     update_webhook(webhook_id)

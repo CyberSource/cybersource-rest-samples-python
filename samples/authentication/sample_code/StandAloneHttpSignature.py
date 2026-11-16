@@ -2,7 +2,6 @@ import json
 import hashlib
 import base64
 import ssl
-from samples.authentication.sample_code.DeleteMethod import write_log_audit
 import urllib3
 import re
 import hmac

@@ -60,8 +60,8 @@ def merchant_boarding_barclays():
     card_processing_subscription_info = PaymentsProductsCardProcessingSubscriptionInformation(
         enabled=True,
         features={
-            "cardNotPresent": PaymentsProductsCardProcessingSubscriptionInformationFeatures(enabled=True).__dict__,
-            "cardPresent": PaymentsProductsCardProcessingSubscriptionInformationFeatures(enabled=True).__dict__
+            "cardNotPresent": CardProessingFeatureSubscriptionItem(enabled=True).__dict__,
+            "cardPresent": CardProessingFeatureSubscriptionItem(enabled=True).__dict__
         }
     )
 

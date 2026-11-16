@@ -39,7 +39,7 @@ def create_webhook_using_oauth_with_jwt():
     retryPolicyDeactivateFlag = "false"
     retryPolicyRepeatSequenceCount = 0
     retryPolicyRepeatSequenceWaitTime = 0
-    retryPolicy = Notificationsubscriptionsv1webhooksRetryPolicy(
+    retryPolicy = Notificationsubscriptionsv2webhooksRetryPolicy(
         algorithm = retryPolicyAlgorithm,
         first_retry = retryPolicyFirstRetry,
         interval = retryPolicyInterval,
@@ -58,32 +58,29 @@ def create_webhook_using_oauth_with_jwt():
     securityPolicyConfigAdditionalConfigClientId = "650538A1-7AB0-AD3A-51AB-932ABC57AD70"
     securityPolicyConfigAdditionalConfigKeyId = "y-daaaAVyF0176M7-eAZ34pR9Ts"
     securityPolicyConfigAdditionalConfigScope = "merchantacq:rte:write"
-    securityPolicyConfigAdditionalConfig = Notificationsubscriptionsv1webhooksSecurityPolicy1ConfigAdditionalConfig(
+    securityPolicyConfigAdditionalConfig = Notificationsubscriptionsv2webhooksSecurityPolicyConfigAdditionalConfig(
         aud = securityPolicyConfigAdditionalConfigAud,
         client_id = securityPolicyConfigAdditionalConfigClientId,
         key_id = securityPolicyConfigAdditionalConfigKeyId,
         scope = securityPolicyConfigAdditionalConfigScope
     )
 
-    securityPolicyConfig = Notificationsubscriptionsv1webhooksSecurityPolicy1Config(
-        o_auth_token_expiry = securityPolicyConfigOAuthTokenExpiry,
-        o_auth_u_r_l = securityPolicyConfigOAuthURL,
+    securityPolicyConfig = Notificationsubscriptionsv2webhooksSecurityPolicyConfig(
+        o_auth_url = securityPolicyConfigOAuthURL,
         o_auth_token_type = securityPolicyConfigOAuthTokenType,
         additional_config = securityPolicyConfigAdditionalConfig.__dict__
     )
 
-    securityPolicy = Notificationsubscriptionsv1webhooksSecurityPolicy1(
+    securityPolicy = Notificationsubscriptionsv2webhooksSecurityPolicy(
         security_type = securityPolicySecurityType,
-        proxy_type = securityPolicyProxyType,
         config = securityPolicyConfig.__dict__
     )
 
-    requestObj = CreateWebhookRequest(
+    requestObj = CreateWebhook(
         name = name,
         description = description,
         organization_id = organizationId,
-        product_id = productId,
-        event_types = eventTypes,
+        products = [CreateWebhookRequestProductItem(product_id=productId, event_types=eventTypes).__dict__],
         webhook_url = webhookUrl,
         health_check_url = healthCheckUrl,
         notification_scope = notificationScope,
